@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador de Texto - EncriptARG</title>
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Audiowide:400">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Logo de EncriptARG" class="logo">
+        </div>
+    </div>
+    <main>
+        <div class="contenedor" id="contenedor1">
+            <textarea id="texto"  placeholder="Escriba el texto aquí"></textarea>
+            <div id="mensaje-enunciado">
+                <img src="images/warning.png" alt="alt="Información" class="icono-info">
+                <span>Solo se permiten minúsculas sin acento</span>
+            </div>
+            <div class="btn-group1">
+                <img src="images/shield1.png" alt="Encriptar" class="btn" id="encriptar" title="Encriptar texto" onclick="encriptar()">
+                <img src="images/unlock.png" alt="Desencriptar" class="btn" id="desencriptar" title="Desencriptar texto" onclick="desencriptar()" disabled>
+            </div>
+            <img src="images/paste.png" alt="Pegar" class="btn" id="pegar" title="Pegar texto" onclick="pegar()">
+        </div>
+        <div class="contenedor" id="contenedor2">
+            <img src="images/noisy.png" alt="Imagen de Fondo" id="imagen-fondo">
+            <textarea id="parrafo" placeholder="Aquí se muestra el texto"></textarea>
+            <div class="btn-group2">
+                <img src="images/paper.png" alt="Copiar" class="btn" id="copiar" title="Copiar texto" onclick="copiar()">
+            </div>
+        </div>
+        
+        <div id="alerta" style="display: none;">
+            <img id="alerta-icono" src="" alt="Icono de alerta">
+            <span id="alerta-mensaje"></span>
+        </div>
+    </main>
+    <footer>
+        <a href="https://www.linkedin.com/in/miguel-carmona-362349187/" target="_blank">
+            <img src="images/linkedin1.png" alt="LinkedIn">
+        </a>
+        <a href="https://github.com/MiguelC96/" target="_blank">
+            <img src="images/github1.png" alt="GitHub">
+        </a>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

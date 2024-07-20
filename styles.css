@@ -1,0 +1,421 @@
+body, html {
+  margin: 0; /* Elimina el margen predeterminado del navegador */
+  padding: 0; /* Elimina el relleno predeterminado del navegador */
+  font-family: 'Roboto', sans-serif; /* Establece la fuente de texto a 'Roboto' */
+  width: 100%;
+  height: 100%; /* Hace que el body y html ocupen el 100% de la altura de la ventana */
+  /* background-color: #f0f0f0; */ /* Fondo opcional para el body */
+}
+
+.background {
+  position: absolute; /* Posiciona el elemento de fondo de forma absoluta */
+  width: 100%; /* Hace que el fondo abarque el 100% del ancho de la pantalla */
+  height: 100%; /* Hace que el fondo abarque el 100% de la altura de la pantalla */
+  background: url('images/fondo.png') no-repeat center center fixed; /* Establece la imagen de fondo, sin repetición, centrada y fija */
+  background-size: cover; /* Escala la imagen de fondo para cubrir toda el área */
+  display: flex; /* Utiliza el modelo de caja flexible */
+  justify-content: center; /* Centra el contenido a lo largo del eje principal (horizontal) */
+  align-items: center; /* Centra el contenido a lo largo del eje secundario (vertical) */
+  z-index: 0; /* Establece el z-index para el orden de apilamiento */
+
+}
+
+.background::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Cambia el valor de opacidad (0.5) según tu preferencia */
+  z-index: 1; /* Asegúrate de que esta capa esté encima del fondo pero debajo de otros elementos */
+}
+
+.logo {
+  position: absolute; /* Posiciona el logo de forma absoluta */
+  top: 0px; /* Ajusta la posición superior del logo */
+  width: 250px;
+  height: 250px; /* Ancho del logo */ 
+  z-index: 1;
+  /* left: 50%; */ /* Centro horizontal opcional */
+  /* transform: translateX(-50%); */ /* Alineación horizontal centrada opcional */
+}
+
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+
+main {
+  display: flex; /* Utiliza el modelo de caja flexible */
+  justify-content: center; /* Centra el contenido a lo largo del eje principal (horizontal) */
+  align-items: center; /* Centra el contenido a lo largo del eje secundario (vertical) */
+  z-index: 2;
+  height: 100%; /* Hace que main ocupe el 100% de la altura del contenedor padre */
+}
+
+
+.container {
+  display: flex; /* Utiliza el modelo de caja flexible */
+  justify-content: space-between; /* Centra los contenedores hijos a lo largo del eje principal (horizontal) */
+  align-items: flex-start; /* Centra los contenedores hijos a lo largo del eje secundario (vertical) */
+  gap: 100px; /* Espacio entre los contenedores hijos */
+  padding: 20px; /* Relleno interior del contenedor */
+  position: relative; /* Posiciona el contenedor de forma relativa */
+  z-index: 3; /* Establece el z-index para el orden de apilamiento */
+  text-align: center; /* Centra el texto dentro del contenedor */
+  
+}
+
+.contenedor {
+  width: 300px; /* Define el ancho del contenedor */
+  height: 300px; /* Define la altura del contenedor */
+  background-color: rgba(242, 242, 242, 0.7803921568627451); /* Color de fondo con opacidad */
+  opacity: 0.8; /* Define la opacidad del contenedor */
+  display: flex; /* Utiliza el modelo de caja flexible */
+  flex-direction: row; /* Ordena los elementos en una columna */
+  justify-content: center; /* Centra los elementos en el eje principal (vertical) */
+  align-items: center; /* Centra los elementos en el eje secundario (horizontal) */
+  padding: 20px; /* Relleno interior del contenedor */
+  box-sizing: border-box; /* Incluye el relleno y el borde en el tamaño total del contenedor */
+  display: inline-block; /* Cambia el contenedor a un elemento inline-block */
+  vertical-align: bottom; /* Alinea el contenedor en la parte superior respecto a otros elementos inline-block */
+  margin: 0px 20px; /* Margen lateral de 100 píxeles y sin margen arriba y abajo */
+  border: 10px solid #2cccc4; /* Borde opcional */
+  border-radius: 10px;
+  z-index: 3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+  margin-top: 150px;
+}
+
+textarea {
+  width: calc(100% - 20px); /* Ancho del textarea restando 20 píxeles */
+  height: calc(100% - 20px); /* Altura del textarea restando 80 píxeles */
+  resize: none; /* Desactiva el redimensionamiento del textarea */
+  margin-bottom: 10px; /* Margen inferior del textarea */
+  padding: 10px; /* Relleno interior del textarea */
+  box-sizing: border-box; /* Incluye el relleno y el borde en el tamaño total del textarea */
+  font-family: 'Roboto', sans-serif; /* Establece la fuente de texto a 'Roboto' */
+  border-radius: 10px;
+  font-size: x-large;
+  border: 1px solid #ddd; /* Borde opcional */
+  opacity: 1;
+}
+
+
+/* Estilo para el contenedor de la imagen y el textarea */
+#contenedor2 {
+  width: 300px; /* Igual al tamaño del contenedor1 */
+  height: 300px; /* Igual al tamaño del contenedor1 */
+  background-color: rgba(242, 242, 242, 0.78); /* Igual al color de fondo del contenedor1 */
+  opacity: 0.8; /* Igual a la opacidad del contenedor1 */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 15px solid #2cccc4; /* Igual al borde del contenedor1 */
+  border-radius: 10px; /* Igual al borde redondeado del contenedor1 */
+  z-index: 3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Igual a la sombra del contenedor1 */
+  margin-top: 150px;
+  position: relative; /* Posicionamiento relativo para superponer la imagen */
+}
+
+/* Estilo para la imagen de fondo */
+#imagen-fondo {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  transition: opacity 0.3s ease; /* Transición suave para la opacidad */
+  z-index: 2; /* Asegura que la imagen esté delante del textarea */
+  border-radius: 10px;
+}
+
+/* Estilo para el textarea */
+#parrafo {
+  color: transparent;
+  background-color: transparent;
+  transition: color 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 1;
+  font-size: x-large;
+  
+}
+
+/* Mostrar el texto cuando el cursor está sobre el contenedor */
+#contenedor2:hover #imagen-fondo {
+  opacity: 0; /* Hace la imagen invisible */
+}
+
+#contenedor2:hover #parrafo {
+  color: #000; /* Hace visible el texto */
+}
+
+.btn {
+  width: 30px;
+  height: 30  px;
+  border: 2px solid #333; /* Borde del botón */
+  border-radius: 8px; /* Bordes redondeados */
+  background-color: #f0f0f0; /* Color de fondo */
+  color: #333; /* Color del texto */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del borde */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+  z-index: 4;
+}
+
+.btn:hover {
+  background-color: #08d13a; /* Color de fondo al pasar el ratón */
+  transform: scale(1.05); /* Escala el botón ligeramente */
+}
+
+.btn-group1 {
+  display: flex;
+  justify-content: center;
+  top: -110px;
+  gap: 200px;
+  flex-direction: row;
+  align-items: start;
+  position: relative; /* Permite usar left/right para mover el grupo */
+  left: -10px; /* Mueve el grupo 20px hacia la izquierda desde su posición original */
+  margin-top: 39px; /* Ajusta el espacio superior */
+  z-index: 4; /* Asegura que esté por encima de otros elementos */
+}
+
+.btn-group2 {
+  display: flex;
+  justify-content: center;
+  top: 175px;
+  flex-direction: row;
+  align-items: start;
+  position: relative; /* Permite usar left/right para mover el grupo */
+  left: 110px; /* Mueve el grupo 20px hacia la izquierda desde su posición original */
+  margin-top: -120px; /* Ajusta el espacio superior */
+  z-index: 4; /* Asegura que esté por encima de otros elementos */
+  }
+  
+
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  z-index: 4;
+  
+}
+
+#contenedor2:hover .btn {
+  z-index: 4; /* Confirma que el botón permanece detrás al pasar el cursor */
+}
+
+.btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none; /* Desactiva todos los eventos del mouse */
+}
+
+/* Estilo para botones deshabilitados */
+button.disabled {
+  background-color: #ced4da; /* Gris claro para botones deshabilitados */
+  cursor: not-allowed; /* Cambia el cursor para indicar que el botón no se puede usar */
+  opacity: 0.6; /* Reduce la opacidad del botón para un efecto visual de deshabilitado */
+}
+
+/* Estilo para botones habilitados */
+button:not(.disabled) {
+  background-color: #007bff; /* Color de fondo para botones habilitados */
+  cursor: pointer; /* Cursor de mano para indicar que el botón es clickeable */
+  opacity: 1; /* Opacidad completa para botones habilitados */
+}
+
+/* Estilo para el botón "Pegar" */
+#pegar {
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  top: -120px;
+  gap: 140px;
+  flex-direction: row;
+  align-items: start;
+  position: relative; /* Permite usar left/right para mover el grupo */
+  right: -290px; /* Mueve el grupo 20px hacia la izquierda desde su posición original */
+  margin-top: -190px; /* Ajusta el espacio superior */
+  z-index: 4; /
+}
+
+.icono-advertencia {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: rgb(51, 51, 51);
+  margin-bottom: 10px;
+}
+
+footer a {
+  margin: 0px 20px;
+}
+
+footer img {
+  width: 30px;
+  height: 30px;
+}
+
+#alerta {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  text-align: center;
+}
+
+#alerta-icono {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+#alerta-mensaje {
+  margin-left: 1px;
+}
+
+/* Estilos para la alerta de bienvenida */
+#alerta-bienvenida {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.alerta-imagen {
+  width: 300px;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+.alerta-mensaje {
+  font-size: 20px;
+}
+
+
+#container1 {
+  position: relative; /* Asegura que el contenido esté posicionado correctamente dentro del contenedor */
+  padding: 10px;
+}
+
+#mensaje-enunciado {
+  display: flex;
+  align-items: center; /* Alinea verticalmente el icono y el texto */
+  margin-top: 0px; /* Ajusta el espacio superior */
+  margin-right: auto;
+}
+
+.icono-info {
+  width: 18px; /* Ajusta el tamaño del icono según tus necesidades */
+  height: 18px;
+  margin-right: 5px; /* Espacio entre el icono y el texto */
+}
+
+#mensaje-enunciado span {
+  font-size:  14px; /* Ajusta el tamaño de la fuente */
+  color: rgb(0, 0, 0); /* Cambia el color del texto según tu preferencia */
+  font-family: 'Roboto'; /* Establece la fuente de texto a 'Roboto' */
+  font-weight: 700;
+}
+
+/* Media Queries para Responsividad */
+
+/* Pantallas grandes (desktops) */
+@media (min-width: 1200px) {
+  .container {
+    flex-direction: row; /* Coloca los contenedores lado a lado */
+    padding: 100px; /* Aumenta el padding */
+  }
+
+  .logo {
+    width: 400px;
+  }
+
+  .contenedor {
+    width: 400px;
+  }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .container {
+    flex-direction: column; /* Apila los contenedores verticalmente */
+    padding: 50px; /* Ajusta el padding */
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+  .contenedor {
+    width: 90%; /* Ajusta el ancho para pantallas medianas */
+  }
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column; /* Apila los contenedores verticalmente */
+    padding: 20px; /* Reduce el padding */
+  }
+
+  .logo {
+    width: 200px; /* Ajusta el tamaño del logo */
+    
+  }
+
+  .contenedor {
+    width: 100%; /* Ancho completo del contenedor */
+    height: auto; /* Ajusta la altura del contenedor */
+    margin: 2; /* Elimina el margen lateral */
+  }
+
+  .btn {
+    width: 40px; /* Tamaño reducido de los botones */
+    height: 40px;
+  }
+
+  .btn-group {
+    flex-direction: column; /* Apila los botones verticalmente */
+  }
+}

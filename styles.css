@@ -358,6 +358,16 @@ footer img {
   font-weight: 700;
 }
 
+.overlay {
+  position: fixed;        /* Posición fija para cubrir toda la pantalla */
+    top: 0;                 /* Empieza desde la parte superior */
+    left: 0;                /* Empieza desde la parte izquierda */
+    width: 100%;            /* Ancho completo */
+    height: 100%;           /* Alto completo */
+    background-color: rgba(138, 136, 136, 0.8); /* Fondo negro con opacidad del 50% */
+    z-index: 6;          /* Asegura que se superponga sobre otros elementos */
+}
+
 /* Media Queries para Responsividad */
 
 /* Pantallas grandes (desktops) */

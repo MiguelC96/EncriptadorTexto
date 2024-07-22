@@ -1,31 +1,48 @@
+// Espera a que todo el contenido del DOM se haya cargado antes de ejecutar la función mostrarAlertaBienvenida
 document.addEventListener("DOMContentLoaded", function () {
     mostrarAlertaBienvenida();
 });
 
+// Función para mostrar una alerta de bienvenida cuando se carga la página
 function mostrarAlertaBienvenida() {
-    const alerta = document.createElement('div');
-    alerta.id = 'alerta-bienvenida';
-    alerta.className = 'alerta';
+const overlay = document.createElement('div');
+    overlay.id = 'overlay'; // Asigna un ID para el overlay
+    overlay.className = 'overlay'; // Asigna una clase para aplicar estilos CSS
 
+    // Crear el contenedor de la alerta de bienvenida
+    const alerta = document.createElement('div');
+    alerta.id = 'alerta-bienvenida'; // Asigna un ID para la alerta
+    alerta.className = 'alerta'; // Asigna una clase para aplicar estilos CSS
+
+    // Define el contenido HTML de la alerta
     const contenido = `
         <div class="alerta-contenido">
             <img src="images/alertinicio.png" alt="Bienvenida" class="alerta-imagen">
         </div>
     `;
-    alerta.innerHTML = contenido;
+    alerta.innerHTML = contenido; // Inserta el contenido HTML en el elemento de alerta
+
+    // Añade el overlay y la alerta al cuerpo del documento
+    document.body.appendChild(overlay);
     document.body.appendChild(alerta);
 
-    // Cierra la alerta automáticamente después de 4 segundos
-    setTimeout(cerrarAlerta, 1800);
+    // Cierra la alerta automáticamente después de 5 segundos
+    setTimeout(cerrarAlerta, 5000);
 }
 
+// Función para cerrar la alerta de bienvenida
 function cerrarAlerta() {
     const alerta = document.getElementById('alerta-bienvenida');
+    const overlay = document.getElementById('overlay');
     if (alerta) {
-        alerta.style.display = 'none';
+        alerta.style.display = 'none'; // Oculta la alerta
+    }
+    if (overlay) {
+        overlay.style.display = 'none'; // Oculta el overlay
     }
 }
 
+// Función para mostrar una alerta personalizada con icono y mensaje
 function mostrarAlerta(icono, mensaje) {
     const alerta = document.getElementById("alerta");
     const alertaIcono = document.getElementById("alerta-icono");
@@ -36,22 +53,25 @@ function mostrarAlerta(icono, mensaje) {
         return;
     }
 
-    alertaIcono.src = icono;
-    alertaMensaje.textContent = mensaje;
-    alerta.style.display = "flex";
+    alertaIcono.src = icono; // Asigna la fuente del icono de alerta
+    alertaMensaje.textContent = mensaje; // Asigna el mensaje de la alerta
+    alerta.style.display = "flex"; // Muestra la alerta
 
+    // Oculta la alerta después de 1 segundo
     alertaIcono.onload = () => {
         setTimeout(() => {
             alerta.style.display = "none";
         }, 1000);
     };
 
+    // Muestra un error en la consola si no se pudo cargar el icono
     alertaIcono.onerror = () => {
         console.error("No se pudo cargar el icono de alerta:", icono);
         alerta.style.display = "none";
     };
 }
 
+// Función para encriptar el texto ingresado en el textarea
 function encriptar() {
     const textInput = document.getElementById("texto");
     const parrafo = document.getElementById("parrafo");
@@ -62,31 +82,31 @@ function encriptar() {
         return;
     }
 
-    const textValue = textInput.value.trim();
+    const textValue = textInput.value.trim(); // Obtiene el texto ingresado y elimina espacios al principio y al final
 
     if (textValue === "") {
         mostrarAlerta('images/warning.png', 'Por favor ingrese un texto para encriptar');
         return;
     }
 
+    // Reemplaza las vocales por sus equivalentes encriptados
     const result = textValue
         .replace(/e/g, "enter")
         .replace(/i/g, "imes")
         .replace(/a/g, "ai")
         .replace(/o/g, "ober")
         .replace(/u/g, "ufat");
-    parrafo.value = result;
+    parrafo.value = result; // Muestra el texto encriptado en el textarea de salida
     mostrarAlerta('images/encriptado.png', 'Texto encriptado');
 
-    // Deshabilitar el botón de encriptar después de la encriptación
+    // Deshabilita el botón de encriptar y el de desencriptar
     encriptarBtn.disabled = true;
     encriptarBtn.classList.add('disabled');
-    
-    // Deshabilitar el botón de desencriptar hasta que se limpie el texto
     document.getElementById("desencriptar").disabled = true;
     document.getElementById("desencriptar").classList.add('disabled');
 }
 
+// Función para desencriptar el texto ingresado en el textarea
 function desencriptar() {
     const textInput = document.getElementById("texto");
     const parrafo = document.getElementById("parrafo");
@@ -105,24 +125,24 @@ function desencriptar() {
         return;
     }
 
+    // Reemplaza las cadenas encriptadas por las vocales originales
     const result = textValue
         .replace(/enter/g, "e")
         .replace(/imes/g, "i")
         .replace(/ai/g, "a")
         .replace(/ober/g, "o")
         .replace(/ufat/g, "u");
-    parrafo.value = result;
+    parrafo.value = result; // Muestra el texto desencriptado en el textarea de salida
     mostrarAlerta('images/desencriptar.png', 'Texto desencriptado');
 
-    // Habilitar el botón de encriptar después de desencriptar
+    // Deshabilita el botón de desencriptar y el de encriptar
     encriptarBtn.disabled = true;
     encriptarBtn.classList.add('disabled');
-    
-    // Deshabilitar el botón de desencriptar después de desencriptar
     desencriptarBtn.disabled = true;
     desencriptarBtn.classList.add('disabled');
 }
 
+// Función para copiar el texto en el textarea al portapapeles
 function copiar() {
     const resultText = document.getElementById("parrafo").value.trim();
 
@@ -136,7 +156,7 @@ function copiar() {
             .then(() => {
                 mostrarAlerta('images/copiaralerta.png', 'Texto copiado');
                 
-                // Limpiar campos y restablecer el estado de los botones
+                // Limpia los campos de texto y restablece el estado de los botones
                 document.getElementById("texto").value = "";
                 document.getElementById("parrafo").value = "";
                 
@@ -168,21 +188,29 @@ function copiar() {
     }
 }
 
-
 function validarTexto(textarea) {
+    // Obtiene el valor original del textarea
     const valorOriginal = textarea.value;
+
+    // Normaliza el texto para separar los caracteres base de sus acentos
     const valorNormalizado = valorOriginal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra minúscula o un espacio
     const valorFinal = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
+
+    // Asigna el valor final normalizado y limpio de nuevo al textarea
     textarea.value = valorFinal;
 }
 
+
+// Función para pegar el texto desde el portapapeles al textarea
 function pegar() {
     const textInput = document.getElementById("texto");
 
     if (navigator.clipboard) {
         navigator.clipboard.readText()
             .then(text => {
-                textInput.value = text;
+                textInput.value = text; // Pega el texto en el textarea
                 validarTexto(textInput); // Normaliza el texto pegado
                 actualizarEstadoBotones(); // Actualiza el estado de los botones
                 mostrarAlerta('images/pastealerta.png', 'Texto pegado');
@@ -196,6 +224,7 @@ function pegar() {
     }
 }
 
+// Función para actualizar el estado de los botones según el texto en el textarea
 function actualizarEstadoBotones() {
     const texto = document.getElementById("texto");
     const desencriptarBtn = document.getElementById("desencriptar");
@@ -208,7 +237,6 @@ function actualizarEstadoBotones() {
         // Habilitar o deshabilitar el botón de desencriptar y encriptar
         desencriptarBtn.disabled = textoEstaVacio;
         desencriptarBtn.classList.toggle('disabled', textoEstaVacio);
-       
 
         // Habilitar el botón de pegar solo si hay texto en el portapapeles
         navigator.clipboard.readText().then(text => {
@@ -222,7 +250,7 @@ function actualizarEstadoBotones() {
     }
 }
 
-// Event listener para actualizar el estado de los botones en función del textarea
+// Event listener para validar el texto y actualizar el estado de los botones cuando el usuario escriba en el textarea
 document.getElementById("texto").addEventListener("input", function() {
     validarTexto(this);
     actualizarEstadoBotones();

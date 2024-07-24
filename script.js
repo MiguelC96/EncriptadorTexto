@@ -234,19 +234,15 @@ function actualizarEstadoBotones() {
     if (texto && desencriptarBtn && encriptarBtn && pegarBtn) {
         const textoEstaVacio = texto.value.trim() === "";
 
-        // Habilitar o deshabilitar el botón de desencriptar y encriptar
+        // Habilitar o deshabilitar los botones de desencriptar y encriptar
         desencriptarBtn.disabled = textoEstaVacio;
         desencriptarBtn.classList.toggle('disabled', textoEstaVacio);
+        encriptarBtn.disabled = textoEstaVacio;
+        encriptarBtn.classList.toggle('disabled', textoEstaVacio);
 
-        // Habilitar el botón de pegar solo si hay texto en el portapapeles
-        navigator.clipboard.readText().then(text => {
-            pegarBtn.disabled = text.trim() === "";
-            pegarBtn.classList.toggle('disabled', text.trim() === "");
-        }).catch(err => {
-            console.error("Error al leer del portapapeles: ", err);
-            pegarBtn.disabled = true;
-            pegarBtn.classList.add('disabled');
-        });
+        // Mantener el botón de pegar siempre habilitado
+        pegarBtn.disabled = false;
+        pegarBtn.classList.remove('disabled');
     }
 }
 

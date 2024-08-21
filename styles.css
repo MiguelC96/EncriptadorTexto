@@ -1,430 +1,526 @@
-body, html {
+/* Estilos generales */
+body {
+  font-family: 'Roboto', sans-serif;
   margin: 0;
-  padding: 0; 
-  font-family: 'Roboto', sans-serif; 
-  width: 100%;
-  height: 100%; 
-  
+  padding: 0;
+  background-color: #f0f0f0;
+  background: url('images/fondo.png') no-repeat center center fixed;
 }
-
-.background {
-  position: absolute; 
-  width: 100%; 
-  height: 100%; 
-  background: url('images/fondo.png') no-repeat center center fixed; 
-  background-size: cover; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  z-index: 0; 
-
-}
-
-.background::before {
+.body::before {
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgb(0, 0, 0); 
   z-index: 1;
+}
+
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo-container {
+  position: relative; 
+  text-align: center; 
+  margin-top: -20px;
 }
 
 .logo {
-  position: absolute; 
-  top: 0px; 
-  width: 250px;
-  height: 250px;  
-  z-index: 1;
-  
-}
-
-
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
+  width: 400px;
+  height: 400px;
+  top: -50px;
+  position: relative;
 }
 
 
 main {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  z-index: 2;
-  height: 100%; 
+  flex-direction: row;
+  gap: 20px; 
+  padding: 20px;
+  flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden; 
 }
-
-
-.container {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: flex-start; 
-  gap: 100px;
-  padding: 20px; 
-  position: relative; 
-  z-index: 3; 
-  text-align: center; 
-  
+.main-container {
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+  width: calc(100% - 20px); 
+  height: calc(100vh - 300px); 
+  margin-left: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  padding-bottom: 60px;
 }
 
 .contenedor {
-  width: 300px; 
-  height: 300px; 
-  background-color: rgba(242, 242, 242, 0.7803921568627451); 
-  opacity: 0.8; 
-  display: flex; 
-  flex-direction: row; 
-  justify-content: center; 
-  align-items: center; 
-  padding: 20px; 
-  box-sizing: border-box; 
-  display: inline-block; 
-  vertical-align: bottom; 
-  margin: 0px 20px; 
-  border: 10px solid #2cccc4; 
-  border-radius: 10px;
-  z-index: 3;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  margin-top: 150px;
-}
-
-textarea {
-  width: calc(100% - 20px); 
-  height: calc(100% - 20px);
-  resize: none; 
-  margin-bottom: 10px; 
-  padding: 10px; 
-  box-sizing: border-box; 
-  font-family: 'Roboto', sans-serif; 
-  border-radius: 10px;
-  font-size: x-large;
-  border: 1px solid #ddd; 
-  opacity: 1;
-}
-
-
-/* Estilo para el contenedor de la imagen y el textarea */
-#contenedor2 {
-  width: 300px; 
-  height: 300px; 
-  background-color: rgba(242, 242, 242, 0.78); 
-  opacity: 0.8; 
+  flex: 1; 
   display: flex;
-  flex-direction: row;
+  flex-direction: row; 
   justify-content: center;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
-  border: 15px solid #2cccc4;
-  border-radius: 10px; 
-  z-index: 3;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  margin-top: 150px;
-  position: relative; 
-}
-
-/* Estilo para la imagen de fondo */
-#imagen-fondo {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  transition: opacity 0.3s ease; 
-  z-index: 2; 
+  background-color: #f7f6f7b2;
+  opacity: 0.8;
+  border: 5px solid #0c0c0c;
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  overflow: hidden;
 }
 
-/* Estilo para el textarea */
-#parrafo {
-  color: transparent;
-  background-color: transparent;
-  transition: color 0.3s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
+
+textarea {
   width: 100%;
   height: 100%;
   padding: 10px;
   box-sizing: border-box;
-  z-index: 1;
-  font-size: x-large;
-  
+  border: none;
+  resize: none; 
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  background-color: rgb(0 0 0 / 86%);
+  color: #ffffff;
 }
 
-/* Mostrar el texto cuando el cursor está sobre el contenedor */
-#contenedor2:hover #imagen-fondo {
-  opacity: 0; 
-}
 
-#contenedor2:hover #parrafo {
-  color: #000; /* Hace visible el texto */
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  margin: 20px 0;
+  align-items: center;
+  margin-top: -10px; 
+  margin-bottom: 100px;
 }
 
 .btn {
-  width: 30px;
-  height: 30  px;
-  border: 2px solid #333; 
-  border-radius: 8px; 
-  background-color: #f0f0f0; 
-  color: #333; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.3s ease; 
-  z-index: 4;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer;
+  width: 90px; 
+  height: 90px; 
+  background-color: #ffffffa2; 
+  border: none; 
+  border-radius: 10px; 
+  color: rgb(0, 0, 0); 
+  font-size: 16px;
+  text-align: center;
+  padding: 10px; 
+  transition: transform 0.2s ease; 
+  
+ 
+}
+
+.btn img {
+  width: 50px; 
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+.btn:hover {
+  transform: scale(1.05); 
+}
+
+.btn:active {
+  transform: scale(0.95); 
+}
+
+.btn[disabled] {
+  opacity: 0.5; 
+  cursor: not-allowed;
+}.btn:hover {
+  transform: scale(1.05); 
+}
+
+.btn:active {
+  transform: scale(0.95); 
+}
+
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mensaje-enunciado {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.icono-info {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 .btn:hover {
-  background-color: #08d13a; /* Color de fondo al pasar el ratón */
-  transform: scale(1.05); /* Escala el botón ligeramente */
-}
-
-.btn-group1 {
-  display: flex;
-  justify-content: center;
-  top: -110px;
-  gap: 200px;
-  flex-direction: row;
-  align-items: start;
-  position: relative; 
-  left: -10px; 
-  margin-top: 39px; 
-  z-index: 4; 
-}
-
-.btn-group2 {
-  display: flex;
-  justify-content: center;
-  top: 175px;
-  flex-direction: row;
-  align-items: start;
-  position: relative; 
-  left: 110px;
-  margin-top: -120px; 
-  z-index: 4; 
-  }
-  
-
-
-.btn-container {
-  display: flex;
-  justify-content: center;
-  z-index: 4;
-  
-}
-
-#contenedor2:hover .btn {
-  z-index: 4;
-}
-
-.btn.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none; 
-}
-
-/* Estilo para botones deshabilitados */
-button.disabled {
-  background-color: #ced4da; 
-  cursor: not-allowed; 
-  opacity: 0.6; 
-}
-
-/* Estilo para botones habilitados */
-button:not(.disabled) {
-  background-color: #007bff; 
-  cursor: pointer; 
-  opacity: 1;
-}
-
-/* Estilo para el botón "Pegar" */
-#pegar {
-  width: 20px;
-  display: flex;
-  justify-content: center;
-  top: -120px;
-  gap: 140px;
-  flex-direction: row;
-  align-items: start;
-  position: relative; 
-  right: -290px; 
-  margin-top: -190px;
-  z-index: 4; /
-}
-
-.icono-advertencia {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  transform: scale(1.05);
 }
 
 footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-  background-color: rgb(51, 51, 51);
-  margin-bottom: 10px;
-}
-
-footer a {
-  margin: 0px 20px;
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 40px; 
+  background-color: rgb(51, 51, 51); 
 }
 
 footer img {
-  width: 30px;
-  height: 30px;
+  width: 25px; 
+  height: 25px; 
+  margin: 0 10px; 
+  cursor: pointer; 
 }
-
-#alerta {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.75);
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-  text-align: center;
-}
-
-#alerta-icono {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
-
-#alerta-mensaje {
-  margin-left: 1px;
-}
-
-/* Estilos para la alerta de bienvenida */
-#alerta-bienvenida {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.75);
-  color: white;
+textarea#output-texto {
+  background-image: url('images/noisy.png'); /* Cambia la ruta a tu imagen */
+  background-size: cover; /* Ajusta la imagen al tamaño del textarea */
+  background-repeat: no-repeat; /* No repetir la imagen */
+  background-position: center; /* Centra la imagen */
+  color: transparent; /* Hace que el texto sea invisible */
+  caret-color: transparent; /* Hace que el cursor también sea invisible */
+  border: 1px solid #ccc; /* Puedes ajustar el borde si es necesario */
   padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  resize: none; /* Evita que el usuario cambie el tamaño del textarea */
+  /* Oculta el texto predeterminado */
+  ::placeholder {
+      color: transparent; /* Hace que el placeholder sea invisible */
+  }
+}
+
+/* Cuando el usuario pasa el cursor sobre el textarea, ocultar la imagen */
+textarea#output-texto:hover {
+  background-image: none; /* Oculta la imagen de fondo */
+  color: rgb(255, 255, 255); /* Muestra el texto en negro (puedes cambiar el color si lo deseas) */
+}
+/* estilos para alertas y mensajes de JS*/
+.alerta {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra la alerta en la pantalla */
+  background: #fff; /* Fondo blanco */
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  z-index: 1001; /* Asegura que esté por encima del overlay */
+  display: none; 
+}
+
+
+.alerta-contenido {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 
 .alerta-imagen {
-  width: 300px;
-  height: 300px;
-  margin-bottom: 20px;
-}
-
-.alerta-mensaje {
-  font-size: 20px;
+  max-width: 100px; 
+  max-height: 100px; 
 }
 
 
-#container1 {
-  position: relative; /* Asegura que el contenido esté posicionado correctamente dentro del contenedor */
-  padding: 10px;
+#alerta-icono {
+  width: 24px; /* Ancho del icono */
+  height: 24px; /* Alto del icono */
+  margin-right: 10px; /* Espacio a la derecha del icono */
 }
 
-#mensaje-enunciado {
-  display: flex;
-  align-items: center;
-  margin-top: 0px; 
-  margin-right: auto;
+
+#alerta-mensaje {
+  font-size: 16px; /* Tamaño de la fuente del mensaje */
+  color: #333; /* Color del texto */
 }
 
-.icono-info {
-  width: 18px; 
-  height: 18px;
-  margin-right: 5px; 
+.alerta.show {
+  display: flex; /* Muestra la alerta como flex para el contenido */
 }
+/*////////////////// Media Queries///////////////////////////////// */
+/*//////////////////////          ////////////////////////////////  */
 
-#mensaje-enunciado span {
-  font-size:  14px; 
-  color: rgb(0, 0, 0); 
-  font-family: 'Roboto'; 
-  font-weight: 700;
-}
-
-.overlay {
-  position: fixed;       
-    top: 0;                 
-    left: 0;               
-    width: 100%;            
-    height: 100%;           
-    background-color: rgba(138, 136, 136, 0.8); 
-    z-index: 6;        
-}
-
-/* Media Queries para Responsividad */
-
-/* Pantallas grandes (desktops) */
 @media (min-width: 1200px) {
-  .container {
-    flex-direction: row; /* Coloca los contenedores lado a lado */
-    padding: 100px; /* Aumenta el padding */
+  textarea {
+    font-size: 20px; /* Ajuste del tamaño de fuente */
   }
-
-  .logo {
-    width: 400px;
-  }
-
   .contenedor {
-    width: 400px;
+    max-width: 90%;
+  }
+  .btn-group {
+    flex-direction: row; /* Cambia a una fila si hay espacio suficiente */
+  }
+  .btn {
+    width: auto; /* Ajuste para botones más grandes */
+    margin-bottom: 0;
+    width: 100px;
+    height: 100px;
+  }
+  .botones {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    gap: 5px;
   }
 }
 
-/* Pantallas medianas (tablets) */
-@media (max-width: 1199px) and (min-width: 768px) {
-  .container {
-    flex-direction: column; /* Apila los contenedores verticalmente */
-    padding: 50px; /* Ajusta el padding */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  textarea {
+    font-size: 18px; /* Tamaño de fuente unificado para estas resoluciones */
   }
-
-  .logo {
-    width: 300px;
-  }
-
   .contenedor {
-    width: 90%; /* Ajusta el ancho para pantallas medianas */
+    max-width: 90%;
   }
+  .btn-group {
+    flex-direction: column;
+  }
+  .btn {
+    width: 90%;
+    margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
+  }
+  .botones {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    gap: 5px;
+  }
+
 }
-
-/* Pantallas pequeñas (móviles) */
-@media (max-width: 767px) {
-  .container {
-    flex-direction: column; /* Apila los contenedores verticalmente */
-    padding: 20px; /* Reduce el padding */
+@media (max-width: 767.98px) and (orientation: portrait) {
+  /* Ajustes para dispositivos móviles en orientación vertical */
+  .contenedor {
+    padding: 10px;
+    height: 80%; /* Ajusta la altura del contenedor */
+    max-width: 100%;
   }
-
-  .logo {
-    width: 200px; /* Ajusta el tamaño del logo */
+  .main-container {
+    padding: 10px;
+  }
+  textarea {
+    width: 100%;
+    height: 100%; /* Ajusta la altura del textarea */
+    font-size: 18px;
+  }
+  .botones {
+    display: flex;
+    flex-direction: row; /* Distribuye los botones en una fila */
+    justify-content: space-around; /* Distribuye los botones uniformemente */
+    flex-wrap: wrap; /* Permite que los botones se ajusten en múltiples filas si es necesario */
+    gap: 5px; /* Ajusta el espacio entre los botones */
+    margin-top: -50px; /* Ajusta el margen superior */
     
   }
+  .btn {
+    width: 90px;
+    height: 90px;
+    font-size: 14px;
+  }
+  .btn img {
+    width: 40px;
+    height: 40px;
+  }
+  .alerta {
+    font-size: 12px;
+    padding: 5px;
+  }
+  footer img {
+    width: 25px;
+  }
+}
 
+@media (max-width: 767.98px) and (orientation: landscape) {
   .contenedor {
-    width: 100%; /* Ancho completo del contenedor */
-    height: auto; /* Ajusta la altura del contenedor */
-    margin: 2; /* Elimina el margen lateral */
+    padding: 10px; /* Ajuste del padding para mejorar el espacio */
+    height: auto; /* Permite que el contenido se adapte mejor */
+    max-width: 100%;
   }
 
-  .btn {
-    width: 40px; /* Tamaño reducido de los botones */
-    height: 40px;
+  .main-container {
+    width: 100%; /* Asegura que el contenedor principal no se desborde */
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+    height: 200px;
+  }
+
+  textarea {
+    height: 100%; /* Asegura que el textarea se ajuste al contenido */
+    width: 100%;
+    font-size: 14px; /* Ajusta el tamaño del texto para mejor visibilidad */
   }
 
   .btn-group {
-    flex-direction: column; /* Apila los botones verticalmente */
+    flex-direction: row; /* Mantén los botones en fila */
+    flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas si es necesario */
+  }
+
+  .btn {
+    width: 80px;
+    height: 80px;
+    font-size: 12px; /* Tamaño del texto del botón */
+  }
+
+  .btn img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .botones {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas si es necesario */
+    justify-content: space-around; /* Distribuye los botones de manera uniforme */
+    gap: 5px; /* Ajusta el espacio entre los botones */
+    margin-top: -90px;
+  }
+
+  .alerta {
+    font-size: 12px; /* Ajusta el tamaño de fuente para dispositivos pequeños */
+    padding: 5px;
+  }
+
+  footer img {
+    width: 25px; /* Ajusta el tamaño de los íconos en el pie de página */
+  }
+
+  body, html {
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .logo-container{
+    position: relative; /* Asegura que el logo se posicione correctamente */
+    text-align: center; /* Ajusta el valor según sea necesario */
+  }
+  .logo{
+    width: 200px;
+    height: 200px;
+  }
+}
+@media (max-width: 575.98px) and (orientation:portrait) {
+  .logo-container {
+    margin-bottom: -100px;
+  }
+  .contenedor {
+    width: 100%;
+    height: 70%/* Permite que el contenido se adapte mejor */
+    
+  }
+  .main-container{
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  textarea {
+    height: 100%; /* Asegura que el textarea se ajuste al contenido */
+    width: 100%;
+    font-size: 14px;
+  }
+  .btn-group {
+    flex-direction: row;
+  }
+  .btn {
+    width: 80px;
+    height: 80px;
+    font-size: 12px;
+  }
+  .btn img {
+    width: 30px;
+    height: 30px;
+  }
+  .botones {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    gap: 5px;
+    margin-top: -150px;
+  }
+  .alerta {
+    font-size: 12px; /* Ajusta el tamaño de fuente para dispositivos pequeños */
+    padding: 5px;
+  }
+  footer img {
+    width: 25px;
+  }
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0; /* Asegura que no haya margen que cause desbordamiento */
+    padding: 0; /* Asegura que no haya padding que cause desbordamiento */
+}
+}
+
+@media (max-width: 575.98px) and (orientation: landscape) {
+  /* Estilos específicos para pantallas horizontales en dispositivos pequeños */
+  .contenedor {
+    height: auto; /* Ajusta la altura para adaptarse mejor al landscape */
+    max-width: 100%;
+  }
+
+  .main-container {
+    overflow-x: hidden;
+    width: 100%; /* Asegura que el contenedor principal no se desborde */
+  }
+
+  textarea {
+    height: 100%; /* Ajusta la altura */
+    width: 100%;
+  }
+
+  .btn-group {
+    flex-direction: row; /* Mantén los botones en fila */
+  }
+
+  .btn {
+    width: 40px;
+    height: 40px;
+    font-size: 11px;
+  }
+
+  .btn img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .botones {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    gap: 5px; /* Ajusta el gap para evitar desbordamientos */
+  }
+
+  .alerta {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  footer img {
+    width: 25px;
+  }
+
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }

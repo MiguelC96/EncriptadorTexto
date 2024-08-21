@@ -1,18 +1,21 @@
-// Espera a que todo el contenido del DOM se haya cargado antes de ejecutar la función mostrarAlertaBienvenida
 document.addEventListener("DOMContentLoaded", function () {
     mostrarAlertaBienvenida();
+    actualizarEstadoBotonDesencriptar(); // Verifica el estado del botón al cargar la página
+
+    // Añade un evento para actualizar el estado del botón cada vez que el texto cambia
+    document.getElementById("input-texto").addEventListener("input", actualizarEstadoBotonDesencriptar);
+    document.getElementById("input-texto").addEventListener("click", actualizarEstadoBotonDesencriptar);
 });
 
-// Función para mostrar una alerta de bienvenida cuando se carga la página
 function mostrarAlertaBienvenida() {
-const overlay = document.createElement('div');
-    overlay.id = 'overlay'; // Asigna un ID para el overlay
-    overlay.className = 'overlay'; // Asigna una clase para aplicar estilos CSS
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay'; 
+    overlay.className = 'overlay'; 
 
     // Crear el contenedor de la alerta de bienvenida
     const alerta = document.createElement('div');
-    alerta.id = 'alerta-bienvenida'; // Asigna un ID para la alerta
-    alerta.className = 'alerta'; // Asigna una clase para aplicar estilos CSS
+    alerta.id = 'alerta-bienvenida'; 
+    alerta.className = 'alerta'; 
 
     // Define el contenido HTML de la alerta
     const contenido = `
@@ -22,27 +25,23 @@ const overlay = document.createElement('div');
     `;
     alerta.innerHTML = contenido; // Inserta el contenido HTML en el elemento de alerta
 
-    // Añade el overlay y la alerta al cuerpo del documento
     document.body.appendChild(overlay);
     document.body.appendChild(alerta);
 
-    // Cierra la alerta automáticamente después de 5 segundos
-    setTimeout(cerrarAlerta, 5000);
+    setTimeout(cerrarAlerta, 3000);
 }
 
-// Función para cerrar la alerta de bienvenida
 function cerrarAlerta() {
     const alerta = document.getElementById('alerta-bienvenida');
     const overlay = document.getElementById('overlay');
     if (alerta) {
-        alerta.style.display = 'none'; // Oculta la alerta
+        alerta.style.display = 'none'; 
     }
     if (overlay) {
-        overlay.style.display = 'none'; // Oculta el overlay
+        overlay.style.display = 'none'; 
     }
 }
 
-// Función para mostrar una alerta personalizada con icono y mensaje
 function mostrarAlerta(icono, mensaje) {
     const alerta = document.getElementById("alerta");
     const alertaIcono = document.getElementById("alerta-icono");
@@ -53,11 +52,11 @@ function mostrarAlerta(icono, mensaje) {
         return;
     }
 
-    alertaIcono.src = icono; // Asigna la fuente del icono de alerta
-    alertaMensaje.textContent = mensaje; // Asigna el mensaje de la alerta
-    alerta.style.display = "flex"; // Muestra la alerta
+    alertaIcono.src = icono; 
+    alertaMensaje.textContent = mensaje; 
+    alerta.style.display = "flex"; 
 
-    // Oculta la alerta después de 1 segundo
+    
     alertaIcono.onload = () => {
         setTimeout(() => {
             alerta.style.display = "none";
@@ -73,11 +72,12 @@ function mostrarAlerta(icono, mensaje) {
 
 // Función para encriptar el texto ingresado en el textarea
 function encriptar() {
-    const textInput = document.getElementById("texto");
-    const parrafo = document.getElementById("parrafo");
-    const encriptarBtn = document.getElementById("encriptar");
+    const textInput = document.getElementById("input-texto");
+    const parrafo = document.getElementById("output-texto");
+    const encriptarBtn = document.getElementById("btn-encriptar");
+    const desencriptarBtn = document.getElementById("btn-desencriptar");
 
-    if (!textInput || !parrafo || !encriptarBtn) {
+    if (!textInput || !parrafo || !encriptarBtn || !desencriptarBtn) {
         console.error("Elementos de texto, párrafo o botón no encontrados");
         return;
     }
@@ -96,22 +96,22 @@ function encriptar() {
         .replace(/a/g, "ai")
         .replace(/o/g, "ober")
         .replace(/u/g, "ufat");
-    parrafo.value = result; // Muestra el texto encriptado en el textarea de salida
+    parrafo.value = result; 
     mostrarAlerta('images/encriptado.png', 'Texto encriptado');
 
-    // Deshabilita el botón de encriptar y el de desencriptar
+    // Deshabilita el botón de encriptar y activa el botón de desencriptar
     encriptarBtn.disabled = true;
     encriptarBtn.classList.add('disabled');
-    document.getElementById("desencriptar").disabled = true;
-    document.getElementById("desencriptar").classList.add('disabled');
+    desencriptarBtn.disabled = false;
+    desencriptarBtn.classList.remove('disabled');
 }
 
 // Función para desencriptar el texto ingresado en el textarea
 function desencriptar() {
-    const textInput = document.getElementById("texto");
-    const parrafo = document.getElementById("parrafo");
-    const desencriptarBtn = document.getElementById("desencriptar");
-    const encriptarBtn = document.getElementById("encriptar");
+    const textInput = document.getElementById("input-texto");
+    const parrafo = document.getElementById("output-texto");
+    const desencriptarBtn = document.getElementById("btn-desencriptar");
+    const encriptarBtn = document.getElementById("btn-encriptar");
 
     if (!textInput || !parrafo || !desencriptarBtn || !encriptarBtn) {
         console.error("Elementos de texto, párrafo o botón no encontrados");
@@ -132,19 +132,19 @@ function desencriptar() {
         .replace(/ai/g, "a")
         .replace(/ober/g, "o")
         .replace(/ufat/g, "u");
-    parrafo.value = result; // Muestra el texto desencriptado en el textarea de salida
+    parrafo.value = result; 
     mostrarAlerta('images/desencriptar.png', 'Texto desencriptado');
 
-    // Deshabilita el botón de desencriptar y el de encriptar
-    encriptarBtn.disabled = true;
-    encriptarBtn.classList.add('disabled');
+    // Deshabilita el botón de desencriptar y activa el botón de encriptar
     desencriptarBtn.disabled = true;
     desencriptarBtn.classList.add('disabled');
+    encriptarBtn.disabled = false;
+    encriptarBtn.classList.remove('disabled');
 }
 
 // Función para copiar el texto en el textarea al portapapeles
 function copiar() {
-    const resultText = document.getElementById("parrafo").value.trim();
+    const resultText = document.getElementById("output-texto").value.trim();
 
     if (resultText === "") {
         mostrarAlerta('images/warning.png', 'No hay texto para copiar');
@@ -157,12 +157,12 @@ function copiar() {
                 mostrarAlerta('images/copiaralerta.png', 'Texto copiado');
                 
                 // Limpia los campos de texto y restablece el estado de los botones
-                document.getElementById("texto").value = "";
-                document.getElementById("parrafo").value = "";
+                document.getElementById("input-texto").value = "";
+                document.getElementById("output-texto").value = "";
                 
-                const encriptarBtn = document.getElementById("encriptar");
-                const desencriptarBtn = document.getElementById("desencriptar");
-                const pegarBtn = document.getElementById("pegar");
+                const encriptarBtn = document.getElementById("btn-encriptar");
+                const desencriptarBtn = document.getElementById("btn-desencriptar");
+                const pegarBtn = document.getElementById("btn-pegar");
 
                 if (encriptarBtn) {
                     encriptarBtn.disabled = false;
@@ -188,66 +188,57 @@ function copiar() {
     }
 }
 
-function validarTexto(textarea) {
-    // Obtiene el valor original del textarea
-    const valorOriginal = textarea.value;
+function validarTexto(texto) {
+
+    if (typeof texto !== 'string') {
+        console.error('El argumento debe ser una cadena de texto');
+        return false;
+    }
 
     // Normaliza el texto para separar los caracteres base de sus acentos
-    const valorNormalizado = valorOriginal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const valorNormalizado = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-    // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra minúscula o un espacio
-    const valorFinal = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
+    // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra o espacio
+    const valorLimpiado = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
 
-    // Asigna el valor final normalizado y limpio de nuevo al textarea
-    textarea.value = valorFinal;
+    // Compara el valor limpio con el valor original
+    return texto.trim().toLowerCase() === valorLimpiado.trim();
 }
 
 
-// Función para pegar el texto desde el portapapeles al textarea
+// Función para pegar el texto del portapapeles en el textarea
 function pegar() {
-    const textInput = document.getElementById("texto");
+    const inputText = document.getElementById("input-texto");
 
-    if (navigator.clipboard) {
-        navigator.clipboard.readText()
-            .then(text => {
-                textInput.value = text; // Pega el texto en el textarea
-                validarTexto(textInput); // Normaliza el texto pegado
-                actualizarEstadoBotones(); // Actualiza el estado de los botones
-                mostrarAlerta('images/pastealerta.png', 'Texto pegado');
-            })
-            .catch(err => {
-                console.error("Error al leer del portapapeles: ", err);
-                mostrarAlerta('images/warning.png', 'Error al pegar el texto');
-            });
-    } else {
-        mostrarAlerta('images/warning.png', 'El portapapeles no es compatible con este navegador');
+    if (!inputText) {
+        console.error("Elemento input-texto no encontrado");
+        return;
     }
+
+    navigator.clipboard.readText()
+        .then(text => {
+            if (validarTexto(text)) {
+                inputText.value = text; 
+                document.getElementById("btn-encriptar").disabled = false;
+                document.getElementById("btn-encriptar").classList.remove('disabled');
+                actualizarEstadoBotonDesencriptar(); 
+            } else {
+                mostrarAlerta('images/warning.png', 'Texto no válido para pegar');
+            }
+        })
+        .catch(err => {
+            console.error("Error al pegar del portapapeles: ", err);
+            mostrarAlerta('images/warning.png', 'Error al pegar el texto. Asegúrate de que la operación sea realizada desde una interacción del usuario.');
+        });
 }
 
-// Función para actualizar el estado de los botones según el texto en el textarea
-function actualizarEstadoBotones() {
-    const texto = document.getElementById("texto");
-    const desencriptarBtn = document.getElementById("desencriptar");
-    const encriptarBtn = document.getElementById("encriptar");
-    const pegarBtn = document.getElementById("pegar");
+// Función para actualizar el estado del botón de desencriptar
+function actualizarEstadoBotonDesencriptar() {
+    const texto = document.getElementById("input-texto").value.trim();
+    const botonDesencriptar = document.getElementById("btn-desencriptar");
 
-    if (texto && desencriptarBtn && encriptarBtn && pegarBtn) {
-        const textoEstaVacio = texto.value.trim() === "";
-
-        // Habilitar o deshabilitar los botones de desencriptar y encriptar
-        desencriptarBtn.disabled = textoEstaVacio;
-        desencriptarBtn.classList.toggle('disabled', textoEstaVacio);
-        encriptarBtn.disabled = textoEstaVacio;
-        encriptarBtn.classList.toggle('disabled', textoEstaVacio);
-
-        // Mantener el botón de pegar siempre habilitado
-        pegarBtn.disabled = false;
-        pegarBtn.classList.remove('disabled');
+    if (botonDesencriptar) {
+        botonDesencriptar.disabled = texto === "";
+        botonDesencriptar.classList.toggle('disabled', texto === "");
     }
 }
-
-// Event listener para validar el texto y actualizar el estado de los botones cuando el usuario escriba en el textarea
-document.getElementById("texto").addEventListener("input", function() {
-    validarTexto(this);
-    actualizarEstadoBotones();
-});

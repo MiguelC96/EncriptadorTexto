@@ -313,8 +313,17 @@ textarea#output-texto:hover {
     height: 80%; /* Ajusta la altura del contenedor */
     max-width: 100%;
   }
+  .background{
+    padding: 0px;
+    margin-top: 20px;
+  }
   .main-container {
     padding: 10px;
+    
+  }
+  .logo{
+    width: 250px;
+    height: 250px;
   }
   textarea {
     width: 100%;
@@ -351,14 +360,14 @@ textarea#output-texto:hover {
 @media (max-width: 767.98px) and (orientation: landscape) {
   .contenedor {
     padding: 10px; /* Ajuste del padding para mejorar el espacio */
-    height: auto; /* Permite que el contenido se adapte mejor */
+    height: 90%; /* Permite que el contenido se adapte mejor */
     max-width: 100%;
   }
 
   .main-container {
     width: 100%; /* Asegura que el contenedor principal no se desborde */
     overflow-x: hidden; /* Evita el desbordamiento horizontal */
-    height: 200px;
+    margin-top: -100px;
   }
 
   textarea {
@@ -366,7 +375,10 @@ textarea#output-texto:hover {
     width: 100%;
     font-size: 14px; /* Ajusta el tamaño del texto para mejor visibilidad */
   }
-
+  .logo{
+    width: 100px;
+    height: 100px;
+  }
   .btn-group {
     flex-direction: row; /* Mantén los botones en fila */
     flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas si es necesario */
@@ -388,7 +400,6 @@ textarea#output-texto:hover {
     flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas si es necesario */
     justify-content: space-around; /* Distribuye los botones de manera uniforme */
     gap: 5px; /* Ajusta el espacio entre los botones */
-    margin-top: -90px;
   }
 
   .alerta {
@@ -419,6 +430,10 @@ textarea#output-texto:hover {
   .logo-container {
     margin-bottom: -100px;
   }
+  .logo{
+    width: 200px;
+    height: 200px;
+  }
   .contenedor {
     width: 100%;
     height: 70%/* Permite que el contenido se adapte mejor */
@@ -427,6 +442,7 @@ textarea#output-texto:hover {
   .main-container{
     overflow-x: hidden;
     max-width: 100%;
+    margin-top: 30px;
   }
   textarea {
     height: 100%; /* Asegura que el textarea se ajuste al contenido */
@@ -437,8 +453,8 @@ textarea#output-texto:hover {
     flex-direction: row;
   }
   .btn {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     font-size: 12px;
   }
   .btn img {
@@ -451,7 +467,7 @@ textarea#output-texto:hover {
     justify-content: space-evenly;
     align-content: flex-start;
     gap: 5px;
-    margin-top: -150px;
+    margin-top: -50px;
   }
   .alerta {
     font-size: 12px; /* Ajusta el tamaño de fuente para dispositivos pequeños */

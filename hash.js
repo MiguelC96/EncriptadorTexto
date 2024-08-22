@@ -1,7 +1,6 @@
-//SOLO PARA FINES EDUCATIVOS, NO DEBE USARSE PARA OTROS FINES
-if (typeof CRC32 === 'undefined') {
-    console.error('CRC32 no está definido. Asegúrate de que crc32.js esté cargado correctamente.');
-}
+// Variable para detener la fuerza bruta si es necesario
+let stopBruteForce = false;
+let worker;
 
 // Función para mostrar alertas
 function mostrarAlerta(imagen, mensaje) {
@@ -60,7 +59,7 @@ async function hashString(input, algorithm) {
 }
 
 // Función de fuerza bruta para desencriptar el hash
-async function iniciarFuerzaBruta() {
+function iniciarFuerzaBruta() {
     const hashObjetivo = document.getElementById('hash-texto').value.trim();
     const output = document.getElementById('resultado');
     const estadoOperacion = document.getElementById('estado-operacion');
@@ -89,51 +88,36 @@ async function iniciarFuerzaBruta() {
             return;
     }
 
-    let encontrado = false;
-    let combinacionesProbadas = 0;
-
-    async function pruebaContraseñas(prefix) {
-        if (prefix.length > maxLongitud) return;
-
-        for (const char of caracteres) {
-            const nuevaPrefix = prefix + char;
-            combinacionesProbadas++;
-            if (combinacionesProbadas % 1000 === 0) {
-                estadoOperacion.textContent = `Probadas ${combinacionesProbadas} combinaciones...`;
+    // Configura el Web Worker
+    worker = new Worker('webworker.js');
+    worker.onmessage = function(e) {
+        if (e.data.tipo === 'estado') {
+            estadoOperacion.textContent = e.data.mensaje;
+        } else if (e.data.tipo === 'resultado') {
+            output.textContent = e.data.mensaje;
+            estadoOperacion.textContent = 'Operación completada.';
+            if (e.data.mensaje.startsWith('¡Hash encontrado!')) {
+                detenerFuerzaBruta();
             }
-
-            let hash;
-            switch (hashType) {
-                case 'crc32':
-                    hash = CRC32.str(nuevaPrefix).toString(16);
-                    break;
-                case 'sha1':
-                    hash = sha1(nuevaPrefix); 
-                    break;
-                case 'sha256':
-                    hash = await hashString(nuevaPrefix, 'SHA-256');
-                    break;
-                default:
-                    hash = '';
-            }
-
-            if (hash === hashObjetivo) {
-                output.textContent = `¡Hash encontrado! El mensaje es: ${nuevaPrefix}`;
-                estadoOperacion.textContent = 'Operación completada.';
-                encontrado = true;
-                return;
-            }
-            await pruebaContraseñas(nuevaPrefix);
-            if (encontrado) return;
         }
-    }
+    };
 
     estadoOperacion.textContent = 'Iniciando búsqueda...';
-    await pruebaContraseñas('');
-    if (!encontrado) {
-        output.textContent = 'No se encontró ninguna coincidencia.';
-        estadoOperacion.textContent = 'Operación completada.';
+    worker.postMessage({
+        hashObjetivo,
+        hashType,
+        caracteres,
+        maxLongitud
+    });
+}
+
+// Función para detener la fuerza bruta
+function detenerFuerzaBruta() {
+    if (worker) {
+        worker.terminate();
+        worker = null;
     }
+    stopBruteForce = true;
 }
 
 // Función para copiar el hash
@@ -157,4 +141,5 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btn-hashD").addEventListener("click", iniciarFuerzaBruta);
     document.getElementById("btn-copiarhash").addEventListener("click", copiar);
     document.getElementById("btn-pegarhash").addEventListener("click", pegar);
+    document.getElementById("btn-cancelar").addEventListener("click", detenerFuerzaBruta);
 });

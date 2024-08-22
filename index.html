@@ -29,9 +29,9 @@
             SHA-256
         </label>
     </div>
-    
+
     <div class="contenedor-hash">
-        <textarea id="hash-texto" placeholder="Copie o Pegue aquí su Hash"></textarea>
+        <textarea id="hash-texto" placeholder="Copie o Pegue aquí su Hash"readonly></textarea>
     </div>
     <div class="botoneshash">
         <button class="btn-hashD" id="btn-hashD" title="Desencriptar Hash" onclick="iniciarFuerzaBruta()">
@@ -100,7 +100,8 @@
             <img src="images/github1.png" alt="GitHub">
         </a>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/js-sha1@1.1.1/build/sha1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/crc-32@1.0.8/crc32.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -336,11 +336,12 @@ textarea#output-texto:hover {
 
 /* Estilos para cada etiqueta del botón de radio */
 .botones-hash-selector label {
+  position: relative;
   display: flex;
   align-items: center;
   margin-right: 15px;
   font-size: 20px;
-  color: #ffffff;
+  color: #000; /* Color del texto */
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
 }
@@ -359,15 +360,15 @@ textarea#output-texto:hover {
   margin-right: 8px;
   border-radius: 50%;
   border: 2px solid #000000; /* Color del borde del botón */
-  background-color: #fff;
+  background-color: #fff; /* Fondo blanco por defecto */
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* Estilos cuando un botón de radio está seleccionado */
 .botones-hash-selector input[type="radio"]:checked + label::before {
-  background-color: #4cff0b; /* Color de fondo cuando está seleccionado */
-  border-color: #4dff00;
+  background-color: #4dff00; /* Color de fondo verde cuando está seleccionado */
+  border-color: #4dff00; /* Borde verde cuando está seleccionado */
 }
 
 /* Estilos para el círculo interior cuando está seleccionado */
@@ -379,14 +380,14 @@ textarea#output-texto:hover {
   position: absolute;
   left: 5px;
   top: 5px;
-  background-color: #fff;
+  background-color: #fff; /* Color del círculo interior */
   border-radius: 50%;
   transition: transform 0.3s;
 }
 
 /* Estilo al pasar el ratón por encima del label */
 .botones-hash-selector label:hover::before {
-  border-color: #00ff00; /* Color de borde al hacer hover */
+  border-color: #00ff00; /* Color del borde al hacer hover */
 }
 
 /* estilos para alertas y mensajes de JS*/
@@ -431,6 +432,20 @@ textarea#output-texto:hover {
 
 .alerta.show {
   display: flex; /* Muestra la alerta como flex para el contenido */
+}
+#resultado {
+  font-size: 48px;
+  line-height: 1.5;
+  text-align: center;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+#estado-operacion {
+  font-size: 24px;
+  color: #00ff00; /* Verde más brillante */
+  text-align: center;
+  margin-top: 20px;
 }
 /*////////////////// Media Queries///////////////////////////////// */
 /*//////////////////////          ////////////////////////////////  */

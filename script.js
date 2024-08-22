@@ -2,28 +2,28 @@ document.addEventListener("DOMContentLoaded", function () {
     mostrarAlertaBienvenida();
     actualizarEstadoBotonDesencriptar(); // Verifica el estado del botón al cargar la página
 
-    // Añade un evento para actualizar el estado del botón cada vez que el texto cambia
-    document.getElementById("input-texto").addEventListener("input", actualizarEstadoBotonDesencriptar);
-    document.getElementById("input-texto").addEventListener("click", actualizarEstadoBotonDesencriptar);
+    // Añade eventos para actualizar el estado del botón cada vez que el texto cambia
+    const inputTexto = document.getElementById("input-texto");
+    inputTexto.addEventListener("input", actualizarEstadoBotonDesencriptar);
+    inputTexto.addEventListener("click", actualizarEstadoBotonDesencriptar);
 });
 
 function mostrarAlertaBienvenida() {
     const overlay = document.createElement('div');
-    overlay.id = 'overlay'; 
-    overlay.className = 'overlay'; 
+    overlay.id = 'overlay';
+    overlay.className = 'overlay';
 
     // Crear el contenedor de la alerta de bienvenida
     const alerta = document.createElement('div');
-    alerta.id = 'alerta-bienvenida'; 
-    alerta.className = 'alerta'; 
+    alerta.id = 'alerta-bienvenida';
+    alerta.className = 'alerta';
 
     // Define el contenido HTML de la alerta
-    const contenido = `
+    alerta.innerHTML = `
         <div class="alerta-contenido">
             <img src="images/alertinicio.png" alt="Bienvenida" class="alerta-imagen">
         </div>
     `;
-    alerta.innerHTML = contenido; // Inserta el contenido HTML en el elemento de alerta
 
     document.body.appendChild(overlay);
     document.body.appendChild(alerta);
@@ -35,10 +35,10 @@ function cerrarAlerta() {
     const alerta = document.getElementById('alerta-bienvenida');
     const overlay = document.getElementById('overlay');
     if (alerta) {
-        alerta.style.display = 'none'; 
+        alerta.style.display = 'none';
     }
     if (overlay) {
-        overlay.style.display = 'none'; 
+        overlay.style.display = 'none';
     }
 }
 
@@ -52,25 +52,22 @@ function mostrarAlerta(icono, mensaje) {
         return;
     }
 
-    alertaIcono.src = icono; 
-    alertaMensaje.textContent = mensaje; 
-    alerta.style.display = "flex"; 
+    alertaIcono.src = icono;
+    alertaMensaje.textContent = mensaje;
+    alerta.style.display = "flex";
 
-    
     alertaIcono.onload = () => {
         setTimeout(() => {
             alerta.style.display = "none";
         }, 1000);
     };
 
-    // Muestra un error en la consola si no se pudo cargar el icono
     alertaIcono.onerror = () => {
         console.error("No se pudo cargar el icono de alerta:", icono);
         alerta.style.display = "none";
     };
 }
 
-// Función para encriptar el texto ingresado en el textarea
 function encriptar() {
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");
@@ -82,7 +79,7 @@ function encriptar() {
         return;
     }
 
-    const textValue = textInput.value.trim(); // Obtiene el texto ingresado y elimina espacios al principio y al final
+    const textValue = textInput.value.trim();
 
     if (textValue === "") {
         mostrarAlerta('images/warning.png', 'Por favor ingrese un texto para encriptar');
@@ -96,7 +93,7 @@ function encriptar() {
         .replace(/a/g, "ai")
         .replace(/o/g, "ober")
         .replace(/u/g, "ufat");
-    parrafo.value = result; 
+    parrafo.value = result;
     mostrarAlerta('images/encriptado.png', 'Texto encriptado');
 
     // Deshabilita el botón de encriptar y activa el botón de desencriptar
@@ -106,7 +103,6 @@ function encriptar() {
     desencriptarBtn.classList.remove('disabled');
 }
 
-// Función para desencriptar el texto ingresado en el textarea
 function desencriptar() {
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");
@@ -132,7 +128,7 @@ function desencriptar() {
         .replace(/ai/g, "a")
         .replace(/ober/g, "o")
         .replace(/ufat/g, "u");
-    parrafo.value = result; 
+    parrafo.value = result;
     mostrarAlerta('images/desencriptar.png', 'Texto desencriptado');
 
     // Deshabilita el botón de desencriptar y activa el botón de encriptar
@@ -146,6 +142,7 @@ function desencriptar() {
 function copiar() {
     const resultText = document.getElementById("output-texto").value.trim();
 
+    // Verifica si hay texto para copiar
     if (resultText === "") {
         mostrarAlerta('images/warning.png', 'No hay texto para copiar');
         return;
@@ -157,26 +154,43 @@ function copiar() {
                 mostrarAlerta('images/copiaralerta.png', 'Texto copiado');
                 
                 // Limpia los campos de texto y restablece el estado de los botones
-                document.getElementById("input-texto").value = "";
-                document.getElementById("output-texto").value = "";
-                
+                const inputTexto = document.getElementById("input-texto");
+                const outputTexto = document.getElementById("output-texto");
                 const encriptarBtn = document.getElementById("btn-encriptar");
                 const desencriptarBtn = document.getElementById("btn-desencriptar");
                 const pegarBtn = document.getElementById("btn-pegar");
 
+                if (inputTexto) {
+                    inputTexto.value = "";
+                } else {
+                    console.warn("Elemento 'input-texto' no encontrado");
+                }
+
+                if (outputTexto) {
+                    outputTexto.value = "";
+                } else {
+                    console.warn("Elemento 'output-texto' no encontrado");
+                }
+
                 if (encriptarBtn) {
                     encriptarBtn.disabled = false;
                     encriptarBtn.classList.remove('disabled');
+                } else {
+                    console.warn("Elemento 'btn-encriptar' no encontrado");
                 }
 
                 if (desencriptarBtn) {
                     desencriptarBtn.disabled = true;
                     desencriptarBtn.classList.add('disabled');
+                } else {
+                    console.warn("Elemento 'btn-desencriptar' no encontrado");
                 }
 
                 if (pegarBtn) {
                     pegarBtn.disabled = false;
                     pegarBtn.classList.remove('disabled');
+                } else {
+                    console.warn("Elemento 'btn-pegar' no encontrado");
                 }
             })
             .catch(err => {
@@ -189,7 +203,6 @@ function copiar() {
 }
 
 function validarTexto(texto) {
-
     if (typeof texto !== 'string') {
         console.error('El argumento debe ser una cadena de texto');
         return false;
@@ -201,12 +214,11 @@ function validarTexto(texto) {
     // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra o espacio
     const valorLimpiado = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
 
-    // Compara el valor limpio con el valor original
+  
     return texto.trim().toLowerCase() === valorLimpiado.trim();
 }
 
 
-// Función para pegar el texto del portapapeles en el textarea
 function pegar() {
     const inputText = document.getElementById("input-texto");
 
@@ -218,10 +230,13 @@ function pegar() {
     navigator.clipboard.readText()
         .then(text => {
             if (validarTexto(text)) {
-                inputText.value = text; 
+                inputText.value = text;
                 document.getElementById("btn-encriptar").disabled = false;
                 document.getElementById("btn-encriptar").classList.remove('disabled');
-                actualizarEstadoBotonDesencriptar(); 
+                actualizarEstadoBotonDesencriptar();
+
+                // Muestra la alerta de texto pegado
+                mostrarAlerta('images/pastealerta.png', 'Texto pegado'); // Ajusta la ruta de la imagen y el mensaje según sea necesario
             } else {
                 mostrarAlerta('images/warning.png', 'Texto no válido para pegar');
             }
@@ -232,7 +247,6 @@ function pegar() {
         });
 }
 
-// Función para actualizar el estado del botón de desencriptar
 function actualizarEstadoBotonDesencriptar() {
     const texto = document.getElementById("input-texto").value.trim();
     const botonDesencriptar = document.getElementById("btn-desencriptar");
@@ -242,103 +256,29 @@ function actualizarEstadoBotonDesencriptar() {
         botonDesencriptar.classList.toggle('disabled', texto === "");
     }
 }
+function filtrarEntrada(textarea) {
+    const texto = textarea.value;
+
+    // Permite solo letras minúsculas
+    const textoFiltrado = texto.replace(/[^a-z]/g, "");
+    textarea.value = textoFiltrado;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    mostrarAlertaBienvenida();
+    actualizarEstadoBotonDesencriptar(); // Verifica el estado del botón al cargar la página
+
+    // Añade eventos para actualizar el estado del botón cada vez que el texto cambia
+    const inputTexto = document.getElementById("input-texto");
+    inputTexto.addEventListener("input", function() {
+        filtrarEntrada(inputTexto);
+        actualizarEstadoBotonDesencriptar();
+    });
+    inputTexto.addEventListener("click", function() {
+        filtrarEntrada(inputTexto);
+        actualizarEstadoBotonDesencriptar();
+    });
+});
 // Aca empieza la funciones referentes a conversion de texto en hash usando sha256//
 // Función para generar un hash SHA-256
-async function hash() {
-    const inputText = document.getElementById("input-texto").value.trim();
-    const hashOutput = document.getElementById("hash-texto");
-
-    if (!inputText) {
-        mostrarAlerta('images/warning.png', 'Por favor ingrese un texto para generar el hash');
-        return;
-    }
-
-    try {
-        // Codifica el texto como un Uint8Array
-        const encoder = new TextEncoder();
-        const data = encoder.encode(inputText);
-
-        // Genera el hash SHA-256
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-
-        // Convierte el hash a una cadena hexadecimal
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-
-        // Muestra el hash en el textarea
-        hashOutput.value = hashHex;
-
-        // Muestra una alerta de éxito
-        mostrarAlerta('images/hash.png', 'Hash generado con éxito');
-    } catch (error) {
-        console.error("Error al generar el hash:", error);
-        mostrarAlerta('images/warning.png', 'Error al generar el hash');
-    }
-}
-
-async function hashString(input) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-}
-
-async function iniciarFuerzaBruta() {
-    const hashObjetivo = document.getElementById('hash-texto').value.trim();
-    const output = document.getElementById('output-texto');
-    const estadoOperacion = document.getElementById('estado-operacion');
-    
-    if (!hashObjetivo) {
-        output.value = 'Por favor, ingrese el hash objetivo.';
-        return;
-    }
-
-    const caracteres = 'abcdefghijklmnopqrstuvwxyz'; // Conjunto de caracteres
-    const maxLongitud = 4; // Longitud máxima de la contraseña
-    let encontrado = false;
-    let combinacionesProbadas = 0;
-
-    async function pruebaContraseñas(prefix) {
-        if (prefix.length > maxLongitud) return;
-
-        for (const char of caracteres) {
-            const nuevaPrefix = prefix + char;
-            combinacionesProbadas++;
-            if (combinacionesProbadas % 1000 === 0) {
-                estadoOperacion.textContent = `Probadas ${combinacionesProbadas} combinaciones...`;
-            }
-
-            const hash = await hashString(nuevaPrefix);
-            if (hash === hashObjetivo) {
-                output.value = `¡Hash encontrado! El mensaje es: ${nuevaPrefix}`;
-                estadoOperacion.textContent = 'Operación completada.';
-                encontrado = true;
-                return;
-            }
-            await pruebaContraseñas(nuevaPrefix);
-            if (encontrado) return;
-        }
-    }
-
-    estadoOperacion.textContent = 'Iniciando búsqueda...';
-    await pruebaContraseñas('');
-    if (!encontrado) {
-        output.value = 'No se encontró ninguna coincidencia.';
-        estadoOperacion.textContent = 'Operación completada.';
-    }
-}
-
-function copiar() {
-    const textarea = document.getElementById('hash-texto');
-    textarea.select();
-    document.execCommand('copy');
-}
-
-function pegar() {
-    navigator.clipboard.readText().then(text => {
-        document.getElementById('hash-texto').value = text;
-    });
-}
-
 

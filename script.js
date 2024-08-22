@@ -242,3 +242,103 @@ function actualizarEstadoBotonDesencriptar() {
         botonDesencriptar.classList.toggle('disabled', texto === "");
     }
 }
+// Aca empieza la funciones referentes a conversion de texto en hash usando sha256//
+// Función para generar un hash SHA-256
+async function hash() {
+    const inputText = document.getElementById("input-texto").value.trim();
+    const hashOutput = document.getElementById("hash-texto");
+
+    if (!inputText) {
+        mostrarAlerta('images/warning.png', 'Por favor ingrese un texto para generar el hash');
+        return;
+    }
+
+    try {
+        // Codifica el texto como un Uint8Array
+        const encoder = new TextEncoder();
+        const data = encoder.encode(inputText);
+
+        // Genera el hash SHA-256
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+        // Convierte el hash a una cadena hexadecimal
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+        // Muestra el hash en el textarea
+        hashOutput.value = hashHex;
+
+        // Muestra una alerta de éxito
+        mostrarAlerta('images/hash.png', 'Hash generado con éxito');
+    } catch (error) {
+        console.error("Error al generar el hash:", error);
+        mostrarAlerta('images/warning.png', 'Error al generar el hash');
+    }
+}
+
+async function hashString(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+async function iniciarFuerzaBruta() {
+    const hashObjetivo = document.getElementById('hash-texto').value.trim();
+    const output = document.getElementById('output-texto');
+    const estadoOperacion = document.getElementById('estado-operacion');
+    
+    if (!hashObjetivo) {
+        output.value = 'Por favor, ingrese el hash objetivo.';
+        return;
+    }
+
+    const caracteres = 'abcdefghijklmnopqrstuvwxyz'; // Conjunto de caracteres
+    const maxLongitud = 4; // Longitud máxima de la contraseña
+    let encontrado = false;
+    let combinacionesProbadas = 0;
+
+    async function pruebaContraseñas(prefix) {
+        if (prefix.length > maxLongitud) return;
+
+        for (const char of caracteres) {
+            const nuevaPrefix = prefix + char;
+            combinacionesProbadas++;
+            if (combinacionesProbadas % 1000 === 0) {
+                estadoOperacion.textContent = `Probadas ${combinacionesProbadas} combinaciones...`;
+            }
+
+            const hash = await hashString(nuevaPrefix);
+            if (hash === hashObjetivo) {
+                output.value = `¡Hash encontrado! El mensaje es: ${nuevaPrefix}`;
+                estadoOperacion.textContent = 'Operación completada.';
+                encontrado = true;
+                return;
+            }
+            await pruebaContraseñas(nuevaPrefix);
+            if (encontrado) return;
+        }
+    }
+
+    estadoOperacion.textContent = 'Iniciando búsqueda...';
+    await pruebaContraseñas('');
+    if (!encontrado) {
+        output.value = 'No se encontró ninguna coincidencia.';
+        estadoOperacion.textContent = 'Operación completada.';
+    }
+}
+
+function copiar() {
+    const textarea = document.getElementById('hash-texto');
+    textarea.select();
+    document.execCommand('copy');
+}
+
+function pegar() {
+    navigator.clipboard.readText().then(text => {
+        document.getElementById('hash-texto').value = text;
+    });
+}
+
+

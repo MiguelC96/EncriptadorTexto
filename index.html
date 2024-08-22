@@ -15,10 +15,43 @@
         </div>
     </div>
 
+    <div class="botones-hash-selector">
+        <label>
+            <input type="radio" name="hash-selector" value="crc32" checked>
+            CRC32
+        </label>
+        <label>
+            <input type="radio" name="hash-selector" value="sha1">
+            SHA-1
+        </label>
+        <label>
+            <input type="radio" name="hash-selector" value="sha256">
+            SHA-256
+        </label>
+    </div>
+    
     <div class="contenedor-hash">
         <textarea id="hash-texto" placeholder="Copie o Pegue aquí su Hash"></textarea>
     </div>
-    
+    <div class="botoneshash">
+        <button class="btn-hashD" id="btn-hashD" title="Desencriptar Hash" onclick="iniciarFuerzaBruta()">
+            <img src="images/hash.png" alt="Hash">
+            <span>Desencriptar Hash</span>
+        </button>
+        <button class="btn-hash-action" id="btn-copiarhash" title="Copiar Hash" onclick="copiar()">
+            <img src="images/paper.png" alt="Copiar">
+            <span>Copiar</span>
+        </button>
+        <button class="btn-hash-action" id="btn-pegarhash" title="Pegar Hash" onclick="pegar()">
+            <img src="images/paste.png" alt="Pegar">
+            <span>Pegar</span>
+        </button>
+    </div>
+
+    <pre id="resultado"></pre>
+    <div id="estado-operacion"></div>
+
+
     <main class="main-container">
         <div class="contenedor">
             <textarea id="input-texto" placeholder="Escriba el texto aquí"></textarea>

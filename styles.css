@@ -683,6 +683,11 @@ textarea#output-texto:hover {
   }
   footer img {
     width: 25px;
+    height: 25px;
+  }
+  footer {
+    height: 40px;
+    margin-top: 10px;
   }
   body, html {
     overflow-x: hidden;

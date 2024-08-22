@@ -279,6 +279,5 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarEstadoBotonDesencriptar();
     });
 });
-// Aca empieza la funciones referentes a conversion de texto en hash usando sha256//
-// Función para generar un hash SHA-256
+
 

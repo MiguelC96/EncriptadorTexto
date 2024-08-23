@@ -7,16 +7,16 @@ function mostrarAlertaHash(icono, mensaje) {
     const alertaMensaje = document.getElementById('alerta-mensaje');
 
     alertaMensaje.textContent = mensaje;
-    alertaIcono.src = icono; // Ruta de la imagen del icono
-    alerta.classList.add('show'); // Muestra la alerta
+    alertaIcono.src = icono; 
+    alerta.classList.add('show'); 
     
-    // Oculta la alerta después de 5 segundos
+    
     setTimeout(ocultarAlertaHash, 5000);
 }
 
 function ocultarAlertaHash() {
     const alerta = document.getElementById('alerta');
-    alerta.classList.remove('show'); // Oculta la alerta
+    alerta.classList.remove('show'); 
 }
 
 // Función de fuerza bruta para desencriptar el hash
@@ -30,16 +30,16 @@ function iniciarFuerzaBruta() {
         return;
     }
 
-    // 'hashType' ya no es necesario ya que siempre se usa 'sha256'
+    
     const minLongitud = 1;
     const maxLongitud = 6;
     const caracteres = 'abcdefghijklmnopqrstuvwxyz'; 
 
-    // Limpiar mensajes anteriores
+    
     output.textContent = '';
     estadoOperacion.textContent = '';
 
-    // Configura el Web Worker
+    //Web Worker
     worker = new Worker('webworker.js');
     worker.onmessage = function(e) {
         if (e.data.tipo === 'estado') {

@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    actualizarEstadoBotonDesencriptar(); // Verifica el estado del botón al cargar la página
+    actualizarEstadoBotonDesencriptar(); 
 
-    // Añade eventos para actualizar el estado del botón cada vez que el texto cambia
+    
     const inputTexto = document.getElementById("input-texto");
     inputTexto.addEventListener("input", function() {
         filtrarEntrada(inputTexto);
@@ -21,16 +21,16 @@ function mostrarAlerta(mensaje, icono) {
     console.log('Mostrar alerta:', mensaje, icono);
 
     alertaMensaje.textContent = mensaje;
-    alertaIcono.src = icono; // Ruta de la imagen del icono
-    alerta.classList.add('show'); // Muestra la alerta
+    alertaIcono.src = icono; 
+    alerta.classList.add('show'); 
     
-    // Oculta la alerta después de 5 segundos
+    
     setTimeout(ocultarAlerta, 5000);
 }
 
 function ocultarAlerta() {
     const alerta = document.getElementById('alerta');
-    alerta.classList.remove('show'); // Oculta la alerta
+    alerta.classList.remove('show');
 }
 
 async function encriptar() {
@@ -59,7 +59,7 @@ async function encriptar() {
         .replace(/o/g, "ober")
         .replace(/u/g, "ufat");
 
-    // Muestra el texto encriptado en el área de salida
+    
     parrafo.value = result;
     mostrarAlerta('Texto encriptado', 'images/encriptado.png');
 
@@ -200,7 +200,7 @@ function pegar() {
                 document.getElementById("btn-encriptar").classList.remove('disabled');
                 actualizarEstadoBotonDesencriptar();
 
-                // Muestra la alerta de texto pegado
+               
                 mostrarAlerta('Texto pegado', 'images/pastealerta.png');
             } else {
                 mostrarAlerta('Texto no válido para pegar', 'images/warning.png');

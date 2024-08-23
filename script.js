@@ -70,22 +70,20 @@ async function encriptar() {
     desencriptarBtn.classList.remove('disabled');
 
     // Generar el hash del texto de entrada y el texto encriptado
-    const concatenatedText = `${textValue} ${result}`;
     try {
-        const hashHex = await hashString(concatenatedText, 'SHA-256');
+        const hashHex = await hashString(textValue, 'SHA-256');
         document.getElementById("hash-texto").value = hashHex;
     } catch (error) {
         console.error("Error al generar el hash:", error);
         mostrarAlerta('Error al generar el hash', 'images/warning.png');
     }
 }
-async function hashString(string, algorithm) {
+async function hashString(input, algorithm) {
     const encoder = new TextEncoder();
-    const data = encoder.encode(string);
+    const data = encoder.encode(input);
     const hashBuffer = await crypto.subtle.digest(algorithm, data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return hashHex;
+    return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
 function desencriptar() {

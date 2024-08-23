@@ -1,4 +1,3 @@
-// Variable para detener la fuerza bruta si es necesario
 let worker;
 
 // Función para mostrar alertas
@@ -7,14 +6,12 @@ function mostrarAlertaHash(icono, mensaje) {
     const alertaIcono = document.getElementById('alerta-icono');
     const alertaMensaje = document.getElementById('alerta-mensaje');
 
-    console.log('Mostrar alerta:', mensaje, icono);
-
     alertaMensaje.textContent = mensaje;
     alertaIcono.src = icono; // Ruta de la imagen del icono
     alerta.classList.add('show'); // Muestra la alerta
     
     // Oculta la alerta después de 5 segundos
-    setTimeout(ocultarAlerta, 5000);
+    setTimeout(ocultarAlertaHash, 5000);
 }
 
 function ocultarAlertaHash() {
@@ -33,18 +30,14 @@ function iniciarFuerzaBruta() {
         return;
     }
 
-    const hashType = document.querySelector('input[name="hash-selector"]:checked').value;
-
-    if (hashType !== 'sha256') {
-        output.textContent = 'Tipo de hash no soportado.';
-        return;
-    }
-
-    // Usar valores predeterminados para minLongitud y maxLongitud
-    const minLongitud = 4;
-    const maxLongitud = 64;
-
+    // 'hashType' ya no es necesario ya que siempre se usa 'sha256'
+    const minLongitud = 1;
+    const maxLongitud = 6;
     const caracteres = 'abcdefghijklmnopqrstuvwxyz'; 
+
+    // Limpiar mensajes anteriores
+    output.textContent = '';
+    estadoOperacion.textContent = '';
 
     // Configura el Web Worker
     worker = new Worker('webworker.js');
@@ -63,7 +56,6 @@ function iniciarFuerzaBruta() {
     estadoOperacion.textContent = 'Iniciando búsqueda...';
     worker.postMessage({
         hashObjetivo,
-        hashType,
         caracteres,
         minLongitud,
         maxLongitud
@@ -83,14 +75,17 @@ function copiarhash() {
     const textarea = document.getElementById('hash-texto');
     textarea.select();
     document.execCommand('copy');
-    mostrarAlerta('images/copiaralerta.png', 'Texto copiado');
+    mostrarAlertaHash('images/copiaralerta.png', 'Texto copiado');
 }
 
 // Función para pegar el hash
 function pegarhash() {
     navigator.clipboard.readText().then(text => {
         document.getElementById('hash-texto').value = text;
-        mostrarAlerta('images/copiaralerta.png', 'Texto pegado');
+        mostrarAlertaHash('images/copiaralerta.png', 'Texto pegado');
+    }).catch(err => {
+        console.error("Error al pegar del portapapeles: ", err);
+        mostrarAlertaHash('images/warning.png', 'Error al pegar el texto. Asegúrate de que la operación sea realizada desde una interacción del usuario.');
     });
 }
 

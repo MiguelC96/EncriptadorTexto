@@ -648,8 +648,8 @@ textarea#output-texto:hover {
   .botones {
     display: flex;
     flex-wrap: wrap; 
-    justify-content: space-around;/
-    gap: 5px; 
+    justify-content: space-around;
+    gap: 5px;
   }
 
   .alerta {

@@ -484,9 +484,10 @@ textarea#output-texto:hover {
 
 #estado-operacion {
   font-size: 24px;
-  color: #00ff00; 
+  color: #29dd09f8; 
   text-align: center;
   margin-top: 20px;
+  background-color: #000000;
 }
 /*////////////////// Media Queries///////////////////////////////// */
 /*//////////////////////          ////////////////////////////////  */

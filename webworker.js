@@ -1,6 +1,3 @@
-// Importar librerías desde un CDN
-importScripts('https://cdnjs.cloudflare.com/ajax/libs/crc-32/1.2.2/crc32.min.js');
-importScripts('https://cdnjs.cloudflare.com/ajax/libs/js-sha1/0.7.0/sha1.min.js');
 
 // Función auxiliar para SHA-256
 async function hashString(input, algorithm) {
@@ -13,51 +10,56 @@ async function hashString(input, algorithm) {
 
 // Evento que maneja los mensajes del hilo principal
 self.onmessage = async function (e) {
-    const { hashObjetivo, hashType, caracteres, maxLongitud } = e.data;
+    const { hashObjetivo, hashType, caracteres, minLongitud, maxLongitud } = e.data;
 
     let encontrado = false;
     let combinacionesProbadas = 0;
+    const startTime = performance.now();  // Captura el tiempo de inicio
 
     async function pruebaContraseñas(prefix) {
         if (prefix.length > maxLongitud || encontrado) return;
 
-        for (const char of caracteres) {
-            const nuevaPrefix = prefix + char;
-            combinacionesProbadas++;
+        // Comprobar si la longitud actual está dentro del rango permitido
+        if (prefix.length >= minLongitud) {
+            for (const char of caracteres) { 
+                const nuevaPrefix = prefix + char;
+                combinacionesProbadas++;
 
-            if (combinacionesProbadas % 1000 === 0) {
-                self.postMessage({ tipo: 'estado', mensaje: `Probadas ${combinacionesProbadas} combinaciones...` });
-                await new Promise(resolve => setTimeout(resolve, 0));  // Pausa para liberar el hilo principal
-            }
+                if (combinacionesProbadas % 1000 === 0) {
+                    const elapsedTime = (performance.now() - startTime) / 1000;  // Calcula el tiempo transcurrido en segundos
+                    self.postMessage({ tipo: 'estado', mensaje: `Probadas ${combinacionesProbadas} combinaciones... Tiempo transcurrido: ${elapsedTime.toFixed(2)} segundos` });
+                    await new Promise(resolve => setTimeout(resolve, 0));  // Pausa para liberar el hilo principal
+                }
 
-            let hash;
-            switch (hashType) {
-                case 'crc32':
-                    hash = CRC32.str(nuevaPrefix).toString(16);
-                    break;
-                case 'sha1':
-                    hash = sha1(nuevaPrefix);
-                    break;
-                case 'sha256':
+                let hash;
+                if (hashType === 'sha256') {
                     hash = await hashString(nuevaPrefix, 'SHA-256');
-                    break;
-                default:
+                } else {
+                    // Tipo de hash no soportado
                     hash = '';
-            }
+                }
 
-            if (hash === hashObjetivo) {
-                self.postMessage({ tipo: 'resultado', mensaje: `¡Hash encontrado! El mensaje es: ${nuevaPrefix}` });
-                encontrado = true;
-                return;
+                if (hash === hashObjetivo) {
+                    const elapsedTime = (performance.now() - startTime) / 1000;  // Calcula el tiempo transcurrido en segundos
+                    self.postMessage({ tipo: 'resultado', mensaje: `¡Hash encontrado! El mensaje es: ${nuevaPrefix}. Tiempo total: ${elapsedTime.toFixed(2)} segundos` });
+                    encontrado = true;
+                    return;
+                }
+                await pruebaContraseñas(nuevaPrefix);
+                if (encontrado) return;
             }
-            await pruebaContraseñas(nuevaPrefix);
-            if (encontrado) return;
+        } else {
+            for (const char of caracteres) {
+                await pruebaContraseñas(prefix + char);
+                if (encontrado) return;
+            }
         }
     }
 
     await pruebaContraseñas('');
 
     if (!encontrado) {
-        self.postMessage({ tipo: 'resultado', mensaje: 'No se encontró ninguna coincidencia.' });
+        const elapsedTime = (performance.now() - startTime) / 1000;  // Calcula el tiempo transcurrido en segundos
+        self.postMessage({ tipo: 'resultado', mensaje: `No se encontró ninguna coincidencia. Tiempo total: ${elapsedTime.toFixed(2)} segundos` });
     }
 };

@@ -1,74 +1,39 @@
 document.addEventListener("DOMContentLoaded", function () {
-    mostrarAlertaBienvenida();
     actualizarEstadoBotonDesencriptar(); // Verifica el estado del botón al cargar la página
 
     // Añade eventos para actualizar el estado del botón cada vez que el texto cambia
     const inputTexto = document.getElementById("input-texto");
-    inputTexto.addEventListener("input", actualizarEstadoBotonDesencriptar);
-    inputTexto.addEventListener("click", actualizarEstadoBotonDesencriptar);
+    inputTexto.addEventListener("input", function() {
+        filtrarEntrada(inputTexto);
+        actualizarEstadoBotonDesencriptar();
+    });
+    inputTexto.addEventListener("click", function() {
+        filtrarEntrada(inputTexto);
+        actualizarEstadoBotonDesencriptar();
+    });
 });
 
-function mostrarAlertaBienvenida() {
-    const overlay = document.createElement('div');
-    overlay.id = 'overlay';
-    overlay.className = 'overlay';
+function mostrarAlerta(mensaje, icono) {
+    const alerta = document.getElementById('alerta');
+    const alertaIcono = document.getElementById('alerta-icono');
+    const alertaMensaje = document.getElementById('alerta-mensaje');
 
-    // Crear el contenedor de la alerta de bienvenida
-    const alerta = document.createElement('div');
-    alerta.id = 'alerta-bienvenida';
-    alerta.className = 'alerta';
+    console.log('Mostrar alerta:', mensaje, icono);
 
-    // Define el contenido HTML de la alerta
-    alerta.innerHTML = `
-        <div class="alerta-contenido">
-            <img src="images/alertinicio.png" alt="Bienvenida" class="alerta-imagen">
-        </div>
-    `;
-
-    document.body.appendChild(overlay);
-    document.body.appendChild(alerta);
-
-    setTimeout(cerrarAlerta, 3000);
-}
-
-function cerrarAlerta() {
-    const alerta = document.getElementById('alerta-bienvenida');
-    const overlay = document.getElementById('overlay');
-    if (alerta) {
-        alerta.style.display = 'none';
-    }
-    if (overlay) {
-        overlay.style.display = 'none';
-    }
-}
-
-function mostrarAlerta(icono, mensaje) {
-    const alerta = document.getElementById("alerta");
-    const alertaIcono = document.getElementById("alerta-icono");
-    const alertaMensaje = document.getElementById("alerta-mensaje");
-
-    if (!alerta || !alertaIcono || !alertaMensaje) {
-        console.error("Elementos de alerta no encontrados");
-        return;
-    }
-
-    alertaIcono.src = icono;
     alertaMensaje.textContent = mensaje;
-    alerta.style.display = "flex";
-
-    alertaIcono.onload = () => {
-        setTimeout(() => {
-            alerta.style.display = "none";
-        }, 1000);
-    };
-
-    alertaIcono.onerror = () => {
-        console.error("No se pudo cargar el icono de alerta:", icono);
-        alerta.style.display = "none";
-    };
+    alertaIcono.src = icono; // Ruta de la imagen del icono
+    alerta.classList.add('show'); // Muestra la alerta
+    
+    // Oculta la alerta después de 5 segundos
+    setTimeout(ocultarAlerta, 5000);
 }
 
-function encriptar() {
+function ocultarAlerta() {
+    const alerta = document.getElementById('alerta');
+    alerta.classList.remove('show'); // Oculta la alerta
+}
+
+async function encriptar() {
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");
     const encriptarBtn = document.getElementById("btn-encriptar");
@@ -82,7 +47,7 @@ function encriptar() {
     const textValue = textInput.value.trim();
 
     if (textValue === "") {
-        mostrarAlerta('images/warning.png', 'Por favor ingrese un texto para encriptar');
+        mostrarAlerta('Por favor ingrese un texto para encriptar', 'images/warning.png');
         return;
     }
 
@@ -93,14 +58,34 @@ function encriptar() {
         .replace(/a/g, "ai")
         .replace(/o/g, "ober")
         .replace(/u/g, "ufat");
+
+    // Muestra el texto encriptado en el área de salida
     parrafo.value = result;
-    mostrarAlerta('images/encriptado.png', 'Texto encriptado');
+    mostrarAlerta('Texto encriptado', 'images/encriptado.png');
 
     // Deshabilita el botón de encriptar y activa el botón de desencriptar
     encriptarBtn.disabled = true;
     encriptarBtn.classList.add('disabled');
     desencriptarBtn.disabled = false;
     desencriptarBtn.classList.remove('disabled');
+
+    // Generar el hash del texto de entrada y el texto encriptado
+    const concatenatedText = `${textValue} ${result}`;
+    try {
+        const hashHex = await hashString(concatenatedText, 'SHA-256');
+        document.getElementById("hash-texto").value = hashHex;
+    } catch (error) {
+        console.error("Error al generar el hash:", error);
+        mostrarAlerta('Error al generar el hash', 'images/warning.png');
+    }
+}
+async function hashString(string, algorithm) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(string);
+    const hashBuffer = await crypto.subtle.digest(algorithm, data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
 }
 
 function desencriptar() {
@@ -117,7 +102,7 @@ function desencriptar() {
     const textValue = textInput.value.trim();
 
     if (textValue === "") {
-        mostrarAlerta('images/warning.png', 'Por favor ingrese un texto para desencriptar');
+        mostrarAlerta('Por favor ingrese un texto para desencriptar', 'images/warning.png');
         return;
     }
 
@@ -129,7 +114,7 @@ function desencriptar() {
         .replace(/ober/g, "o")
         .replace(/ufat/g, "u");
     parrafo.value = result;
-    mostrarAlerta('images/desencriptar.png', 'Texto desencriptado');
+    mostrarAlerta('Texto desencriptado', 'images/desencriptar.png');
 
     // Deshabilita el botón de desencriptar y activa el botón de encriptar
     desencriptarBtn.disabled = true;
@@ -138,20 +123,19 @@ function desencriptar() {
     encriptarBtn.classList.remove('disabled');
 }
 
-// Función para copiar el texto en el textarea al portapapeles
 function copiar() {
     const resultText = document.getElementById("output-texto").value.trim();
 
     // Verifica si hay texto para copiar
     if (resultText === "") {
-        mostrarAlerta('images/warning.png', 'No hay texto para copiar');
+        mostrarAlerta('No hay texto para copiar', 'images/warning.png');
         return;
     }
 
     if (navigator.clipboard) {
         navigator.clipboard.writeText(resultText)
             .then(() => {
-                mostrarAlerta('images/copiaralerta.png', 'Texto copiado');
+                mostrarAlerta('Texto copiado', 'images/copiaralerta.png');
                 
                 // Limpia los campos de texto y restablece el estado de los botones
                 const inputTexto = document.getElementById("input-texto");
@@ -194,31 +178,14 @@ function copiar() {
                 }
             })
             .catch(err => {
-                console.error("Error al copiar al portapapeles: ", err);
-                mostrarAlerta('images/warning.png', 'Error al copiar el texto');
+                console.error("Error al copiar texto:", err);
+                mostrarAlerta('Error al copiar texto', 'images/warning.png');
             });
     } else {
-        mostrarAlerta('images/warning.png', 'El portapapeles no es compatible con este navegador');
+        console.warn("API Clipboard no soportada");
+        mostrarAlerta('API Clipboard no soportada', 'images/warning.png');
     }
 }
-
-function validarTexto(texto) {
-    if (typeof texto !== 'string') {
-        console.error('El argumento debe ser una cadena de texto');
-        return false;
-    }
-
-    // Normaliza el texto para separar los caracteres base de sus acentos
-    const valorNormalizado = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra o espacio
-    const valorLimpiado = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
-
-  
-    return texto.trim().toLowerCase() === valorLimpiado.trim();
-}
-
-
 function pegar() {
     const inputText = document.getElementById("input-texto");
 
@@ -236,48 +203,56 @@ function pegar() {
                 actualizarEstadoBotonDesencriptar();
 
                 // Muestra la alerta de texto pegado
-                mostrarAlerta('images/pastealerta.png', 'Texto pegado'); // Ajusta la ruta de la imagen y el mensaje según sea necesario
+                mostrarAlerta('Texto pegado', 'images/pastealerta.png');
             } else {
-                mostrarAlerta('images/warning.png', 'Texto no válido para pegar');
+                mostrarAlerta('Texto no válido para pegar', 'images/warning.png');
             }
         })
         .catch(err => {
             console.error("Error al pegar del portapapeles: ", err);
-            mostrarAlerta('images/warning.png', 'Error al pegar el texto. Asegúrate de que la operación sea realizada desde una interacción del usuario.');
+
+            let errorMessage;
+            if (err.name === 'NotAllowedError') {
+                errorMessage = 'No se permite acceder al portapapeles. Asegúrate de que la operación se realice desde una interacción directa del usuario.';
+            } else {
+                errorMessage = 'Error desconocido al pegar el texto. Por favor, inténtalo de nuevo.';
+            }
+
+            mostrarAlerta(errorMessage, 'images/warning.png');
         });
 }
+function validarTexto(texto) {
+    if (typeof texto !== 'string') {
+        console.error('El argumento debe ser una cadena de texto');
+        return false;
+    }
 
+    // Normaliza el texto para separar los caracteres base de sus acentos
+    const valorNormalizado = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra o espacio
+    const valorLimpiado = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
+
+    return texto.trim().toLowerCase() === valorLimpiado.trim();
+}
+
+function filtrarEntrada(input) {
+    // Obtén el valor del campo de texto
+    const valor = input.value;
+
+    // Reemplaza caracteres no permitidos y convierte las vocales a minúsculas
+    const valorFiltrado = valor.replace(/[^a-zA-Z\s]/g, "").toLowerCase();
+    input.value = valorFiltrado;
+}
 function actualizarEstadoBotonDesencriptar() {
     const texto = document.getElementById("input-texto").value.trim();
     const botonDesencriptar = document.getElementById("btn-desencriptar");
 
-    if (botonDesencriptar) {
-        botonDesencriptar.disabled = texto === "";
-        botonDesencriptar.classList.toggle('disabled', texto === "");
+    if (texto) {
+        botonDesencriptar.disabled = false;
+        botonDesencriptar.classList.remove('disabled');
+    } else {
+        botonDesencriptar.disabled = true;
+        botonDesencriptar.classList.add('disabled');
     }
 }
-function filtrarEntrada(textarea) {
-    const texto = textarea.value;
-
-    // Permite solo letras minúsculas
-    const textoFiltrado = texto.replace(/[^a-z]/g, "");
-    textarea.value = textoFiltrado;
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    mostrarAlertaBienvenida();
-    actualizarEstadoBotonDesencriptar(); // Verifica el estado del botón al cargar la página
-
-    // Añade eventos para actualizar el estado del botón cada vez que el texto cambia
-    const inputTexto = document.getElementById("input-texto");
-    inputTexto.addEventListener("input", function() {
-        filtrarEntrada(inputTexto);
-        actualizarEstadoBotonDesencriptar();
-    });
-    inputTexto.addEventListener("click", function() {
-        filtrarEntrada(inputTexto);
-        actualizarEstadoBotonDesencriptar();
-    });
-});
-
-

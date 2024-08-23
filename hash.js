@@ -1,61 +1,25 @@
 // Variable para detener la fuerza bruta si es necesario
-let stopBruteForce = false;
 let worker;
 
 // Función para mostrar alertas
-function mostrarAlerta(imagen, mensaje) {
-    console.log(mensaje); 
+function mostrarAlertaHash(icono, mensaje) {
+    const alerta = document.getElementById('alerta');
+    const alertaIcono = document.getElementById('alerta-icono');
+    const alertaMensaje = document.getElementById('alerta-mensaje');
+
+    console.log('Mostrar alerta:', mensaje, icono);
+
+    alertaMensaje.textContent = mensaje;
+    alertaIcono.src = icono; // Ruta de la imagen del icono
+    alerta.classList.add('show'); // Muestra la alerta
+    
+    // Oculta la alerta después de 5 segundos
+    setTimeout(ocultarAlerta, 5000);
 }
 
-// Función para generar el hash basado en la selección
-async function hash() {
-    if (typeof CRC32 === 'undefined' || typeof sha1 !== 'function') {
-        console.error('CRC32 o sha1 no están definidos.');
-        mostrarAlerta('images/warning.png', 'Error en las funciones de hash.');
-        return;
-    }
-
-    const inputText = document.getElementById("input-texto").value.trim();
-    const hashOutput = document.getElementById("hash-texto");
-    const selectedHashType = document.querySelector('input[name="hash-selector"]:checked').value;
-
-    if (!inputText) {
-        mostrarAlerta('images/warning.png', 'Por favor ingrese un texto para generar el hash');
-        return;
-    }
-
-    try {
-        let hashHex;
-        switch (selectedHashType) {
-            case 'crc32':
-                hashHex = CRC32.str(inputText).toString(16); 
-                break;
-            case 'sha1':
-                hashHex = sha1(inputText); 
-                break;
-            case 'sha256':
-                hashHex = await hashString(inputText, 'SHA-256');
-                break;
-            default:
-                mostrarAlerta('images/warning.png', 'Tipo de hash no soportado');
-                return;
-        }
-
-        hashOutput.value = hashHex;
-        mostrarAlerta('images/hash.png', 'Hash generado con éxito');
-    } catch (error) {
-        console.error("Error al generar el hash:", error);
-        mostrarAlerta('images/warning.png', 'Error al generar el hash');
-    }
-}
-
-// Función para generar hash usando SHA-256
-async function hashString(input, algorithm) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input);
-    const hashBuffer = await crypto.subtle.digest(algorithm, data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+function ocultarAlertaHash() {
+    const alerta = document.getElementById('alerta');
+    alerta.classList.remove('show'); // Oculta la alerta
 }
 
 // Función de fuerza bruta para desencriptar el hash
@@ -63,30 +27,24 @@ function iniciarFuerzaBruta() {
     const hashObjetivo = document.getElementById('hash-texto').value.trim();
     const output = document.getElementById('resultado');
     const estadoOperacion = document.getElementById('estado-operacion');
-    
+
     if (!hashObjetivo) {
         output.textContent = 'Por favor, ingrese el hash objetivo.';
         return;
     }
 
-    const caracteres = 'abcdefghijklmnopqrstuvwxyz'; 
-    let maxLongitud;
     const hashType = document.querySelector('input[name="hash-selector"]:checked').value;
 
-    switch (hashType) {
-        case 'crc32':
-            maxLongitud = 8;
-            break;
-        case 'sha1':
-            maxLongitud = 8;
-            break;
-        case 'sha256':
-            maxLongitud = 4;
-            break;
-        default:
-            output.textContent = 'Tipo de hash no soportado.';
-            return;
+    if (hashType !== 'sha256') {
+        output.textContent = 'Tipo de hash no soportado.';
+        return;
     }
+
+    // Usar valores predeterminados para minLongitud y maxLongitud
+    const minLongitud = 4;
+    const maxLongitud = 64;
+
+    const caracteres = 'abcdefghijklmnopqrstuvwxyz'; 
 
     // Configura el Web Worker
     worker = new Worker('webworker.js');
@@ -107,6 +65,7 @@ function iniciarFuerzaBruta() {
         hashObjetivo,
         hashType,
         caracteres,
+        minLongitud,
         maxLongitud
     });
 }
@@ -117,18 +76,18 @@ function detenerFuerzaBruta() {
         worker.terminate();
         worker = null;
     }
-    stopBruteForce = true;
 }
 
 // Función para copiar el hash
-function copiar() {
+function copiarhash() {
     const textarea = document.getElementById('hash-texto');
     textarea.select();
     document.execCommand('copy');
+    mostrarAlerta('images/copiaralerta.png', 'Texto copiado');
 }
 
 // Función para pegar el hash
-function pegar() {
+function pegarhash() {
     navigator.clipboard.readText().then(text => {
         document.getElementById('hash-texto').value = text;
         mostrarAlerta('images/copiaralerta.png', 'Texto pegado');
@@ -137,9 +96,7 @@ function pegar() {
 
 // Inicializa eventos cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("btn-hash").addEventListener("click", hash);
     document.getElementById("btn-hashD").addEventListener("click", iniciarFuerzaBruta);
-    document.getElementById("btn-copiarhash").addEventListener("click", copiar);
-    document.getElementById("btn-pegarhash").addEventListener("click", pegar);
-    document.getElementById("btn-cancelar").addEventListener("click", detenerFuerzaBruta);
+    document.getElementById("btn-copiarhash").addEventListener("click", copiarhash);
+    document.getElementById("btn-pegarhash").addEventListener("click", pegarhash);
 });

@@ -1,17 +1,29 @@
 self.importScripts('https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js');
 
 self.onmessage = function(e) {
-    const { hashObjetivo, caracteres, longitud, workerId, numWorkers } = e.data;
-    const resultado = fuerzaBruta(hashObjetivo, caracteres, longitud, workerId, numWorkers);
+    const { hashObjetivo, caracteres, longitud, workerId, numWorkers, startTime } = e.data;
+
+    const combinaciones = generarCombinaciones(caracteres, longitud);
+    const resultado = fuerzaBruta(hashObjetivo, combinaciones, longitud, workerId, numWorkers);
+
+    // Enviar el resultado del hash encontrado o no encontrado
     self.postMessage({ tipo: 'resultado', mensaje: resultado });
+
+    // Enviar información adicional sobre el tiempo y combinaciones
+    const tiempo = Date.now() - startTime; // Calcula el tiempo transcurrido
+    const combinacionesGeneradas = combinaciones.length; // Número total de combinaciones generadas
+    self.postMessage({
+        tipo: 'info',
+        combinaciones: combinacionesGeneradas,
+        tiempo: tiempo
+    });
 };
 
-function fuerzaBruta(hashObjetivo, caracteres, longitud, workerId, numWorkers) {
-    const combinaciones = generarCombinaciones(caracteres, longitud);
+function fuerzaBruta(hashObjetivo, combinaciones, longitud, workerId, numWorkers) {
     const chunkSize = Math.ceil(combinaciones.length / numWorkers);
     const start = workerId * chunkSize;
     const end = Math.min(start + chunkSize, combinaciones.length);
-    
+
     for (let i = start; i < end; i++) {
         const combinacion = combinaciones[i];
         const hash = hashString(combinacion);
@@ -19,6 +31,7 @@ function fuerzaBruta(hashObjetivo, caracteres, longitud, workerId, numWorkers) {
             return `¡Hash encontrado! Texto: ${combinacion}`;
         }
     }
+
     return null; // No encontrado
 }
 

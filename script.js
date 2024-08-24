@@ -17,13 +17,13 @@ function mostrarAlerta(mensaje, icono) {
     const alertaIcono = document.getElementById('alerta-icono');
     const alertaMensaje = document.getElementById('alerta-mensaje');
 
-    console.log('Mostrar alerta:', mensaje, icono);
-
     alertaMensaje.textContent = mensaje;
-    alertaIcono.src = icono; 
+    alertaIcono.src = icono;
     alerta.classList.add('show'); 
-    
-    setTimeout(ocultarAlerta, 5000);
+
+    setTimeout(() => {
+        alerta.classList.remove('show');
+    }, 2000); // Oculta la alerta después de 5 segundos
 }
 
 function ocultarAlerta() {

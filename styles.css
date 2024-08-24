@@ -469,6 +469,7 @@ textarea#output-texto:hover {
 #alerta-mensaje {
   font-size: 16px;
   color: #333;
+  
 }
 
 .alerta.show {
@@ -479,15 +480,22 @@ textarea#output-texto:hover {
   line-height: 1.5;
   text-align: center;
   white-space: pre-wrap;
-  width: 100%;
+  width: auto;
+  margin-left: 30px;
+  margin-right: 30px;
+  background-color: #f0f0f0;
 }
 
 #estado-operacion {
-  font-size: 24px;
+  font-size: 30px;
   color: #29dd09f8; 
   text-align: center;
   margin-top: 20px;
   background-color: #000000;
+  width: auto;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 5px;
 }
 /*////////////////// Media Queries///////////////////////////////// */
 /*//////////////////////          ////////////////////////////////  */

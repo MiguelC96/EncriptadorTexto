@@ -545,11 +545,12 @@ textarea#output-texto:hover {
   .botones {
     display: flex;
     align-items: stretch;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-content: flex-start;
-    gap: 5px;
-    margin-bottom: 200px;
-    margin-top: -150px;
+    margin-top: -200px;
+    padding: 5px;
+    margin-left: 30px;
+    margin-right: 30px;
   }
   .selector-label {
     font-size: x-large;

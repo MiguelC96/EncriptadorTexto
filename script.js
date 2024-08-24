@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     actualizarEstadoBotonDesencriptar(); 
 
-    
     const inputTexto = document.getElementById("input-texto");
     inputTexto.addEventListener("input", function() {
         filtrarEntrada(inputTexto);
@@ -23,7 +22,6 @@ function mostrarAlerta(mensaje, icono) {
     alertaMensaje.textContent = mensaje;
     alertaIcono.src = icono; 
     alerta.classList.add('show'); 
-    
     
     setTimeout(ocultarAlerta, 5000);
 }
@@ -59,31 +57,27 @@ async function encriptar() {
         .replace(/o/g, "ober")
         .replace(/u/g, "ufat");
 
-    
     parrafo.value = result;
     mostrarAlerta('Texto encriptado', 'images/encriptado.png');
 
     // Deshabilita el botón de encriptar y activa el botón de desencriptar
-    encriptarBtn.disabled = true;
     encriptarBtn.classList.add('disabled');
     desencriptarBtn.disabled = false;
     desencriptarBtn.classList.remove('disabled');
 
     // Generar el hash del texto de entrada y el texto encriptado
     try {
-        const hashHex = await hashString(textValue, 'SHA-256');
+        const hashHex = await hashString(textValue);
         document.getElementById("hash-texto").value = hashHex;
     } catch (error) {
         console.error("Error al generar el hash:", error);
         mostrarAlerta('Error al generar el hash', 'images/warning.png');
     }
 }
-async function hashString(input, algorithm) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input);
-    const hashBuffer = await crypto.subtle.digest(algorithm, data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+function hashString(input) {
+    // Genera el hash usando CryptoJS
+    return CryptoJS.SHA256(input).toString(CryptoJS.enc.Hex);
 }
 
 function desencriptar() {
@@ -184,6 +178,7 @@ function copiar() {
         mostrarAlerta('API Clipboard no soportada', 'images/warning.png');
     }
 }
+
 function pegar() {
     const inputText = document.getElementById("input-texto");
 
@@ -200,7 +195,6 @@ function pegar() {
                 document.getElementById("btn-encriptar").classList.remove('disabled');
                 actualizarEstadoBotonDesencriptar();
 
-               
                 mostrarAlerta('Texto pegado', 'images/pastealerta.png');
             } else {
                 mostrarAlerta('Texto no válido para pegar', 'images/warning.png');
@@ -219,6 +213,7 @@ function pegar() {
             mostrarAlerta(errorMessage, 'images/warning.png');
         });
 }
+
 function validarTexto(texto) {
     if (typeof texto !== 'string') {
         console.error('El argumento debe ser una cadena de texto');
@@ -231,26 +226,26 @@ function validarTexto(texto) {
     // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra o espacio
     const valorLimpiado = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
 
-    return texto.trim().toLowerCase() === valorLimpiado.trim();
+    return valorLimpiado.trim().length > 0; // Devuelve verdadero si el texto es válido
 }
 
-function filtrarEntrada(input) {
-    // Obtén el valor del campo de texto
-    const valor = input.value;
-
-    // Reemplaza caracteres no permitidos y convierte las vocales a minúsculas
-    const valorFiltrado = valor.replace(/[^a-zA-Z\s]/g, "").toLowerCase();
-    input.value = valorFiltrado;
-}
 function actualizarEstadoBotonDesencriptar() {
-    const texto = document.getElementById("input-texto").value.trim();
-    const botonDesencriptar = document.getElementById("btn-desencriptar");
+    const inputTexto = document.getElementById("input-texto");
+    const desencriptarBtn = document.getElementById("btn-desencriptar");
 
-    if (texto) {
-        botonDesencriptar.disabled = false;
-        botonDesencriptar.classList.remove('disabled');
+    if (inputTexto && desencriptarBtn) {
+        desencriptarBtn.disabled = inputTexto.value.trim() === "";
+        desencriptarBtn.classList.toggle('disabled', inputTexto.value.trim() === "");
     } else {
-        botonDesencriptar.disabled = true;
-        botonDesencriptar.classList.add('disabled');
+        console.error("Elementos de texto o botón no encontrados");
     }
+}
+
+function filtrarEntrada(elemento) {
+    if (!elemento || !(elemento instanceof HTMLTextAreaElement)) {
+        console.error("El argumento debe ser un elemento textarea");
+        return;
+    }
+
+    elemento.value = elemento.value.replace(/[^a-zA-Z\s]/g, '');
 }

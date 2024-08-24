@@ -1,76 +1,63 @@
-let worker;
+let workers = [];
+let numWorkers = 2;
 
-// Función para mostrar alertas
-function mostrarAlertaHash(icono, mensaje) {
-    const alerta = document.getElementById('alerta');
-    const alertaIcono = document.getElementById('alerta-icono');
-    const alertaMensaje = document.getElementById('alerta-mensaje');
-
-    alertaMensaje.textContent = mensaje;
-    alertaIcono.src = icono; 
-    alerta.classList.add('show'); 
-    
-    
-    setTimeout(ocultarAlertaHash, 5000);
-}
-
-function ocultarAlertaHash() {
-    const alerta = document.getElementById('alerta');
-    alerta.classList.remove('show'); 
-}
-
-// Función de fuerza bruta para desencriptar el hash
 function iniciarFuerzaBruta() {
     const hashObjetivo = document.getElementById('hash-texto').value.trim();
     const output = document.getElementById('resultado');
     const estadoOperacion = document.getElementById('estado-operacion');
-
+    
     if (!hashObjetivo) {
         output.textContent = 'Por favor, ingrese el hash objetivo.';
         return;
     }
 
-    
-    const minLongitud = 1;
-    const maxLongitud = 6;
+    const longitud = 4; // Longitud fija de 4 letras
     const caracteres = 'abcdefghijklmnopqrstuvwxyz'; 
 
-    
     output.textContent = '';
-    estadoOperacion.textContent = '';
-
-    //Web Worker
-    worker = new Worker('webworker.js');
-    worker.onmessage = function(e) {
-        if (e.data.tipo === 'estado') {
-            estadoOperacion.textContent = e.data.mensaje;
-        } else if (e.data.tipo === 'resultado') {
-            output.textContent = e.data.mensaje;
-            estadoOperacion.textContent = 'Operación completada.';
-            if (e.data.mensaje.startsWith('¡Hash encontrado!')) {
-                detenerFuerzaBruta();
-            }
-        }
-    };
-
     estadoOperacion.textContent = 'Iniciando búsqueda...';
-    worker.postMessage({
-        hashObjetivo,
-        caracteres,
-        minLongitud,
-        maxLongitud
-    });
-}
 
-// Función para detener la fuerza bruta
-function detenerFuerzaBruta() {
-    if (worker) {
-        worker.terminate();
-        worker = null;
+    workers.forEach(worker => worker.terminate());
+    workers = [];
+
+    let tareaCompletada = false;
+    let tareasRestantes = numWorkers;
+
+    // Inicializa Web Workers
+    for (let i = 0; i < numWorkers; i++) {
+        const worker = new Worker('webworker.js');
+        worker.onmessage = function(e) {
+            if (e.data.tipo === 'resultado') {
+                if (e.data.mensaje) {
+                    output.textContent = e.data.mensaje;
+                    estadoOperacion.textContent = 'Operación completada.';
+                    tareaCompletada = true;
+                    detenerFuerzaBruta();
+                } else {
+                    tareasRestantes--;
+                    if (tareasRestantes === 0 && !tareaCompletada) {
+                        estadoOperacion.textContent = 'Hash no encontrado.';
+                    }
+                }
+            }
+        };
+        workers.push(worker);
+
+        worker.postMessage({
+            hashObjetivo,
+            caracteres,
+            longitud,
+            workerId: i,
+            numWorkers
+        });
     }
 }
 
-// Función para copiar el hash
+function detenerFuerzaBruta() {
+    workers.forEach(worker => worker.terminate());
+    workers = [];
+}
+
 function copiarhash() {
     const textarea = document.getElementById('hash-texto');
     textarea.select();
@@ -78,7 +65,6 @@ function copiarhash() {
     mostrarAlertaHash('images/copiaralerta.png', 'Texto copiado');
 }
 
-// Función para pegar el hash
 function pegarhash() {
     navigator.clipboard.readText().then(text => {
         document.getElementById('hash-texto').value = text;
@@ -89,7 +75,6 @@ function pegarhash() {
     });
 }
 
-// Inicializa eventos cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btn-hashD").addEventListener("click", iniciarFuerzaBruta);
     document.getElementById("btn-copiarhash").addEventListener("click", copiarhash);

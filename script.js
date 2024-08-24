@@ -1,3 +1,4 @@
+// BY MAC
 document.addEventListener("DOMContentLoaded", function () {
     actualizarEstadoBotonDesencriptar(); 
 

@@ -19,7 +19,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
 .logo-container {
@@ -96,7 +95,6 @@ textarea {
   margin: 20px 0;
   align-items: center;
   margin-top: -10px; 
-  margin-bottom: 100px;
 }
 
 .btn {
@@ -107,7 +105,7 @@ textarea {
   cursor: pointer;
   width: 90px; 
   height: 90px; 
-  background-color: #ffffffa2; 
+  background-color: #ffffffe3; 
   border: none; 
   border-radius: 10px; 
   color: rgb(0, 0, 0); 
@@ -127,7 +125,8 @@ textarea {
 }
 
 .btn:active {
-  transform: scale(0.95); 
+  transform: scale(0.95);
+  background-color: #00ff0d;
 }
 
 .btn[disabled] {
@@ -138,7 +137,7 @@ textarea {
 }
 
 .btn:active {
-  transform: scale(0.95); 
+  transform: scale(1.5); 
 }
 
 .btn[disabled] {
@@ -151,7 +150,7 @@ textarea {
   align-items: center;
   margin-top: 10px;
   font-size: 14px;
-  color: #666;
+  color: #000000;
 }
 
 .icono-info {
@@ -165,22 +164,21 @@ textarea {
 }
 
 footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed; 
-  bottom: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 40px; 
-  background-color: rgb(51, 51, 51); 
+  position: fixed;
+  bottom: 0; /* Ajusta este valor según la altura de tu footer */
+  left: 0;
+  width: 100%;
+  background: #000000;
+  padding: 10px;
+  text-align: center;
+  transition: bottom 0.3s ease-in-out;
 }
 
 footer img {
   width: 25px; 
   height: 25px; 
   margin: 0 10px; 
-  cursor: pointer; 
+  cursor: pointer;
 }
 textarea#output-texto {
   background-image: url('images/noisy.png'); 
@@ -215,6 +213,7 @@ textarea#output-texto:hover {
   margin-right: 30px;
   display: flex;
   align-items: center;
+  gap:10px;
 }
 
 .botoneshash {
@@ -284,7 +283,7 @@ textarea#output-texto:hover {
 }
 
 .btn-hash-action:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgb(60, 255, 0);
 }
 
 .btn-hash-action:active {
@@ -332,7 +331,6 @@ textarea#output-texto:hover {
   margin-left: 30px;
   margin-right: 30px;
 }
-.botones-hash-selector,
 .clave-container {
   flex: 1; 
 }
@@ -344,7 +342,7 @@ textarea#output-texto:hover {
   align-items: center; 
   padding: 10px; 
   box-sizing: border-box; 
-  background-color: #f7f6f7b2; 
+  background-color: #ffffffe7; 
   opacity: 0.8; 
   border: 5px solid #0c0c0c; 
   border-radius: 10px; 
@@ -356,7 +354,7 @@ textarea#output-texto:hover {
 .selector-label {
   margin-bottom: 20px; 
   font-size: 20px; 
-  color: #333; 
+  color: #000000; 
   text-align: left;
   margin-right: 20px;
 }
@@ -366,7 +364,7 @@ textarea#output-texto:hover {
   align-items: center;
   cursor: pointer;
   font-size: 20px;
-  color: #333;
+  color: #000000;
 }
 
 .botones-hash-selector input[type="radio"] {
@@ -407,11 +405,10 @@ textarea#output-texto:hover {
   color: #007BFF;
 }
 
-
 .clave-container {
   width: 50%; 
   padding: 10px; 
-  background-color: #f7f6f7b2; 
+  background-color: #ffffffe7; 
   opacity: 0.8; 
   border: 2px solid #0c0c0c;
   border-radius: 10px; 
@@ -502,25 +499,48 @@ textarea#output-texto:hover {
 
 @media (min-width: 1200px) {
   textarea {
-    font-size: 20px;
+    font-size: xx-large;
   }
   .contenedor {
       width: 100%;
-      height: 100%;
+      height: 80%;
       display: flex;
       flex-direction: row; 
       box-sizing: border-box;
       align-items: center; 
-      }
-  
+   }
+  .logo{
+    width:500px;
+    height:500px;
+    margin-top: -50px;
+  }
+  .contenedor-hash textarea {
+    height: 50px;
+    font-size: x-large;
+  }
+  .btn-hash-action{
+    font-size: 30px;
+  }
+  .btn-hash-action img {
+    width: 50px;
+    height: 50px;
+  }
+  .btn-hashD {
+   font-size: 30px;
+  }
+  .btn-hashD img {
+    width: 50px;
+    height: 50px;
+  }
   .btn-group {
     flex-direction: row; 
   }
   .btn {
     width: auto; 
     margin-bottom: 0;
-    width: 100px;
-    height: 100px;
+    font-size: 30px;
+    padding: 40px;
+    flex-direction: row;
   }
   .botones {
     display: flex;
@@ -528,12 +548,44 @@ textarea#output-texto:hover {
     justify-content: space-evenly;
     align-content: flex-start;
     gap: 5px;
+    margin-bottom: 200px;
+    margin-top: -150px;
   }
-  .contenedor-hash{
-    margin-top: -50px;
+  .selector-label {
+    font-size: x-large;
   }
+  .clave-container h2 {
+    font-size: x-large;
+  }
+  .botones-hash-selector label {
+    font-size: x-large;
+  }
+  .botones-hash-selector input[type="radio"] {
+    width: 40px;
+    height: 40px;
+  }
+  .btn img {
+    width: 80px;
+    height: 80px;
+  }
+  footer {
+    height: 60px;
+    
+  }
+  footer img {
+    width: 50px;
+    height: 50px;
+}
+#alerta-icono {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
 
+#alerta-mensaje {
+  font-size: x-large;
+}
+}
 @media (min-width: 768px) and (max-width: 1199.98px) {
   textarea {
     font-size: 18px; 

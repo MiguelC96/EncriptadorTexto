@@ -249,3 +249,14 @@ function filtrarEntrada(elemento) {
 
     elemento.value = elemento.value.replace(/[^a-zA-Z\s]/g, '');
 }
+document.addEventListener('scroll', () => {
+    const footer = document.querySelector('footer');
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    if (scrollPosition >= documentHeight) {
+        footer.style.bottom = '0';
+    } else {
+        footer.style.bottom = '-100px'; // Ajusta este valor según la altura de tu footer
+    }
+});

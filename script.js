@@ -248,7 +248,8 @@ function filtrarEntrada(elemento) {
         return;
     }
 
-    elemento.value = elemento.value.replace(/[^a-zA-Z\s]/g, '');
+    // Reemplaza cualquier carácter que no sea una letra minúscula o espacio
+    elemento.value = elemento.value.replace(/[^a-z\s]/g, '');
 }
 document.addEventListener('scroll', () => {
     const footer = document.querySelector('footer');

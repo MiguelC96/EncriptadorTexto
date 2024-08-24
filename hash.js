@@ -11,7 +11,7 @@ function iniciarFuerzaBruta() {
         return;
     }
 
-    const longitud = 6; // Longitud fija de 4 letras
+    const longitud = 4; // Longitud fija de 4 letras
     const caracteres = 'abcdefghijklmnopqrstuvwxyz'; 
 
     output.textContent = '';

@@ -1,3 +1,18 @@
+<!--BIEVENIDOS A ENCRIPTARG, DESARROLLADO COMO CHALLENGE PARA ALURA LATAM Y ORACLE
+    -LA FUNCIONALIDAD DE ESTA APLICACION ES ENTENDER COMO INTERACTURA JAVASCRIPT CON HTML MEDIANTE EL DOM.
+    -ENCRIPTACION/DESENCRIPTACION DE TEXTO MEDIANTE REMPLAZO DE VOCALES.
+    -MANEJAR ESTADO DE LOS BOTONES SEGUN LA INTERACCION DEL USUARIO, MEDIANTE EL USO DE EVENTOS.
+    -USO DE CLASES CSS PARA EL DISEÑO GENERAL, Y EL USO DE MEDIA QUERIES PARA EL DISEÑO RESPONSIVO.
+
+    ---EXTRA: 
+    -TIENE FUNCIONALIDADES EXTRA DE MI AUTORIA, QUE PROFUNDIZAN LAS TEORIAS DE ALGORITMOS CRIPTOGRAFICOS AVANZADOS COMO SHA256
+    O STANDARES DE ENCRIPTACION DE TEXTO COMO AES Y HMAC.
+    -ENCRIPTA Y GENERA UN HASH SHA256, TAMBIEN PUEDE DESENCRIPTAR HASHES DE SHA256 PARA 4 CARACTERES MEDIANTE LA FUERZA BRUTA Y OTRAS FUNCIONALIDADES.
+    ***NO TIENE FINES MALICIOSOS, SOLO EDUCATIVOS, ASI QUE USELO CON TOTAL RESPONSABILIAD***
+    *LINKEDIN:https://www.linkedin.com/in/miguel-carmona-362349187/
+    *GITHUB:https://github.com/MiguelC96/
+    *MAIL: macd5896@gmail.com
+    -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,11 +34,11 @@
 
     <div class="contenedor-hash">
         <textarea id="hash-texto" placeholder="Copie o Pegue aquí su Hash"readonly></textarea>
-        <button class="btn-hash-action" id="btn-copiarhash" title="Copiar Hash" onclick="copiarhash()">
+        <button class="btn-hash-action" id="btn-copiarhash" title="Copiar Hash" onclick="CopiarHash()">
             <img src="images/paper.png" alt="Copiar">
             <span>Copiar</span>
         </button>
-        <button class="btn-hash-action" id="btn-pegarhash" title="Pegar Hash" onclick="pegarhash()">
+        <button class="btn-hash-action" id="btn-pegarhash" title="Pegar Hash" onclick="PegarHash()">
             <img src="images/paste.png" alt="Pegar">
             <span>Pegar</span>
         </button>
@@ -40,7 +55,6 @@
 
     <div class="configuracion-container">
         <div class="botones-hash-selector">
-            <p class="selector-label">Elija el tipo de encriptación:</p>
             <label>
                 <input type="radio" name="hash-selector" value="default" checked>
                 Default

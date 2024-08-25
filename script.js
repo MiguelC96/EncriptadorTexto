@@ -1,4 +1,5 @@
-// BY MAC
+// ESTE CODIGO ES PARTE DE UN CHALLENGE PARA ALURA LATAM Y ORACLE
+// TODAS LAS FUNCIONES REFERENTES A ENCRIPTACION SHA256 SON DE MI AUTORIA Y ES DE USO LIBRE
 document.addEventListener("DOMContentLoaded", function () {
     actualizarEstadoBotonDesencriptar(); 
 
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarEstadoBotonDesencriptar();
     });
 });
-
+//MANEJO DE ALERTAS PARA CONTEDORES DE TEXTO DE ENCRIPTADO: COPIAR,PEGAR,ENCRIPTAR,DESENCRIPTAR
 function mostrarAlerta(mensaje, icono) {
     const alerta = document.getElementById('alerta');
     const alertaIcono = document.getElementById('alerta-icono');
@@ -24,14 +25,14 @@ function mostrarAlerta(mensaje, icono) {
 
     setTimeout(() => {
         alerta.classList.remove('show');
-    }, 2000); // Oculta la alerta después de 5 segundos
+    }, 2000);
 }
-
+// OCULTAR ALERTA
 function ocultarAlerta() {
     const alerta = document.getElementById('alerta');
     alerta.classList.remove('show');
 }
-
+// FUNCION DE ENCRIPTACION CON REMPLAZO DE VOCALES Y EMISION DE HASH SHA256 DE LA PALABRA O TEXTO ENCRIPTADO
 async function encriptar() {
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");
@@ -75,12 +76,12 @@ async function encriptar() {
         mostrarAlerta('Error al generar el hash', 'images/warning.png');
     }
 }
-
+// FUNCION PARA GENERAR HASH SHA256 USANDO LIBRERIA CRYPTOJS
 function hashString(input) {
     // Genera el hash usando CryptoJS
     return CryptoJS.SHA256(input).toString(CryptoJS.enc.Hex);
 }
-
+// FUNCION PARA DESENCRIPTAR TEXTO POR REMPLAZO DE VOCALES A LA INVERSA
 function desencriptar() {
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");
@@ -115,7 +116,7 @@ function desencriptar() {
     encriptarBtn.disabled = false;
     encriptarBtn.classList.remove('disabled');
 }
-
+//COPIAR EL TEXTO DEL CONTENEDOR OUTPUT USANDO NAVIGATOR.CLIPBOARD, Y ACTUALIZA BOTONES Y CONTENEDORES AL ESTADO INICIAL
 function copiar() {
     const resultText = document.getElementById("output-texto").value.trim();
 
@@ -179,7 +180,7 @@ function copiar() {
         mostrarAlerta('API Clipboard no soportada', 'images/warning.png');
     }
 }
-
+// FUNCION PARA PEGAR EL TEXTO EN EL CONTENEDOR INPUT USANDO NAVIGATOR.CLIPBOARD
 function pegar() {
     const inputText = document.getElementById("input-texto");
 
@@ -214,7 +215,7 @@ function pegar() {
             mostrarAlerta(errorMessage, 'images/warning.png');
         });
 }
-
+//FUNCION PARA VALIDACION DE TEXTO EN CONTENEDORES DE ENCRIPTADO: SOLO MINUSCULAS SIN SIMBOLOS O NUMEROS
 function validarTexto(texto) {
     if (typeof texto !== 'string') {
         console.error('El argumento debe ser una cadena de texto');
@@ -229,7 +230,7 @@ function validarTexto(texto) {
 
     return valorLimpiado.trim().length > 0; // Devuelve verdadero si el texto es válido
 }
-
+//INTERACCION DOM PARA EL BOTON DESENCRIPTAR
 function actualizarEstadoBotonDesencriptar() {
     const inputTexto = document.getElementById("input-texto");
     const desencriptarBtn = document.getElementById("btn-desencriptar");
@@ -241,7 +242,7 @@ function actualizarEstadoBotonDesencriptar() {
         console.error("Elementos de texto o botón no encontrados");
     }
 }
-
+// FUNCION PARA FILTRADO EXTRA DEL CONTENEDOR INPUT: SOLO SE PERMITEN MINUSCULAS SIN SIMBOLOS O NUMEROS
 function filtrarEntrada(elemento) {
     if (!elemento || !(elemento instanceof HTMLTextAreaElement)) {
         console.error("El argumento debe ser un elemento textarea");
@@ -251,6 +252,7 @@ function filtrarEntrada(elemento) {
     // Reemplaza cualquier carácter que no sea una letra minúscula o espacio
     elemento.value = elemento.value.replace(/[^a-z\s]/g, '');
 }
+// PARA HACER QUE EL FOOTER SOLO SEA VISIBLE CUANDO SE LLEGA AL FINAL DE LA PAGINA
 document.addEventListener('scroll', () => {
     const footer = document.querySelector('footer');
     const scrollPosition = window.innerHeight + window.scrollY;
@@ -259,6 +261,6 @@ document.addEventListener('scroll', () => {
     if (scrollPosition >= documentHeight) {
         footer.style.bottom = '0';
     } else {
-        footer.style.bottom = '-100px'; // Ajusta este valor según la altura de tu footer
+        footer.style.bottom = '-100px'; 
     }
 });

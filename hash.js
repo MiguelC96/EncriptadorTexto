@@ -1,6 +1,12 @@
+/*                       SCRIPT PARA DESENCRIPTACION DE HASHES CON SHA256.
+ LA LOGICA Y FUNCIONALIDAD DEL CODIGO ES DE MI AUTORIA, Y NO DEBE SER USADO PARA FINES MALICIOSOS.
+ NO DEBERIA MODIFICARSE PARA OPERAR A MAS DE 4 CARACTERES POR LIMITACIONES DE HARDWARE Y EVIDENTES CONFLICTOS MORALES
+           ******USELO CON RESPONSABILIDAD Y PARA FINES EDUCATIVOS REFERENTES A ENCRIPTACION**   
+           CUALQUIER CONSULTA SOBRE ESTE CODIGO ME PUEDE CONTACTAR A : macd5896@gmail.com   */
+
 let workers = [];
 let numWorkers = 2;
-
+// MANEJO DE ALERTAS PARA AREA DE HASH: COPIAR,PEGAR,DESENCRIPTAR HASH
 function mostrarAlertaHash(icono, mensaje) {
     const alerta = document.getElementById('alerta');
     const alertaIcono = document.getElementById('alerta-icono');
@@ -12,9 +18,9 @@ function mostrarAlertaHash(icono, mensaje) {
     
     setTimeout(() => {
         alerta.classList.remove('show');
-    }, 3000); // Muestra la alerta por 3 segundos
+    }, 3000); 
 }
-
+// FUNCION PARA DESENCRIPTAR HASHES SHA256 MAX 4 CARACTERES MINUS, Y MANEJO DE WEBWORKER
 function iniciarFuerzaBruta() {
     const hashObjetivo = document.getElementById('hash-texto').value.trim();
     const output = document.getElementById('resultado');
@@ -25,7 +31,7 @@ function iniciarFuerzaBruta() {
         return;
     }
 
-    const longitud = 4; // Longitud fija de 4 letras
+    const longitud = 4;
     const caracteres = 'abcdefghijklmnopqrstuvwxyz'; 
 
     output.textContent = '';
@@ -58,7 +64,7 @@ function iniciarFuerzaBruta() {
                     }
                 }
             } else if (e.data.tipo === 'info') {  // Maneja el mensaje tipo 'info'
-                const tiempo = (e.data.tiempo / 1000).toFixed(2); // Convertir tiempo a segundos
+                const tiempo = (e.data.tiempo / 1000).toFixed(2);
                 const alertaMensaje = `Combinaciones generadas: ${e.data.combinaciones}, Tiempo tomado: ${tiempo} segundos`;
                 estadoOperacion.textContent = alertaMensaje;
             }
@@ -72,17 +78,17 @@ function iniciarFuerzaBruta() {
             longitud,
             workerId: i,
             numWorkers,
-            startTime // Envía el tiempo de inicio al worker
+            startTime 
         });
     }
 }
-
+// PARA DETENER EL WORKER 
 function detenerFuerzaBruta() {
     workers.forEach(worker => worker.terminate());
     workers = [];
 }
-
-function copiarhash() {
+//COPIAR HASH EN CONTENEDOR HASH
+function CopiarHash() {
     const textarea = document.getElementById('hash-texto');
     navigator.clipboard.writeText(textarea.value).then(() => {
         mostrarAlertaHash('images/copiaralerta.png', 'Texto copiado');
@@ -91,8 +97,8 @@ function copiarhash() {
         mostrarAlertaHash('images/warning.png', 'Error al copiar el texto.');
     });
 }
-
-function pegarhash() {
+//PEGAR HASH EN CONTENEDOR HASH,CON VERIFICADOR PARA SHA256
+function PegarHash() {
     navigator.clipboard.readText().then(text => {
         // Verifica si el texto es un hash SHA-256 válido
         if (text.length === 64 && /^[a-fA-F0-9]+$/.test(text)) {

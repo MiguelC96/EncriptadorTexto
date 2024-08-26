@@ -9,6 +9,8 @@ body {
   width: 100vw;
   height: 100vh;
   background-size: cover;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
 }
 .body::before {
   content: "";
@@ -30,9 +32,10 @@ body {
 }
 .logo {
   width: 300px;
-  height: 300px;
-  top: 10px;
+  height: 100px;
   position: relative;
+  padding: 0; 
+  border: none; 
 }
 /*CONTENEDOR DE HASH Y BOTONES */
 .contenedor-hash {
@@ -349,13 +352,9 @@ textarea#output-texto:hover {
 }
 /*FOOTER E ICONOS DE REDES*/
 footer {
-  bottom: 0px; 
-  left: 0;
   width: 100%;
   background: #000000;
   text-align: center;
-  transition: bottom 0.3s ease-in-out;
-  margin-top: 10px;
   padding: 10px;
 }
 footer img {
@@ -436,44 +435,51 @@ footer img {
 
 @media (min-width: 1200px) {
   textarea {
-    font-size: x-large;
-    height: 600px;
+    font-size: large;
+    height: 400px;
   }
   .main-container{
-    margin-bottom: 10px;
+    margin-bottom: 50px;
+    height: 600px;
   }
   .contenedor {
     width: 100%;
     display: flex; 
     box-sizing: border-box;
     align-items: stretch;
-    padding: 30px;
+    padding: 10px;
+   }
+   .clave-container{
+    height: 35px;
    }
   .logo{
     width:300px;
-    height:300px;
-    margin-top: 20px;
+    height:100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
   .contenedor-hash{
     padding: 10px;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   .contenedor-hash textarea {
-    height: 70px;
-    font-size: large;
+    height: 40px;
+    font-size: medium;
   }
   .btn-hash-action{
-    font-size: large;
+    font-size: medium;
   }
   .btn-hash-action img {
     width: 30px;
     height: 30px;
   }
   .btn-hashD {
-   font-size: large;
+   font-size: medium;
   }
   .btn-hashD img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
   .btn-group {
     flex-direction: row; 
@@ -481,70 +487,81 @@ footer img {
   .btn {
     width: auto; 
     margin-bottom: 0;
-    font-size: large;
+    font-size: medium;
     padding: 10px;
     flex-direction: row;
   }
   .selector-label {
-    font-size: large;
+    font-size: medium;
   }
   .clave-container h2 {
-    font-size: large;
+    font-size: medium;
   }
   .botones-hash-selector label {
-    font-size: large;
+    font-size: medium;
   }
   .botones-hash-selector input[type="radio"] {
     width: 30px;
     height: 30px;
   }
   .btn img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
   footer {
-    height: 30px;
+    height: 40px;
   }
   footer img {
     width: 30px;
     height: 30px;
 }
 #alerta-icono {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   margin-right: 10px;
 }
 
 #alerta-mensaje {
-  font-size: x-large;
+  font-size: large;
 }
 }
 @media (min-width: 768px) and (max-width: 1199.98px) {
   
   textarea {
     font-size: x-large;
-    height: 600px;
+    height: 400px;
   }
   .main-container{
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
   .contenedor {
     width: 100%;
     display: flex; 
     box-sizing: border-box;
     align-items: stretch;
-    padding: 30px;
+    padding: 10px;
+    height: 600px;
    }
   .logo{
     width:300px;
-    height:300px;
-    margin-top: 20px;
+    height:100px;
+    margin-top: 50px;
+    margin-bottom: 25px;
   }
   .contenedor-hash textarea {
     height: 50px;
     font-size: large;
+  }
+  .contenedor-hash{
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 10px;
+  }
+  .clave-container{
+    height: 40px;
+    justify-content: center;
   }
   .btn-hash-action{
     font-size: large;
@@ -592,8 +609,8 @@ footer img {
     
   }
   footer img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
 }
 #alerta-icono {
   width: 50px;
@@ -608,7 +625,7 @@ footer img {
 @media (max-width: 767.98px) and (orientation: portrait) {
   /* Ajustes para dispositivos móviles en orientación vertical */
   textarea {
-    font-size:small;
+    font-size:medium;
     height: 300px;
   }
   .main-container{
@@ -616,6 +633,7 @@ footer img {
     margin-right: 10px;
     flex-direction: column;
     margin-bottom: 10px;
+    
   }
   .configuracion-container{
     flex-direction: column;
@@ -630,31 +648,36 @@ footer img {
     padding: 10px;
    }
   .logo{
-    width:200px;
-    height:200px;
-    margin-top: 20px;
+    width:300px;
+    height: 100px;
+    margin-top: 40px;
+    margin-bottom: 20px;
   }
   .botones-hash-selector{
-    width: 90%;
+    width: 100%;
     margin-left: 10px;
     margin-right: 10px;
   }
   .clave-container{
-    width: 90%;
+    width: 80%;
     margin-left: 10px;
     margin-right: 10px;
   }
- .contenedor-hash{
-  margin-top: -50px;
-  margin-left: 10px;
-  margin-right: 10px;
-  gap: 5px;
- }
-  .contenedor-hash textarea {
+  .contenedor-hash{
+    margin-left: 10%;
+    margin-right: 10px;
+    margin-top: 10px;
+    gap: 5px;
     height: 50px;
+    padding: 5px;
+    width: 80%;
+  }
+  .contenedor-hash textarea {
+    height: 30px;
     font-size: small;
     width: 100%;
     margin-right: 5px;
+
   }
   .btn-hash-action{
     font-size: 0;
@@ -699,8 +722,7 @@ footer img {
     height: 40px;
   }
   footer {
-    height: 40px;
-    
+    height: 30px;
   }
   footer img {
     width: 30px;
@@ -749,7 +771,7 @@ footer img {
    }
   .logo{
     width:300px;
-    height:300px;
+    height:100px;
     margin-top: 20px;
   }
   .contenedor-hash textarea {
@@ -825,9 +847,8 @@ footer img {
   }
   .main-container{
     margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
     flex-direction: column;
+    width: 100%;
   }
   .configuracion-container{
     flex-direction: column;
@@ -842,28 +863,24 @@ footer img {
     padding: 10px;
    }
   .logo{
-    width:200px;
-    height:200px;
-    margin-top: 20px;
+    width:300px;
+    height:100px;
+    margin-top: 30px;
+    margin-bottom: 10px;
   }
   .botones-hash-selector{
-    width: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
+    width: 90%;
+    height: 40px;
   }
   .clave-container{
-    width: 90%;
-    margin-left: 10px;
-    margin-right: 10px;
+    height: 40px;
   }
  .contenedor-hash{
-  margin-top: -50px;
-  margin-left: 10px;
-  margin-right: 10px;
-  gap: 5px;
+    gap: 5px;
+    height: 40px;
  }
   .contenedor-hash textarea {
-    height: 50px;
+    height: 30px;
     font-size: small;
     width: 100%;
     margin-right: 5px;
@@ -873,8 +890,8 @@ footer img {
     padding: 5px;
   }
   .btn-hash-action img {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
   .btn-hashD {
    font-size: small;
@@ -903,20 +920,20 @@ footer img {
     font-size: small;
   }
   .botones-hash-selector input[type="radio"] {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
   .btn img {
     width: 40px;
     height: 40px;
   }
   footer {
-    height: 40px;
+    height: 30px;
     
   }
   footer img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 #alerta-icono {
   width: 50px;

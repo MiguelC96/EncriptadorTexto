@@ -117,8 +117,8 @@ function desencriptar() {
     encriptarBtn.classList.remove('disabled');
 }
 //COPIAR EL TEXTO DEL CONTENEDOR OUTPUT USANDO NAVIGATOR.CLIPBOARD, Y ACTUALIZA BOTONES Y CONTENEDORES AL ESTADO INICIAL
-function copiar() {
-    const resultText = document.getElementById("output-texto").value.trim();
+    function copiar() {
+        const resultText = document.getElementById("output-texto").value.trim();
 
     // Verifica si hay texto para copiar
     if (resultText === "") {
@@ -252,15 +252,3 @@ function filtrarEntrada(elemento) {
     // Reemplaza cualquier carácter que no sea una letra minúscula o espacio
     elemento.value = elemento.value.replace(/[^a-z\s]/g, '');
 }
-// PARA HACER QUE EL FOOTER SOLO SEA VISIBLE CUANDO SE LLEGA AL FINAL DE LA PAGINA
-document.addEventListener('scroll', () => {
-    const footer = document.querySelector('footer');
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const documentHeight = document.documentElement.scrollHeight;
-
-    if (scrollPosition >= documentHeight) {
-        footer.style.bottom = '0';
-    } else {
-        footer.style.bottom = '-100px'; 
-    }
-});

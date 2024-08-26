@@ -6,6 +6,9 @@ body {
   padding: 0;
   background-color: #f0f0f0;
   background: url('images/fondo.png') no-repeat center center fixed;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
 }
 .body::before {
   content: "";
@@ -26,9 +29,9 @@ body {
   margin-top: -20px;
 }
 .logo {
-  width: 400px;
-  height: 400px;
-  top: -50px;
+  width: 300px;
+  height: 300px;
+  top: 10px;
   position: relative;
 }
 /*CONTENEDOR DE HASH Y BOTONES */
@@ -40,8 +43,8 @@ body {
   border: 3px solid #ffffff; 
   border-radius: 10px;
   margin: 0 auto 20px auto;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
   display: flex;
   align-items: center;
   gap:10px;
@@ -53,10 +56,9 @@ body {
   justify-content: space-around;
 }
 .contenedor-hash textarea {
-  flex: 1; 
   height: 40px; 
   padding: 10px;
-  font-size: 16px;
+  font-size: x-small;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: none; 
@@ -142,16 +144,15 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   margin-bottom: 20px; 
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .clave-container {
   flex: 1; 
 }
 .botones-hash-selector {
-  flex: 1; 
   display: flex;
   flex-direction: row; 
   justify-content: center; 
@@ -168,10 +169,10 @@ body {
 }
 .selector-label {
   margin-bottom: 20px; 
-  font-size: 20px; 
+  font-size: x-small; 
   color: #000000; 
   text-align: left;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 .botones-hash-selector label {
   display: flex;
@@ -213,8 +214,7 @@ body {
 .botones-hash-selector input[type="radio"]:checked + label {
   color: #007BFF;
 }
-.clave-container {
-  width: 50%; 
+.clave-container { 
   padding: 10px; 
   background-color: #ffffffe7; 
   opacity: 0.8; 
@@ -225,7 +225,9 @@ body {
   color: #333;
   border: 5px solid #0c0c0c;
   display: flex; 
-  flex-direction: column; 
+  flex-direction: column;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .clave-container h2 {
   font-size: 20px;
@@ -242,29 +244,24 @@ main {
   display: flex;
   flex-direction: row;
   gap: 20px; 
-  padding: 20px;
-  flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
+  padding: 20px;  
   overflow: hidden; 
 }
 .main-container {
   display: flex;
   flex-direction: row; 
   flex-wrap: nowrap; 
-  gap: 20px; 
-  width: 100%;
-  height: 100%; 
+  gap: 20px;  
   margin-left: 10px;
   margin-right: 10px;
   box-sizing: border-box;
+  margin-bottom: 50px;
 }
 .contenedor {
-  flex: 1; 
   display: flex;
   flex-direction: column; 
   justify-content:  space-between;;
-  align-items: center;
+  align-items: stretch;
   padding: 20px;
   box-sizing: border-box;
   background-color: #f7f6f7b2;
@@ -273,10 +270,11 @@ main {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   overflow: hidden;
+  gap: 10px;
+
 }
 textarea {
   width: 100%;
-  height: 100%;
   padding: 10px;
   box-sizing: border-box;
   border: none;
@@ -287,34 +285,23 @@ textarea {
   background-color: rgb(0 0 0 / 86%);
   color: #fff;
 }
-.botones {
-  display: flex;
-  justify-content: center;
-  gap: 20px; 
-  margin: 20px 0;
-  align-items: center;
-  margin-top: -10px; 
-}
 .btn {
   display: flex;
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
   cursor: pointer;
-  width: 90px; 
-  height: 90px; 
-  background-color: #ffffffe3; 
-  border: none; 
+  background-color: #ffffffe3;  
   border-radius: 10px; 
   color: rgb(0, 0, 0); 
-  font-size: 16px;
+  font-size: x-small;
   text-align: center;
-  padding: 10px; 
+  padding: 0px; 
   transition: transform 0.2s ease; 
 }
 .btn img {
-  width: 50px; 
-  height: 50px;
+  width: 30px; 
+  height: 30px;
   object-fit: contain;
   margin-bottom: 5px;
 }
@@ -351,7 +338,6 @@ textarea#output-texto {
   border: 1px solid #ccc; 
   padding: 10px;
   width: 100%;
-  height: 100%;
   resize: none; 
   ::placeholder {
       color: transparent; 
@@ -363,14 +349,14 @@ textarea#output-texto:hover {
 }
 /*FOOTER E ICONOS DE REDES*/
 footer {
-  position: fixed;
-  bottom: 0; 
+  bottom: 0px; 
   left: 0;
   width: 100%;
   background: #000000;
-  padding: 10px;
   text-align: center;
   transition: bottom 0.3s ease-in-out;
+  margin-top: 10px;
+  padding: 10px;
 }
 footer img {
   width: 25px; 
@@ -395,7 +381,7 @@ footer img {
   display: flex;
   align-items: center;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: x-small;
   color: #000000;
 }
 .icono-info {
@@ -418,31 +404,31 @@ footer img {
   margin-right: 10px;
 }
 #alerta-mensaje {
-  font-size: 16px;
+  font-size: small;
   color: #333;
 }
 .alerta.show {
   display: block;
 }
 #resultado {
-  font-size: 48px;
+  font-size: large;
   line-height: 1.5;
   text-align: center;
   white-space: pre-wrap;
   width: auto;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
   background-color: #f0f0f0;
 }
 #estado-operacion {
-  font-size: 30px;
+  font-size: large;
   color: #29dd09f8; 
   text-align: center;
   margin-top: 20px;
   background-color: #000000;
   width: auto;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 5px;
 }
 /*////////////////// Media Queries///////////////////////////////// */
@@ -450,38 +436,40 @@ footer img {
 
 @media (min-width: 1200px) {
   textarea {
-    font-size: xx-large;
+    font-size: x-large;
+    height: 600px;
   }
   .main-container{
-    height: 800px;
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
   .contenedor {
-      width: 100%;
-      height: 80%;
-      display: flex;
-      flex-direction: row; 
-      box-sizing: border-box;
-      align-items: center; 
+    width: 100%;
+    display: flex; 
+    box-sizing: border-box;
+    align-items: stretch;
+    padding: 30px;
    }
   .logo{
-    width:500px;
-    height:500px;
-    margin-top: -50px;
+    width:300px;
+    height:300px;
+    margin-top: 20px;
+  }
+  .contenedor-hash{
+    padding: 10px;
   }
   .contenedor-hash textarea {
-    height: 50px;
-    font-size: x-large;
+    height: 70px;
+    font-size: large;
   }
   .btn-hash-action{
-    font-size: 30px;
+    font-size: large;
   }
   .btn-hash-action img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
   .btn-hashD {
-   font-size: 30px;
+   font-size: large;
   }
   .btn-hashD img {
     width: 50px;
@@ -493,45 +481,33 @@ footer img {
   .btn {
     width: auto; 
     margin-bottom: 0;
-    font-size: 30px;
-    padding: 40px;
+    font-size: large;
+    padding: 10px;
     flex-direction: row;
   }
-  .botones {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    align-content: flex-start;
-    margin-top: -100px;
-    padding: 5px;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 100px;
-  }
   .selector-label {
-    font-size: x-large;
+    font-size: large;
   }
   .clave-container h2 {
-    font-size: x-large;
+    font-size: large;
   }
   .botones-hash-selector label {
-    font-size: x-large;
+    font-size: large;
   }
   .botones-hash-selector input[type="radio"] {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
   .btn img {
-    width: 80px;
-    height: 80px;
-  }
-  footer {
-    height: 60px;
-    
-  }
-  footer img {
     width: 50px;
     height: 50px;
+  }
+  footer {
+    height: 30px;
+  }
+  footer img {
+    width: 30px;
+    height: 30px;
 }
 #alerta-icono {
   width: 50px;
@@ -544,353 +520,501 @@ footer img {
 }
 }
 @media (min-width: 768px) and (max-width: 1199.98px) {
+  
   textarea {
-    font-size: 18px; 
-  }
-  .contenedor {
-    width: 100%;
-    height: 80%;
-    display: flex;
-    flex-direction: row; 
-    box-sizing: border-box;
-    align-items: center; 
-    
-  }
-  .btn-group {
-    flex-direction: column;
-  }
-  .btn {
-    width: 90%;
-    margin-bottom: 10px;
-    width: 100px;
-    height: 100px;
-  }
-  .botones {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
-    align-content: flex-start;
-    gap: 5px;
+    font-size: x-large;
+    height: 600px;
   }
   .main-container{
-    height: 500px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
   }
-}
-@media (max-width: 767.98px) and (orientation: portrait) {
-  /* Ajustes para dispositivos móviles en orientación vertical */
   .contenedor {
-    padding: 10px;
-    height: 80%;
-    max-width: 100%;
-    margin-right: 30px;
-  }
-  .background{
-    padding: 0px;
+    width: 100%;
+    display: flex; 
+    box-sizing: border-box;
+    align-items: stretch;
+    padding: 30px;
+   }
+  .logo{
+    width:300px;
+    height:300px;
     margin-top: 20px;
   }
-  .main-container {
-    padding: 10px;
-    margin-bottom: -100px;
-    height: 400px;
-  
+  .contenedor-hash textarea {
+    height: 50px;
+    font-size: large;
   }
-  .logo{
-    width: 250px;
-    height: 250px;
+  .btn-hash-action{
+    font-size: large;
   }
-  textarea {
-    width: 100%;
-    height: 100%;
-    font-size: 18px;
+  .btn-hash-action img {
+    width: 30px;
+    height: 30px;
   }
-  .botones {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around; 
-    flex-wrap: wrap; 
-    gap: 5px; 
-    margin-top: -50px; 
-  
+  .btn-hashD {
+   font-size: large;
+  }
+  .btn-hashD img {
+    width: 30px;
+    height: 30px;
+  }
+  .btn-group {
+    flex-direction: row; 
   }
   .btn {
-    width: 90px;
-    height: 90px;
-    font-size: 14px;
+    width: auto; 
+    margin-bottom: 0;
+    font-size: 0;
+    padding: 10px;
+    flex-direction: row;
+  }
+  .selector-label {
+    font-size: large;
+  }
+  .clave-container h2 {
+    font-size: large;
+  }
+  .botones-hash-selector label {
+    font-size: large;
+  }
+  .botones-hash-selector input[type="radio"] {
+    width: 30px;
+    height: 30px;
   }
   .btn img {
     width: 40px;
     height: 40px;
   }
-  .alerta {
-    font-size: 12px;
-    padding: 5px;
+  footer {
+    height: 40px;
+    
   }
   footer img {
-    width: 25px;
-  }
-  .botoneshash{
-   width: 100%;
-  }
+    width: 30px;
+    height: 30px;
+}
+#alerta-icono {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
 
-@media (max-width: 767.98px) and (orientation: landscape) {
-  .contenedor {
-    padding: 10px; 
-    height: 90%;
-    max-width: 100%;
-  }
-
-  .main-container {
-    width: 100%;
-    height: 400px;
-    overflow-x: hidden; 
-    margin-top: -100px;
-  }
-
+#alerta-mensaje {
+  font-size: large;
+}
+}
+@media (max-width: 767.98px) and (orientation: portrait) {
+  /* Ajustes para dispositivos móviles en orientación vertical */
   textarea {
-    height: 100%; 
-    width: 100%;
-    font-size: 14px;
+    font-size:small;
+    height: 300px;
   }
+  .main-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  .configuracion-container{
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .contenedor {
+    width: 100%;
+    display: flex; 
+    box-sizing: border-box;
+    align-items: stretch;
+    padding: 10px;
+   }
   .logo{
-    width: 100px;
-    height: 100px;
+    width:200px;
+    height:200px;
+    margin-top: 20px;
+  }
+  .botones-hash-selector{
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .clave-container{
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+ .contenedor-hash{
+  margin-top: -50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  gap: 5px;
+ }
+  .contenedor-hash textarea {
+    height: 50px;
+    font-size: small;
+    width: 100%;
+    margin-right: 5px;
+  }
+  .btn-hash-action{
+    font-size: 0;
+    padding: 5px;
+  }
+  .btn-hash-action img {
+    width: 30px;
+    height: 30px;
+  }
+  .btn-hashD {
+   font-size: large;
+  }
+  .btn-hashD img {
+    width: 30px;
+    height: 30px;
   }
   .btn-group {
     flex-direction: row; 
-    flex-wrap: wrap; 
   }
-
   .btn {
-    width: 80px;
-    height: 80px;
-    font-size: 12px;
-  }
-
-  .btn img {
-    width: 30px;
-    height: 30px;
-  }
-
-  .botones {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-around;
-    gap: 5px;
-  }
-
-  .alerta {
-    font-size: 12px; 
-    padding: 5px;
-  }
-
-  footer img {
-    width: 25px;
-  }
-
-  body, html {
-    overflow-x: hidden;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  .logo-container{
-    position: relative; 
-    text-align: center; 
-  }
-  .logo{
-    width: 200px;
-    height: 200px;
-  }
-}
-@media (max-width: 575.98px) and (orientation:portrait) {
-  .logo{
-    width: 200px;
-    height: 200px;
-    margin-top: 20px;
-  }
-  .contenedor {
-    width: 100%;
-    height: 70%;
-  }
-  .main-container{
-    overflow-x: hidden;
-    max-width: 100%;
-    margin-top: 30px;
-  }
-  textarea {
-    height: 100%;
-    width: 100%;
-    font-size: 14px;
-  }
-  .btn-group {
+    width: auto; 
+    margin-bottom: 0;
+    font-size: small;
+    padding: 10px;
     flex-direction: row;
   }
-  .btn {
-    width: 60px;
-    height: 60px;
-    font-size: 10px;
-    margin: 1px;
+  .selector-label {
+    font-size: small;
+  }
+  .clave-container h2 {
+    font-size: small;
+  }
+  .botones-hash-selector label {
+    font-size: small;
+  }
+  .botones-hash-selector input[type="radio"] {
+    width: 30px;
+    height: 30px;
   }
   .btn img {
-    width: 30px;
-    height: 30px;
-  }
-  .btn-hash img {
-    width: 30px;
-    height: 30px;
-  }
-  .botones {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
-    align-content: flex-start;
-    gap: 5px;
-    margin-top: -50px;
-    flex-wrap: nowrap;
-  }
-  .alerta {
-    font-size: 12px; 
-    padding: 5px;
-  }
-  footer img {
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
   }
   footer {
     height: 40px;
-    margin-top: 10px;
+    
   }
-  body, html {
-    overflow-x: hidden;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  footer img {
+    width: 30px;
+    height: 30px;
 }
-.botoneshash{
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  align-content: center;
- }
-
-.btn-hash-action{
-  padding: 5px;
-  margin: 0px;
-  justify-content: center;
-  font-size: 12px;
-  gap: 0;
-}
-.btn-hashD {
-  font-size: small;
-  padding: 5px;
-}
-.contenedor-hash textarea{
-  width: 100%;
-  height: 30px;
-  font-size: small;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin:0px;
-}
-.contenedor-hash{
-  padding: 5px;
+#alerta-icono {
+  width: 50px;
   height: 50px;
+  margin-right: 10px;
 }
-.btn-hash-action img{
-  width: 25px;
-  height: 25px;
+
+#alerta-mensaje {
+  font-size: small;
 }
-.configuracion-container {
-  gap: 5px;
+#estado-operacion {
+  font-size: small;
+}
+}
+
+@media (max-width: 767.98px) and (orientation: landscape) {
+  textarea {
+    font-size: medium;
+    height: 300px;
+  }
+  .main-container{
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 10px;
+    width: 100%;
+  }
+  .clave-container{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .botones-hash-selector{
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .contenedor {
+    width: 100%;
+    display: flex; 
+    box-sizing: border-box;
+    align-items: stretch;
+    padding: 10px;
+   }
+  .logo{
+    width:300px;
+    height:300px;
+    margin-top: 20px;
+  }
+  .contenedor-hash textarea {
+    height: 50px;
+    font-size: small;
+  }
+  .btn-hash-action{
+    font-size: small;
+  }
+  .btn-hash-action img {
+    width: 30px;
+    height: 30px;
+  }
+  .btn-hashD {
+   font-size: small;
+  }
+  .btn-hashD img {
+    width: 30px;
+    height: 30px;
+  }
+  .btn-group {
+    flex-direction: row; 
+  }
+  .btn {
+    width: auto; 
+    margin-bottom: 0;
+    font-size: 0;
+    padding: 10px;
+    flex-direction: row;
+  }
+  .selector-label {
+    font-size: small;
+  }
+  .clave-container h2 {
+    font-size: small;
+  }
+  .botones-hash-selector label {
+    font-size: small;
+  }
+  .botones-hash-selector input[type="radio"] {
+    width: 30px;
+    height: 30px;
+  }
+  .btn img {
+    width: 40px;
+    height: 40px;
+  }
+  footer {
+    height: 40px;
+    
+  }
+  footer img {
+    width: 30px;
+    height: 30px;
+}
+#alerta-icono {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+#alerta-mensaje {
+  font-size: small;
+}
+#estado-operacion {
+  font-size: small;
+}
+}
+@media (max-width: 575.98px) and (orientation:portrait) {
+  textarea {
+    font-size:medium;
+    height: 300px;
+  }
+  .main-container{
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+  }
+  .configuracion-container{
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .contenedor {
+    width: 100%;
+    display: flex; 
+    box-sizing: border-box;
+    align-items: stretch;
+    padding: 10px;
+   }
+  .logo{
+    width:200px;
+    height:200px;
+    margin-top: 20px;
+  }
+  .botones-hash-selector{
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .clave-container{
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+ .contenedor-hash{
+  margin-top: -50px;
   margin-left: 10px;
   margin-right: 10px;
-  flex-direction: column;
+  gap: 5px;
+ }
+  .contenedor-hash textarea {
+    height: 50px;
+    font-size: small;
+    width: 100%;
+    margin-right: 5px;
+  }
+  .btn-hash-action{
+    font-size: 0;
+    padding: 5px;
+  }
+  .btn-hash-action img {
+    width: 30px;
+    height: 30px;
+  }
+  .btn-hashD {
+   font-size: small;
+  }
+  .btn-hashD img {
+    width: 30px;
+    height: 30px;
+  }
+  .btn-group {
+    flex-direction: row; 
+  }
+  .btn {
+    width: auto; 
+    margin-bottom: 0;
+    font-size: 0;
+    padding: 10px;
+    flex-direction: row;
+  }
+  .selector-label {
+    font-size: small;
+  }
+  .clave-container h2 {
+    font-size: small;
+  }
+  .botones-hash-selector label {
+    font-size: small;
+  }
+  .botones-hash-selector input[type="radio"] {
+    width: 30px;
+    height: 30px;
+  }
+  .btn img {
+    width: 40px;
+    height: 40px;
+  }
+  footer {
+    height: 40px;
+    
+  }
+  footer img {
+    width: 30px;
+    height: 30px;
 }
-.clave-container h2 {
-  font-size: small;
+#alerta-icono {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
-.clave-container{
-  height: 100px;
-}
-.selector-label {
-  font-size: small;
-  margin-bottom: 0px;
-}
-.botones-hash-selector {
-  padding: 0px;
-  height: 100px;
-}
-.botones-hash-selector label{
-  font-size: small;
-  margin-bottom: -10px;
 
+#alerta-mensaje {
+  font-size: small;
 }
-.botones-hash-selector label::before{
-  width: 10px;
-  height: 10px;
-}
-textarea#output-texto{
-  background-size: 80% cover; 
-  background-position: center; 
+#estado-operacion {
+  font-size: small;
 }
 }
 @media (max-width: 575.98px) and (orientation: landscape) {
   /* Estilos específicos para pantallas horizontales en dispositivos pequeños */
-  .contenedor {
-    height: auto; 
-    max-width: 100%;
-  }
-
-  .main-container {
-    overflow-x: hidden;
-    width: 100%;
-  }
   textarea {
-    height: 100%; 
+    font-size: medium;
+    height: 400px;
+  }
+  .main-container{
+    margin-bottom: 10px;
+  }
+  .contenedor {
     width: 100%;
+    display: flex; 
+    box-sizing: border-box;
+    align-items: stretch;
+    padding: 30px;
+   }
+  .logo{
+    width:300px;
+    height:300px;
+    margin-top: 20px;
   }
-
-  .btn-group {
-    flex-direction: row; 
+  .contenedor-hash textarea {
+    height: 50px;
+    font-size: small;
   }
-
-  .btn {
-    width: 40px;
-    height: 40px;
-    font-size: 11px;
+  .btn-hash-action{
+    font-size: small;
   }
-
-  .btn img {
+  .btn-hash-action img {
     width: 30px;
     height: 30px;
   }
-
-  .botones {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
-    align-content: flex-start;
-    gap: 5px; 
+  .btn-hashD {
+   font-size: small;
   }
-
-  .alerta {
-    font-size: 12px;
-    padding: 5px;
+  .btn-hashD img {
+    width: 30px;
+    height: 30px;
   }
-
+  .btn-group {
+    flex-direction: row; 
+  }
+  .btn {
+    width: auto; 
+    margin-bottom: 0;
+    font-size: 0;
+    padding: 10px;
+    flex-direction: row;
+  }
+  .selector-label {
+    font-size: small;
+  }
+  .clave-container h2 {
+    font-size: small;
+  }
+  .botones-hash-selector label {
+    font-size: small;
+  }
+  .botones-hash-selector input[type="radio"] {
+    width: 30px;
+    height: 30px;
+  }
+  .btn img {
+    width: 40px;
+    height: 40px;
+  }
+  footer {
+    height: 40px;
+    
+  }
   footer img {
-    width: 25px;
-  }
+    width: 30px;
+    height: 30px;
+}
+#alerta-icono {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
 
-  body, html {
-    overflow-x: hidden;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  .botoneshash{
-    width: 80%;
-  }
+#alerta-mensaje {
+  font-size: small;
+}
+#estado-operacion {
+  font-size: small;
+}
 }

@@ -21,7 +21,7 @@ function mostrarAlerta(mensaje, icono) {
 
     alertaMensaje.textContent = mensaje;
     alertaIcono.src = icono;
-    alerta.classList.add('show'); 
+    alerta.classList.add('show');
 
     setTimeout(() => {
         alerta.classList.remove('show');
@@ -74,21 +74,14 @@ async function encriptar() {
     desencriptarBtn.disabled = false;
     desencriptarBtn.classList.remove('disabled');
 
-    // Generar el hash del texto de entrada y el texto encriptado
-    try {
-        const hashHex = await hashString(textValue);
+    // Generar y mostrar el hash del texto de entrada
+    const hashHex = generarHash(textValue);
+    if (hashHex) {
         document.getElementById("hash-texto").value = hashHex;
-    } catch (error) {
-        console.error("Error al generar el hash:", error);
-        mostrarAlerta('Error al generar el hash', 'images/warning.png');
     }
 }
-// FUNCION PARA GENERAR HASH SHA256 USANDO LIBRERIA CRYPTOJS
-function hashString(input) {
-    // Genera el hash usando CryptoJS
-    return CryptoJS.SHA256(input).toString(CryptoJS.enc.Hex);
-}
-// FUNCION PARA DESENCRIPTAR TEXTO POR REMPLAZO DE VOCALES A LA INVERSA
+
+// FUNCION PARA DESENCRIPTAR
 function desencriptar() {
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");
@@ -114,6 +107,7 @@ function desencriptar() {
         .replace(/ai/g, "a")
         .replace(/ober/g, "o")
         .replace(/ufat/g, "u");
+
     parrafo.value = result;
     mostrarAlerta('Texto desencriptado', 'images/desencriptar.png');
 
@@ -124,10 +118,9 @@ function desencriptar() {
     encriptarBtn.classList.remove('disabled');
 }
 //COPIAR EL TEXTO DEL CONTENEDOR OUTPUT USANDO NAVIGATOR.CLIPBOARD, Y ACTUALIZA BOTONES Y CONTENEDORES AL ESTADO INICIAL
-    function copiar() {
-        const resultText = document.getElementById("output-texto").value.trim();
+function copiar() {
+    const resultText = document.getElementById("output-texto").value.trim();
 
-    // Verifica si hay texto para copiar
     if (resultText === "") {
         mostrarAlerta('No hay texto para copiar', 'images/warning.png');
         return;
@@ -198,16 +191,12 @@ function pegar() {
 
     navigator.clipboard.readText()
         .then(text => {
-            if (validarTexto(text)) {
-                inputText.value = text;
-                document.getElementById("btn-encriptar").disabled = false;
-                document.getElementById("btn-encriptar").classList.remove('disabled');
-                actualizarEstadoBotonDesencriptar();
+            inputText.value = text; // Permite todos los caracteres
+            document.getElementById("btn-encriptar").disabled = false;
+            document.getElementById("btn-encriptar").classList.remove('disabled');
+            actualizarEstadoBotonDesencriptar();
 
-                mostrarAlerta('Texto pegado', 'images/pastealerta.png');
-            } else {
-                mostrarAlerta('Texto no válido para pegar', 'images/warning.png');
-            }
+            mostrarAlerta('Texto pegado', 'images/pastealerta.png');
         })
         .catch(err => {
             console.error("Error al pegar del portapapeles: ", err);
@@ -222,8 +211,17 @@ function pegar() {
             mostrarAlerta(errorMessage, 'images/warning.png');
         });
 }
-//FUNCION PARA VALIDACION DE TEXTO EN CONTENEDORES DE ENCRIPTADO: SOLO MINUSCULAS SIN SIMBOLOS O NUMEROS
+
+// FUNCION PARA VALIDAR TEXTO
 function validarTexto(texto) {
+    const seleccion = document.querySelector('input[name="hash-selector"]:checked');
+    
+    // Si 'aes' o 'hmac' están seleccionados, desactiva la validación
+    if (seleccion && (seleccion.value === 'aes' || seleccion.value === 'hmac')) {
+        return true; // Permite cualquier texto cuando 'aes' o 'hmac' están seleccionados
+    }
+
+    // Verifica que el argumento sea una cadena de texto
     if (typeof texto !== 'string') {
         console.error('El argumento debe ser una cadena de texto');
         return false;
@@ -235,27 +233,44 @@ function validarTexto(texto) {
     // Convierte todo el texto a minúsculas y elimina cualquier carácter que no sea una letra o espacio
     const valorLimpiado = valorNormalizado.toLowerCase().replace(/[^a-z\s]/g, "");
 
-    return valorLimpiado.trim().length > 0; // Devuelve verdadero si el texto es válido
+    // Devuelve verdadero si el texto tiene longitud mayor a 0, es decir, no está vacío
+    return valorLimpiado.trim().length > 0;
 }
-//INTERACCION DOM PARA EL BOTON DESENCRIPTAR
+
+// FUNCION PARA ACTUALIZAR ESTADO DEL BOTON DESENCRIPTAR
 function actualizarEstadoBotonDesencriptar() {
     const inputTexto = document.getElementById("input-texto");
     const desencriptarBtn = document.getElementById("btn-desencriptar");
-
+    
     if (inputTexto && desencriptarBtn) {
-        desencriptarBtn.disabled = inputTexto.value.trim() === "";
-        desencriptarBtn.classList.toggle('disabled', inputTexto.value.trim() === "");
+        desencriptarBtn.disabled = !validarTexto(inputTexto.value.trim());
     } else {
         console.error("Elementos de texto o botón no encontrados");
     }
 }
 // FUNCION PARA FILTRADO EXTRA DEL CONTENEDOR INPUT: SOLO SE PERMITEN MINUSCULAS SIN SIMBOLOS O NUMEROS
-function filtrarEntrada(elemento) {
+function filtrarEntrada(event) {
+    const elemento = event.target;
+
+    // Verifica que el elemento sea un textarea
     if (!elemento || !(elemento instanceof HTMLTextAreaElement)) {
         console.error("El argumento debe ser un elemento textarea");
+        return;
+    }
+
+    const seleccion = document.querySelector('input[name="hash-selector"]:checked');
+
+    // Si 'aes' o 'hmac' están seleccionados, permite todos los caracteres
+    if (seleccion && (seleccion.value === 'aes' || seleccion.value === 'hmac')) {
         return;
     }
 
     // Reemplaza cualquier carácter que no sea una letra minúscula o espacio
     elemento.value = elemento.value.replace(/[^a-z\s]/g, '');
 }
+
+// Asegúrate de agregar esta función al evento 'input' de los textareas relevantes
+const textareas = document.querySelectorAll('textarea');
+textareas.forEach(textarea => {
+    textarea.addEventListener('input', filtrarEntrada);
+});

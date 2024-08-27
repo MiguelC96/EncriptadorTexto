@@ -115,6 +115,6 @@ function PegarHash() {
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btn-hashD").addEventListener("click", iniciarFuerzaBruta);
-    document.getElementById("btn-copiarhash").addEventListener("click", copiarhash);
-    document.getElementById("btn-pegarhash").addEventListener("click", pegarhash);
+    document.getElementById("btn-copiarhash").addEventListener("click", CopiarHash);
+    document.getElementById("btn-pegarhash").addEventListener("click", PegarHash);
 });

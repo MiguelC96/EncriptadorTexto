@@ -27,12 +27,19 @@ function mostrarAlerta(mensaje, icono) {
         alerta.classList.remove('show');
     }, 2000);
 }
-// OCULTAR ALERTA
-function ocultarAlerta() {
-    const alerta = document.getElementById('alerta');
-    alerta.classList.remove('show');
+
+// FUNCION PARA GENERAR HASH SHA256
+function generarHash(texto) {
+    try {
+        return CryptoJS.SHA256(texto).toString(CryptoJS.enc.Hex);
+    } catch (error) {
+        console.error('Error generando hash SHA256:', error);
+        alert('Error generando hash SHA256.');
+        return null;
+    }
 }
-// FUNCION DE ENCRIPTACION CON REMPLAZO DE VOCALES Y EMISION DE HASH SHA256 DE LA PALABRA O TEXTO ENCRIPTADO
+
+// FUNCION DE ENCRIPTACION
 async function encriptar() {
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");

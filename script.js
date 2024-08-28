@@ -1,17 +1,19 @@
-// ESTE CODIGO ES PARTE DE UN CHALLENGE PARA ALURA LATAM Y ORACLE
-// TODAS LAS FUNCIONES REFERENTES A ENCRIPTACION SHA256 SON DE MI AUTORIA Y ES DE USO LIBRE
 document.addEventListener("DOMContentLoaded", function () {
     actualizarEstadoBotonDesencriptar(); 
 
     const inputTexto = document.getElementById("input-texto");
-    inputTexto.addEventListener("input", function() {
-        filtrarEntrada(inputTexto);
-        actualizarEstadoBotonDesencriptar();
-    });
-    inputTexto.addEventListener("click", function() {
-        filtrarEntrada(inputTexto);
-        actualizarEstadoBotonDesencriptar();
-    });
+    if (inputTexto) {
+        inputTexto.addEventListener("input", function(event) {
+            filtrarEntrada(event.target);
+            actualizarEstadoBotonDesencriptar();
+        });
+        inputTexto.addEventListener("click", function(event) {
+            filtrarEntrada(event.target);
+            actualizarEstadoBotonDesencriptar();
+        });
+    } else {
+        console.error("Elemento 'input-texto' no encontrado");
+    }
 });
 //MANEJO DE ALERTAS PARA CONTEDORES DE TEXTO DE ENCRIPTADO: COPIAR,PEGAR,ENCRIPTAR,DESENCRIPTAR
 function mostrarAlerta(mensaje, icono) {
@@ -216,9 +218,9 @@ function pegar() {
 function validarTexto(texto) {
     const seleccion = document.querySelector('input[name="hash-selector"]:checked');
     
-    // Si 'aes' o 'hmac' están seleccionados, desactiva la validación
-    if (seleccion && (seleccion.value === 'aes' || seleccion.value === 'hmac')) {
-        return true; // Permite cualquier texto cuando 'aes' o 'hmac' están seleccionados
+    // Si 'aes' o 'triple-des' están seleccionados, desactiva la validación
+    if (seleccion && (seleccion.value === 'aes' || seleccion.value === 'triple-des')) {
+        return true; // Permite cualquier texto cuando 'aes' o 'triple-des' están seleccionados
     }
 
     // Verifica que el argumento sea una cadena de texto
@@ -249,19 +251,11 @@ function actualizarEstadoBotonDesencriptar() {
     }
 }
 // FUNCION PARA FILTRADO EXTRA DEL CONTENEDOR INPUT: SOLO SE PERMITEN MINUSCULAS SIN SIMBOLOS O NUMEROS
-function filtrarEntrada(event) {
-    const elemento = event.target;
-
-    // Verifica que el elemento sea un textarea
-    if (!elemento || !(elemento instanceof HTMLTextAreaElement)) {
-        console.error("El argumento debe ser un elemento textarea");
-        return;
-    }
-
+function filtrarEntrada(elemento) {
     const seleccion = document.querySelector('input[name="hash-selector"]:checked');
 
-    // Si 'aes' o 'hmac' están seleccionados, permite todos los caracteres
-    if (seleccion && (seleccion.value === 'aes' || seleccion.value === 'hmac')) {
+    // Si 'aes' o 'triple-des' están seleccionados, permite todos los caracteres
+    if (seleccion && (seleccion.value === 'aes' || seleccion.value === 'triple-des')) {
         return;
     }
 

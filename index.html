@@ -65,12 +65,12 @@
             AES
         </label>
         <label>
-            <input type="radio" name="hash-selector" value="hmac">
-            HMAC
+            <input type="radio" name="hash-selector" value="triple-des">
+            Triple-DES
         </label>
     </div>
 </div>
-      <!-- Contenedor para la clave y el hash de HMAC, visible solo cuando es necesario -->
+      <!-- Contenedor para la clave, visible solo cuando es necesario -->
       <div id="menu-desplegable">
         <div id="menu-toggle">X</div>
         <div class="clave-container">
@@ -79,21 +79,16 @@
             <div id="toggle-key-visibility" class="menu-button">Mostrar/Ocultar</div>
             <div id="copy-key" class="menu-button">Copiar Clave</div>
         </div>
-        
-        <div class="hmac-hash-container" id="hmac-hash-container">
-            <label for="hmac-hash-valor">Hash HMAC:</label>
-            <textarea id="hmac-hash-valor" class="menu-textarea" placeholder="Ingrese el hash HMAC aquí..."></textarea>
-        </div>
     </div>
 <!-- contenedores de texto para encriptar y desencriptar-->
 <main class="main-container">
     <div class="contenedor">
         <textarea id="input-texto" placeholder="Escriba el texto aquí"></textarea>
-        <button class="btn" id="btn-encriptar" title="Encriptar texto" onclick="encriptar(); encriptarPorSelector()">
+        <button class="btn" id="btn-encriptar" title="Encriptar texto" onclick="encriptar();">
             <img src="images/shield1.png" alt="Encriptar">
             <span>Encriptar</span>
         </button>
-            <button class="btn" id="btn-desencriptar" title="Desencriptar texto" onclick="desencriptar(); desencriptarPorSelector()" disabled>
+            <button class="btn" id="btn-desencriptar" title="Desencriptar texto" onclick="desencriptar()" disabled>
                 <img src="images/unlock.png" alt="Desencriptar">
                 <span>Desencriptar</span>
             </button>

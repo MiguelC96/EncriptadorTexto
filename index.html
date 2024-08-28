@@ -1,5 +1,5 @@
 <!--BIEVENIDOS A ENCRIPTARG, DESARROLLADO COMO CHALLENGE PARA ALURA LATAM Y ORACLE
-    -LA FUNCIONALIDAD DE ESTA APLICACION ES ENTENDER COMO INTERACTURA JAVASCRIPT CON HTML MEDIANTE EL DOM.
+    -LA FUNCIONALIDAD DE ESTA APLICACION ES ENTENDER COMO INTERACTURA JAVASCRIPT CON HTML MEDIANTE EL DOM Y SUS LIMITES O USO OPTIMO PARA CADA CASO.
     -ENCRIPTACION/DESENCRIPTACION DE TEXTO MEDIANTE REMPLAZO DE VOCALES.
     -MANEJAR ESTADO DE LOS BOTONES SEGUN LA INTERACCION DEL USUARIO, MEDIANTE EL USO DE EVENTOS.
     -USO DE CLASES CSS PARA EL DISEÑO GENERAL, Y EL USO DE MEDIA QUERIES PARA EL DISEÑO RESPONSIVO.
@@ -33,7 +33,7 @@
 <body>
     <div class="background">
         <div class="logo-container">
-            <img src="images/logo.png" alt="Logo de EncriptARG" class="logo">
+            <img src="images/logo.png" alt="Logo de EncriptARG" class="logo" id="logo">
         </div>
     </div>
     <!-- bloque superior donde esta el oontedor de hash-->
@@ -60,6 +60,10 @@
 <!--bloque donde esta el label selector y contenedor de key-->
 <div class="configuracion-container">
     <div class="botones-hash-selector">
+        <label>
+            <input type="radio" name="hash-selector" value="default" checked>
+            AUTO
+        </label>
         <label>
             <input type="radio" name="hash-selector" value="aes">
             AES
@@ -128,6 +132,5 @@
     <script src="script.js"></script>
     <script src="hash.js"></script>
     <script src="webworker.js"></script>
-    <script src="encript.js"></script>
 </body>
 </html>

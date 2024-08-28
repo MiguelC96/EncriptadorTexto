@@ -15,6 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Elemento 'input-texto' no encontrado");
     }
 });
+//ACTUALIZA LA PAGINA CON CLICK AL LOGO
+document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.getElementById('logo');
+    
+    if (logo) {
+        logo.addEventListener('click', () => {
+        
+            window.location.reload();
+        });
+    }
+});
+
 //MANEJO DE ALERTAS PARA CONTEDORES DE TEXTO DE ENCRIPTADO: COPIAR,PEGAR,ENCRIPTAR,DESENCRIPTAR
 function mostrarAlerta(mensaje, icono) {
     const alerta = document.getElementById('alerta');
@@ -31,93 +43,261 @@ function mostrarAlerta(mensaje, icono) {
 }
 
 // FUNCION PARA GENERAR HASH SHA256
-function generarHash(texto) {
+function generarHash(texto, usarSalt = false) {
     try {
-        return CryptoJS.SHA256(texto).toString(CryptoJS.enc.Hex);
+        const salt = usarSalt ? generarSalt() : '';
+        return CryptoJS.SHA256(texto + salt).toString(CryptoJS.enc.Hex);
     } catch (error) {
         console.error('Error generando hash SHA256:', error);
         alert('Error generando hash SHA256.');
         return null;
     }
 }
+// Función para generar una clave aleatoria
+function generarClave(longitud = 16) {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let clave = '';
+    for (let i = 0; i < longitud; i++) {
+        clave += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return clave;
+}
+
+// Función para generar un salt aleatorio
+function generarSalt(longitud = 16) {
+    return CryptoJS.lib.WordArray.random(longitud).toString(CryptoJS.enc.Hex);
+}
+
+// Función para encriptar usando AES
+function encriptarAES(texto, clave) {
+    try {
+        const iv = CryptoJS.lib.WordArray.random(16); // Generar un IV aleatorio
+        const encrypted = CryptoJS.AES.encrypt(texto, CryptoJS.enc.Utf8.parse(clave), { iv: iv });
+        return iv.toString(CryptoJS.enc.Base64) + ':' + encrypted.toString();
+    } catch (error) {
+        console.error('Error encriptando con AES:', error);
+        mostrarAlerta('Error encriptando con AES.', 'images/warning.png');
+        return null;
+    }
+}
+
+// Función para desencriptar usando AES
+function desencriptarAES(textoEncriptado, clave) {
+    try {
+        const key = CryptoJS.enc.Utf8.parse(clave); // Convertir clave a formato adecuado
+        const parts = textoEncriptado.split(':');
+        if (parts.length !== 2) {
+            throw new Error('Formato del texto encriptado incorrecto.');
+        }
+        const iv = CryptoJS.enc.Base64.parse(parts[0]);
+        const encryptedText = parts[1];
+        const decrypted = CryptoJS.AES.decrypt(encryptedText, key, { iv: iv });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+        console.error('Error desencriptando con AES:', error);
+        mostrarAlerta('Error desencriptando con AES.', 'images/warning.png');
+        return null;
+    }
+}
+
+// Función para encriptar usando Triple DES
+function encriptarTripleDES(texto, clave) {
+    try {
+        const iv = CryptoJS.lib.WordArray.random(8); // Generar un IV aleatorio para Triple DES
+        const encrypted = CryptoJS.TripleDES.encrypt(texto, CryptoJS.enc.Utf8.parse(clave), { iv: iv });
+        return iv.toString(CryptoJS.enc.Base64) + ':' + encrypted.toString();
+    } catch (error) {
+        console.error('Error encriptando con Triple DES:', error);
+        mostrarAlerta('Error encriptando con Triple DES.', 'images/warning.png');
+        return null;
+    }
+}
+
+// Función para desencriptar usando Triple DES
+function desencriptarTripleDES(textoEncriptado, clave) {
+    try {
+        const key = CryptoJS.enc.Utf8.parse(clave); 
+        const parts = textoEncriptado.split(':');
+        if (parts.length !== 2) {
+            throw new Error('Formato del texto encriptado incorrecto.');
+        }
+        const iv = CryptoJS.enc.Base64.parse(parts[0]); 
+        const encryptedText = parts[1];
+        const decrypted = CryptoJS.TripleDES.decrypt(encryptedText, key, { iv: iv });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+        console.error('Error desencriptando con Triple DES:', error);
+        mostrarAlerta('Error desencriptando con Triple DES.', 'images/warning.png');
+        return null;
+    }
+}
+// Función para mostrar u ocultar el menú desplegable
+function mostrarMenuDesplegable(visible) {
+    const menuDesplegable = document.getElementById('menu-desplegable');
+    if (visible) {
+        menuDesplegable.classList.add('open');
+    } else {
+        menuDesplegable.classList.remove('open');
+    }
+}
 
 // FUNCION DE ENCRIPTACION
-async function encriptar() {
+function encriptar() {
+    // Obtiene elementos
     const textInput = document.getElementById("input-texto");
     const parrafo = document.getElementById("output-texto");
     const encriptarBtn = document.getElementById("btn-encriptar");
-    const desencriptarBtn = document.getElementById("btn-desencriptar");
+    const metodoSeleccionado = document.querySelector('input[name="hash-selector"]:checked');
 
-    if (!textInput || !parrafo || !encriptarBtn || !desencriptarBtn) {
-        console.error("Elementos de texto, párrafo o botón no encontrados");
+    // Verifica que los elementos existen
+    if (!textInput || !parrafo || !encriptarBtn || !metodoSeleccionado) {
+        console.error("No se encontraron uno o más elementos necesarios en el DOM");
+        mostrarAlerta('Error al acceder a los elementos de la página.', 'images/error.png');
         return;
     }
 
     const textValue = textInput.value.trim();
-
     if (textValue === "") {
         mostrarAlerta('Por favor ingrese un texto para encriptar', 'images/warning.png');
         return;
     }
 
-    // Reemplaza las vocales por sus equivalentes encriptados
-    const result = textValue
-        .replace(/e/g, "enter")
-        .replace(/i/g, "imes")
-        .replace(/a/g, "ai")
-        .replace(/o/g, "ober")
-        .replace(/u/g, "ufat");
+    let textoEncriptado;
+    let clave;
 
-    parrafo.value = result;
-    mostrarAlerta('Texto encriptado', 'images/encriptado.png');
-
-    // Deshabilita el botón de encriptar y activa el botón de desencriptar
-    encriptarBtn.classList.add('disabled');
-    desencriptarBtn.disabled = false;
-    desencriptarBtn.classList.remove('disabled');
-
-    // Generar y mostrar el hash del texto de entrada
-    const hashHex = generarHash(textValue);
-    if (hashHex) {
-        document.getElementById("hash-texto").value = hashHex;
+    switch (metodoSeleccionado.value) {
+        case 'aes':
+            clave = generarClave(); // Generar clave automáticamente
+            document.getElementById("clave-valor").value = clave; 
+            textoEncriptado = encriptarAES(textValue, clave);
+            mostrarMenuDesplegable(true);
+            break;
+        case 'triple-des':
+            clave = generarClave(); // Generar clave automáticamente
+            document.getElementById("clave-valor").value = clave; 
+            textoEncriptado = encriptarTripleDES(textValue, clave);
+            mostrarMenuDesplegable(true);
+            break;
+        case 'default':
+        default:
+            // Método por defecto de alura
+            textoEncriptado = textValue
+                .replace(/e/g, "enter")
+                .replace(/i/g, "imes")
+                .replace(/a/g, "ai")
+                .replace(/o/g, "ober")
+                .replace(/u/g, "ufat");
+            break;
     }
+
+    // Verificar si la encriptación fue exitosa
+    if (textoEncriptado) {
+        parrafo.value = textoEncriptado;
+        mostrarAlerta('Texto encriptado', 'images/encriptado.png');
+
+        // Muestra el hash si es necesario
+        const hashTexto = metodoSeleccionado.value === 'default' ? 
+            generarHash(textValue) : 
+            generarHash(textoEncriptado);
+        document.getElementById("hash-texto").value = hashTexto;
+    } else {
+        mostrarAlerta('Error durante la encriptación', 'images/error.png');
+    }
+
+    // Habilita el botón de desencriptar y desactiva el botón de encriptar
+    document.getElementById('btn-desencriptar').disabled = false;
+    encriptarBtn.classList.add('disabled');
 }
 
 // FUNCION PARA DESENCRIPTAR
 function desencriptar() {
-    const textInput = document.getElementById("input-texto");
-    const parrafo = document.getElementById("output-texto");
+    // Obtiene elementos
+    const inputTexto = document.getElementById("input-texto");
+    const outputTexto = document.getElementById("output-texto");
     const desencriptarBtn = document.getElementById("btn-desencriptar");
-    const encriptarBtn = document.getElementById("btn-encriptar");
+    const metodoSeleccionado = document.querySelector('input[name="hash-selector"]:checked');
 
-    if (!textInput || !parrafo || !desencriptarBtn || !encriptarBtn) {
-        console.error("Elementos de texto, párrafo o botón no encontrados");
+    // Verificar que los elementos existen
+    if (!inputTexto || !outputTexto || !desencriptarBtn || !metodoSeleccionado) {
+        console.error("No se encontraron uno o más elementos necesarios en el DOM");
+        mostrarAlerta('Error al acceder a los elementos de la página.', 'images/error.png');
         return;
     }
 
-    const textValue = textInput.value.trim();
-
-    if (textValue === "") {
-        mostrarAlerta('Por favor ingrese un texto para desencriptar', 'images/warning.png');
+    const textoEncriptado = inputTexto.value.trim();
+    if (textoEncriptado === "") {
+        mostrarAlerta('Por favor ingrese el texto encriptado en el área de entrada', 'images/warning.png');
         return;
     }
 
-    // Reemplaza las cadenas encriptadas por las vocales originales
-    const result = textValue
-        .replace(/enter/g, "e")
-        .replace(/imes/g, "i")
-        .replace(/ai/g, "a")
-        .replace(/ober/g, "o")
-        .replace(/ufat/g, "u");
+    let textoDesencriptado;
+    let clave;
 
-    parrafo.value = result;
-    mostrarAlerta('Texto desencriptado', 'images/desencriptar.png');
+    switch (metodoSeleccionado.value) {
+        case 'aes':
+            clave = document.getElementById("clave-valor").value.trim(); // Obtener clave del text key
+            if (!clave) {
+                mostrarAlerta('Por favor ingrese una clave para AES', 'images/warning.png');
+                mostrarMenuDesplegable(true);
+                return;
+            }
+            textoDesencriptado = desencriptarAES(textoEncriptado, clave);
+            mostrarMenuDesplegable(true);
+            break;
+        case 'triple-des':
+            clave = document.getElementById("clave-valor").value.trim(); // Obtener clave del text key
+            if (!clave) {
+                mostrarAlerta('Por favor ingrese una clave para Triple DES', 'images/warning.png');
+                mostrarMenuDesplegable(true);
+                return;
+            }
+            textoDesencriptado = desencriptarTripleDES(textoEncriptado, clave);
+            mostrarMenuDesplegable(true);
+            break;
+        case 'default':
+        default:
+            // Método por defecto
+            textoDesencriptado = textoEncriptado
+                .replace(/enter/g, "e")
+                .replace(/imes/g, "i")
+                .replace(/ai/g, "a")
+                .replace(/ober/g, "o")
+                .replace(/ufat/g, "u");
+            break;
+    }
 
-    // Deshabilita el botón de desencriptar y activa el botón de encriptar
+    // Verificar si la desencriptación fue exitosa
+    if (textoDesencriptado !== undefined) {
+        outputTexto.value = textoDesencriptado;
+        mostrarAlerta('Texto desencriptado', 'images/desencriptar.png');
+    } else {
+        mostrarAlerta('Error durante la desencriptación', 'images/error.png');
+    }
+
+    // Habilita el botón de encriptar y desactiva el botón de desencriptar
+    document.getElementById('btn-encriptar').disabled = false;
     desencriptarBtn.disabled = true;
     desencriptarBtn.classList.add('disabled');
-    encriptarBtn.disabled = false;
-    encriptarBtn.classList.remove('disabled');
+    mostrarMenuDesplegable(false);
+}
+
+// FUNCION PARA COOPIAR EL KEY DENTRO DEL MENU DESPLEGABLE
+function copiarClave() {
+    const claveTextarea = document.getElementById('clave-valor');
+    if (claveTextarea.value.trim() === "") {
+        mostrarAlerta('No hay clave para copiar', 'images/warning.png');
+        return;
+    }
+    navigator.clipboard.writeText(claveTextarea.value)
+        .then(() => {
+            mostrarAlerta('Clave copiada', 'images/copiaralerta.png');
+            claveTextarea.value = ""; 
+            mostrarMenuDesplegable(false);
+        })
+        .catch(err => {
+            console.error("Error al copiar clave:", err);
+            mostrarAlerta('Error al copiar clave', 'images/warning.png');
+        });
 }
 //COPIAR EL TEXTO DEL CONTENEDOR OUTPUT USANDO NAVIGATOR.CLIPBOARD, Y ACTUALIZA BOTONES Y CONTENEDORES AL ESTADO INICIAL
 function copiar() {
@@ -262,8 +442,11 @@ function filtrarEntrada(elemento) {
     // Reemplaza cualquier carácter que no sea una letra minúscula o espacio
     elemento.value = elemento.value.replace(/[^a-z\s]/g, '');
 }
+document.getElementById('copy-key').addEventListener('click', copiarClave);
+document.getElementById('menu-toggle').addEventListener('click', function() {
+    mostrarMenuDesplegable(false); // Cierra el menú desplegable
+});
 
-// Asegúrate de agregar esta función al evento 'input' de los textareas relevantes
 const textareas = document.querySelectorAll('textarea');
 textareas.forEach(textarea => {
     textarea.addEventListener('input', filtrarEntrada);

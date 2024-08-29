@@ -12,7 +12,6 @@
     ***NO TIENE FINES MALICIOSOS, SOLO EDUCATIVOS, ASÍ QUE ÚSELO CON TOTAL RESPONSABILIDAD***
     * LINKEDIN: https://www.linkedin.com/in/miguel-carmona-362349187/
     * GITHUB: https://github.com/MiguelC96/
-    
 -->
 <!DOCTYPE html> 
 <html lang="es">
@@ -28,33 +27,16 @@
     <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Audiowide:400">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-
 </head>
 <body>
     <div class="background">
         <div class="logo-container">
-            <img src="images/logo.png" alt="Logo de EncriptARG" class="logo" id="logo">
+            <img src="images/LOGO.svg" alt="Logo de EncriptARG" class="logo" id="logo">
         </div>
     </div>
     <button id="infoBtn">
         <img src="images/info.png" alt="Info">
     </button>
-
-    <!-- Modal -->
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Información del Proyecto</h2>
-            <p>Aquí puedes explicar el funcionamiento del proyecto y los FAQs.</p>
-            <h3>FAQ</h3>
-            <ul>
-                <li><strong>Pregunta 1:</strong> Respuesta 1</li>
-                <li><strong>Pregunta 2:</strong> Respuesta 2</li>
-                <!-- Agrega más preguntas y respuestas según sea necesario -->
-            </ul>
-        </div>
-    </div>
-
     <!-- bloque superior donde esta el oontedor de hash-->
     <div class="contenedor-hash">
         <textarea id="hash-texto" placeholder="Copie o Pegue aquí su Hash"readonly></textarea>
@@ -116,7 +98,6 @@
                 <span>Desencriptar</span>
             </button>
     </div>
-
     <div class="contenedor">
         <textarea id="output-texto" readonly></textarea>
             <button class="btn" id="btn-pegar" title="Pegar texto" onclick="pegar()">
@@ -129,8 +110,6 @@
             </button>
     </div>
 </main>
-
-
     <!--manejo de alertas-->
       <div id="alerta" class="alerta">
         <div class="alerta-contenido">
@@ -138,8 +117,57 @@
             <span id="alerta-mensaje"></span>
         </div>
     </div>
-    <!-- ALERTAS-->
-    
+      <!-- Modal -->
+      <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sobre EncriptARG:</h2>
+            <p>¡Hola y bienvenido a EncriptARG! 🎉 Aquí, te ofrecemos un conjunto de herramientas poderosas diseñadas para ayudarte a entender y mejorar la seguridad de tus contraseñas y datos. Ya sea que estés interesado en explorar encriptación, verificar la robustez de tus contraseñas o simplemente aprender más sobre cómo se protegen los datos, estás en el lugar correcto.</p>
+            <h3>FAQ</h3>
+            <ul>
+                <div class="faq-container"></div>
+                    <ul>
+                        <li class="faq-item">
+                            <strong>¿Qué puedes hacer aquí?:</strong>
+                            ¡Protege y verifica tus datos de manera efectiva! Encripta información con AES y Triple DES para asegurar el acceso exclusivo con tu clave secreta. Genera y verifica hashes con SHA-256, y mejora la seguridad con "salt". Además, usa nuestra herramienta de fuerza bruta para poner a prueba la robustez de tus contraseñas y ver cómo se resisten a ataques exhaustivos.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Qué es un hash y por qué es importante?</strong>
+                            Un hash es una "huella digital" de tus datos. Es único para cada entrada y se usa para verificar la integridad de los datos y almacenar contraseñas de manera segura.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Cómo mejora el uso de un "salt" la seguridad?</strong>
+                            Añadir un salt a un hash hace que cada hash sea único, incluso si las contraseñas originales son iguales. Esto hace que sea mucho más difícil para los atacantes usar técnicas de ataque precomputadas.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Qué es un ataque de fuerza bruta?</strong>
+                            Un ataque de fuerza bruta prueba todas las posibles combinaciones hasta encontrar la correcta. Aunque puede ser lento, es una técnica exhaustiva para descifrar contraseñas o datos encriptados.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Cómo se distribuye el trabajo en un ataque de fuerza bruta?</strong>
+                            Nuestra aplicación utiliza varios hilos de trabajo para dividir la tarea de prueba de combinaciones entre diferentes procesos, acelerando el tiempo necesario para encontrar la contraseña correcta.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Qué es AES y Triple DES?</strong>
+                            AES y Triple DES son algoritmos de encriptación que protegen tus datos. AES es rápido y seguro, usando bloques de 128 bits y claves de 128, 192 o 256 bits. Triple DES aplica DES tres veces con claves de 56 bits, proporcionando mayor seguridad pero con menor rendimiento que AES.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Cómo se genera la clave para AES y Triple DES?</strong>
+                            Para AES y Triple DES, la clave se genera aleatoriamente al encriptar un mensaje. Para AES, puedes usar claves de 128, 192 o 256 bits, mientras que Triple DES utiliza una clave de 168 bits (aplicando DES tres veces). Estas claves aseguran que solo tú, con la clave correcta, puedas acceder a la información encriptada.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Cómo funciona el método por defecto?</strong>
+                            El método por defecto en nuestra herramienta reemplaza las vocales en el texto con valores encriptados. Es útil para aprender sobre encriptación básica, pero no ofrece la seguridad avanzada de AES o Triple DES.
+                        </li>
+                        <li class="faq-item">
+                            <strong>¿Es legal usar esta herramienta?</strong>
+                            Utiliza esta herramienta solo para propósitos educativos o para evaluar la seguridad de sistemas en los que tienes permiso para hacerlo. No se debe usar para acceder a datos sin autorización.
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </div>
     <footer>
         <a href="https://www.linkedin.com/in/miguel-carmona-362349187/" target="_blank">
             <img src="images/linkedin1.png" alt="LinkedIn">

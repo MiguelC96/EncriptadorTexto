@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    actualizarEstadoBotonDesencriptar(); 
+    // Inicializa el estado del botón de desencriptar
+    actualizarEstadoBotonDesencriptar();
 
     const inputTexto = document.getElementById("input-texto");
     if (inputTexto) {
@@ -387,6 +388,7 @@ function copiar() {
         mostrarAlerta('API Clipboard no soportada', 'images/warning.png');
     }
 }
+
 // FUNCION PARA PEGAR EL TEXTO EN EL CONTENEDOR INPUT USANDO NAVIGATOR.CLIPBOARD
 function pegar() {
     const inputText = document.getElementById("input-texto");
@@ -469,7 +471,7 @@ function filtrarEntrada(elemento) {
 }
 document.getElementById('copy-key').addEventListener('click', copiarClave);
 document.getElementById('menu-toggle').addEventListener('click', function() {
-    mostrarMenuDesplegable(false); // Cierra el menú desplegable
+    mostrarMenuDesplegable(false);
 });
 
 const textareas = document.querySelectorAll('textarea');

@@ -26,7 +26,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+//MANEJO DE MODAL PARA MOSTRAR INFO
+// Obtener el modal
+var modal = document.getElementById("infoModal");
 
+// Obtener el botón que abre el modal
+var btn = document.getElementById("infoBtn");
+
+// Obtener el elemento <span> que cierra el modal
+var span = document.getElementsByClassName("close")[0];
+
+// Cuando el usuario hace clic en el botón, se abre el modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// Cuando el usuario hace clic en <span> (x), se cierra el modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Cuando el usuario hace clic fuera del modal, se cierra el modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 //MANEJO DE ALERTAS PARA CONTEDORES DE TEXTO DE ENCRIPTADO: COPIAR,PEGAR,ENCRIPTAR,DESENCRIPTAR
 function mostrarAlerta(mensaje, icono) {
     const alerta = document.getElementById('alerta');

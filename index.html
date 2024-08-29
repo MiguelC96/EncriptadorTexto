@@ -22,7 +22,7 @@
     <title>Encriptador de Texto - EncriptARG</title>
     <meta name="description" content="EncriptARG - Encriptador de texto online seguro y fácil de usar. Protege tu información sensible con nuestro encriptador de texto gratuito con AES,TRIPLE DES.">
     <meta name="keywords" content="encriptador de texto, EncriptARG, encriptar, desencriptar, seguridad, cifrado,SHA256,AES,HMAC">
-    <meta name="author" content="Miguel Antonio Carmona">
+    <meta name="author" content="MAC">
     <link rel="icon" href="images\android-icon-192x192.png" type="image/x-icon">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Audiowide:400">
@@ -36,6 +36,25 @@
             <img src="images/logo.png" alt="Logo de EncriptARG" class="logo" id="logo">
         </div>
     </div>
+    <button id="infoBtn">
+        <img src="images/info.png" alt="Info">
+    </button>
+
+    <!-- Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Información del Proyecto</h2>
+            <p>Aquí puedes explicar el funcionamiento del proyecto y los FAQs.</p>
+            <h3>FAQ</h3>
+            <ul>
+                <li><strong>Pregunta 1:</strong> Respuesta 1</li>
+                <li><strong>Pregunta 2:</strong> Respuesta 2</li>
+                <!-- Agrega más preguntas y respuestas según sea necesario -->
+            </ul>
+        </div>
+    </div>
+
     <!-- bloque superior donde esta el oontedor de hash-->
     <div class="contenedor-hash">
         <textarea id="hash-texto" placeholder="Copie o Pegue aquí su Hash"readonly></textarea>
@@ -50,7 +69,7 @@
     </div>
     <div class="botoneshash">
         <button class="btn-hashD" id="btn-hashD" title="Desencriptar Hash" onclick="iniciarFuerzaBruta()">
-            <img src="images/hash.png" alt="Hash">
+            <img src="images/hashblanco.png" alt="Hash">
             <span>Desencriptar Hash</span>
         </button>
     </div>

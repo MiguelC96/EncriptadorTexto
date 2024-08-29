@@ -32,7 +32,7 @@ body {
 }
 .logo {
   width: 300px;
-  height: 100px;
+  height: 50px;
   position: relative;
   padding: 0; 
   border: none; 
@@ -42,8 +42,8 @@ body {
   width: auto;
   padding: 10px;
   box-sizing: border-box;
-  background-color: #020202b2;
-  border: 3px solid #ffffff; 
+  background-color: #020202d0;
+  border: 1px solid #ffffff; 
   border-radius: 10px;
   margin: 0 auto 20px auto;
   margin-left: 10px;
@@ -51,6 +51,7 @@ body {
   display: flex;
   align-items: center;
   gap:10px;
+  box-shadow:  0 4px 8px rgba(217, 217, 217, 0.427);
 }
 .botoneshash {
   display: flex;
@@ -60,15 +61,21 @@ body {
 }
 .contenedor-hash textarea {
   height: 40px; 
-  padding: 10px;
-  font-size: x-small;
-  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: small;
+  font-weight: bold;
   border-radius: 5px;
   resize: none; 
-  background-color: #ffffffb0;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
   color: #0c0c0c;
-  margin: 0 10px; 
+  margin: 0 10px;
+  outline: none;
 }
+.contenedor-hash textarea:focus {
+  border: 3px solid #55ff00;
+}
+
 .btn-hash {
   display: inline-flex;
   align-items: center;
@@ -98,11 +105,11 @@ body {
   background-color: transparent; 
   border: none;
   border-radius: 5px; 
-  padding: 10px 20px; 
+  padding: 5px; 
   cursor: pointer; 
   transition: background-color 0.3s, transform 0.2s;
   background-color: #ffffff;
-  font-size: 14px;
+  font-size: 0; 
 }
 .btn-hash-action img {
   width: 30px;
@@ -112,7 +119,7 @@ body {
   background-color: rgb(60, 255, 0);
 }
 .btn-hash-action:active {
-  transform: scale(0.98);
+  transform: scale(1.2);
 }
 .btn-hashD {
   background-color: #000000; 
@@ -126,17 +133,20 @@ body {
   align-items: center;
   margin-left: 20px;
   display: flex;
+  box-shadow:  0 4px 8px rgba(217, 217, 217, 0.427);
 }
 .btn-hashD img {
-  width: 30px; 
-  height: 30px;
+  width: 40px; 
+  height: 40px;
   margin-right: 8px; 
 }
 .btn-hashD:hover {
-  background-color: #45a049; 
+  background-color: #45a049;
+  color:#000000;
+  font-weight: bolder;
 }
 .btn-hashD:active {
-  transform: scale(0.98); 
+  transform: scale(1.15); 
 }
 .hash-actions {
   display: flex;
@@ -145,12 +155,13 @@ body {
 /* CONTENEDOR SELECTOR, CONTENEDOR KEY */
 .configuracion-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
   margin-bottom: 20px; 
   margin-left: 10px;
   margin-right: 10px;
+
 }
 .clave-container {
   flex: 1; 
@@ -161,19 +172,18 @@ body {
   justify-content: center; 
   align-items: center; 
   padding: 10px; 
-  box-sizing: border-box; 
-  background-color: #ffffffe7; 
-  opacity: 0.8; 
-  border: 5px solid #0c0c0c; 
+  background-color: #000000; 
+  opacity: 0.87; 
+  border: 2px solid #ffffff; 
   border-radius: 10px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow:  0 4px 8px rgba(255, 255, 255, 0.427);
   overflow: hidden;
   width: 50%;
 }
 .selector-label {
   margin-bottom: 20px; 
   font-size: x-small; 
-  color: #000000; 
+  color: #ffffff; 
   text-align: left;
   margin-right: 10px;
 }
@@ -182,26 +192,27 @@ body {
   align-items: center;
   cursor: pointer;
   font-size: 20px;
-  color: #000000;
+  color: #ffffff;
+  font-weight: bolder;
 }
 .botones-hash-selector input[type="radio"] {
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid #007BFF;
+  border: 2px solid #ffffff;
   border-radius: 50%;
   margin-right: 10px;
   outline: none;
   cursor: pointer;
   position: relative;
-  transition: background 0.3s ease;
+  transition: background 0.2s ease;
 }
 .botones-hash-selector input[type="radio"]::before {
   content: '';
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #007BFF;
+  background: #59fe00;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -212,21 +223,21 @@ body {
   transform: translate(-50%, -50%) scale(1);
 }
 .botones-hash-selector input[type="radio"]:hover {
-  background: #f0f0f0;
+  background: #ffffff52;
 }
 .botones-hash-selector input[type="radio"]:checked + label {
-  color: #007BFF;
+  color: #22ff00;
 }
 .clave-container { 
   padding: 10px; 
-  background-color: #ffffffe7; 
-  opacity: 0.8; 
-  border: 2px solid #0c0c0c;
+  background-color: #000000; 
+  opacity: 0.9; 
+  border: 2px solid #ffffff;
   border-radius: 10px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  font-size: 14px; 
-  color: #333;
-  border: 5px solid #0c0c0c;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.809); 
+  font-size: 16px; 
+  color: #ffffff;
+  border: 3px solid #0c0c0c;
   display: flex; 
   flex-direction: column;
   margin-left: 10px;
@@ -237,7 +248,7 @@ body {
   margin-bottom: 20px; 
 }
 .clave-container p {
-  margin: 5px 0; 
+  margin-right: 10px;
 }
 .clave-container span {
   font-weight: bold;
@@ -247,7 +258,7 @@ main {
   display: flex;
   flex-direction: row;
   gap: 20px; 
-  padding: 20px;  
+  padding: 10px;  
   overflow: hidden; 
 }
 .main-container {
@@ -257,36 +268,41 @@ main {
   gap: 20px;  
   margin-left: 10px;
   margin-right: 10px;
-  box-sizing: border-box;
   margin-bottom: 50px;
+  box-sizing: border-box;
+  ;
 }
 .contenedor {
   display: flex;
   flex-direction: column; 
   justify-content:  space-between;;
   align-items: stretch;
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: #f7f6f7cd;
-  opacity: 0.8;
-  border: 5px solid #0c0c0c;
+  padding: 5px;
+  background-color: #000000d6;
+  opacity: 0.97;
+  border: 2px solid #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.867); 
   overflow: hidden;
-  gap: 10px;
+  gap: 5px;
 
 }
 textarea {
   width: 100%;
-  padding: 10px;
+  padding: 0px;
   box-sizing: border-box;
   border: none;
   resize: none; 
   border-radius: 5px;
   font-family: 'Roboto', sans-serif;
+  font-weight: bolder;
   font-size: 18px;
-  background-color: rgb(0 0 0 / 86%);
-  color: #fff;
+  background-color: rgba(241, 238, 238, 0.944);
+  color: #000000;
+  outline: none;
+}
+textarea:focus {
+  border: 3px solid #37ff00; 
 }
 .btn {
   display: flex;
@@ -298,40 +314,29 @@ textarea {
   border: #000000;  
   border-radius: 10px; 
   color: rgb(0, 0, 0); 
-  font-size: x-small;
+  font-size: 0;
   text-align: center;
   padding: 0px; 
   transition: transform 0.2s ease; 
 }
 .btn img {
-  width: 30px; 
-  height: 30px;
+  width: 40px; 
+  height: 40px;
   object-fit: contain;
   margin-bottom: 5px;
 }
 .btn:hover {
-  transform: scale(1.05); 
+  transform: scale(1.02); 
 }
 .btn:active {
-  transform: scale(0.95);
+  transform: scale(1.03);
   background-color: #00ff0d;
 }
 .btn[disabled] {
-  opacity: 0.5; 
-  cursor: not-allowed;
-}.btn:hover {
-  transform: scale(1.05); 
-}
-.btn:active {
-  transform: scale(1.5); 
-}
-.btn[disabled] {
-  opacity: 0.5;
+  opacity: 0.8;
   cursor: not-allowed;
 }
-.btn:hover {
-  transform: scale(1.05);
-}
+
 textarea#output-texto {
   background-image: url('images/noisy.png'); 
   background-size: cover; 
@@ -357,6 +362,9 @@ footer {
   background: #000000;
   text-align: center;
   padding: 10px;
+  bottom: 0; /* Siempre fija el footer al fondo de la ventana */
+  left: 0;
+  display: block;
 }
 footer img {
   width: 25px; 
@@ -451,6 +459,74 @@ footer img {
 #copy-key:hover {
   background-color: #218838; /* Color verde oscuro cuando se pasa el cursor sobre el botón */
 }
+/*ESTILO PARA MODAL*/
+/* Estilos del botón de info */
+#infoBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Estilos del modal */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1; /* Sobre otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); /* Color de fondo */
+  background-color: rgba(0,0,0,0.4); /* Fondo negro con opacidad */
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Ancho del modal */
+}
+
+/* Botón de cerrar */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+#infoBtn {
+  position: fixed; /* Posiciona el botón en una ubicación fija en la pantalla */
+  top: 20px; /* Distancia desde la parte superior */
+  right: 20px; /* Distancia desde la derecha */
+  padding: 10px 20px;
+  font-size: 0;
+  cursor: pointer;
+  color: white; /* Color del texto blanco */
+  border: none;
+  border-radius: 5px;
+  z-index: 1000; /* Asegúrate de que el botón esté sobre otros elementos */
+}
+
+/* Estilo para la imagen dentro del botón */
+#infoBtn img {
+  display: block; /* Elimina el espacio debajo de la imagen */
+  width: 30px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+#infoBtn:hover {
+  background-color: #26ff00; /* Color de fondo al pasar el ratón sobre el botón */
+}
 /* estilos para alertas y mensajes de JS*/
 .alerta {
   position: fixed;
@@ -519,16 +595,16 @@ footer img {
   margin-bottom: 5px;
 }
 /*////////////////// Media Queries///////////////////////////////// */
-/*//////////////   1200,768,575 ORIENTACION VERTICAL Y HORIZONTAL  ////////////////////////////////  */
-
-@media (min-width: 1200px) {
+/*//////////////   1600,1200,768,575 ORIENTACION VERTICAL Y HORIZONTAL  ////////////////////////////////  */
+@media (min-width: 1601px){
+    
   textarea {
-    font-size: large;
+  font-size: xx-large;
     height: 400px;
   }
   .main-container{
+    height: 500px;
     margin-bottom: 50px;
-    height: 600px;
   }
   .contenedor {
     width: 100%;
@@ -538,7 +614,7 @@ footer img {
     padding: 10px;
    }
    .clave-container{
-    height: 35px;
+    height: 25px;
    }
   .logo{
     width:300px;
@@ -547,27 +623,23 @@ footer img {
     margin-bottom: 50px;
   }
   .contenedor-hash{
-    padding: 10px;
     margin-left: 10%;
     margin-right: 10%;
   }
   .contenedor-hash textarea {
-    height: 40px;
-    font-size: medium;
-  }
-  .btn-hash-action{
-    font-size: medium;
+    height: 50px;
+    font-size: larger;
   }
   .btn-hash-action img {
     width: 30px;
     height: 30px;
   }
   .btn-hashD {
-   font-size: medium;
+   font-size: 30px;
   }
   .btn-hashD img {
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
   }
   .btn-group {
     flex-direction: row; 
@@ -575,54 +647,228 @@ footer img {
   .btn {
     width: auto; 
     margin-bottom: 0;
-    font-size: medium;
     padding: 10px;
     flex-direction: row;
   }
   .selector-label {
-    font-size: medium;
+    font-size:30px;
   }
-  .clave-container h2 {
-    font-size: medium;
+  .botones-hash-selector {
+    width: 30%;
+  }
+  .clave-container {
+    font-size: large;
   }
   .botones-hash-selector label {
-    font-size: medium;
+    font-size: larger;
   }
   .botones-hash-selector input[type="radio"] {
     width: 30px;
     height: 30px;
   }
+  .menu-textarea {
+    font-size: 20px;
+  }
+  .menu-button {
+    font-size: 20px;
+  }
+  #copy-key {
+    font-size: 20px;
+  }
+  #menu-desplegable {
+    top:39%;
+    padding:30px;
+  }
   .btn img {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
   }
   footer {
     height: 40px;
+    margin-top: 50px;
   }
   footer img {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
+  }
+  #infoBtn {
+    padding: 5px;
+  }
+  #infoBtn img {
+    width: 40px;
+  }
+  #alerta-icono {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+  }
+  #alerta-mensaje {
+    font-size: 25px;
+  }
+  #estado-operacion {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  #resultado {
+    font-size: 40px;
+  }
+  h2 {
+    font-size: 40px;
+  }
+  p {
+    font-size: 30px;
+  }
+  h3 {
+    font-size: 50px;
+  }
+  strong {
+  font-size: 30px;
+  }
+  li {
+    font-size: 25px;
+  }
+  .close {
+    font-size: 40px;
+  }
 }
-#alerta-icono {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-}
-
-#alerta-mensaje {
-  font-size: large;
-}
+@media (min-width: 1200px) and (max-width: 1600px) {
+  textarea {
+    font-size: smaller;
+      height: 400px;
+    }
+    .main-container{
+      height: 500px;
+    }
+    .contenedor {
+      width: 100%;
+      display: flex; 
+      box-sizing: border-box;
+      align-items: stretch;
+      padding: 10px;
+     }
+     .clave-container{
+      height: 20px;
+     }
+    .logo{
+      width:300px;
+      height:100px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+    .contenedor-hash{
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+    .contenedor-hash textarea {
+      height: 30px;
+      font-size: smaller;
+    }
+    .btn-hash-action img {
+      width: 20px;
+      height: 20px;
+    }
+    .btn-hashD {
+     font-size: 20px;
+    }
+    .btn-hashD img {
+      width: 30px;
+      height: 30px;
+    }
+    .btn-group {
+      flex-direction: row; 
+    }
+    .btn {
+      width: auto; 
+      margin-bottom: 0;
+      padding: 10px;
+      flex-direction: row;
+    }
+    .botones-hash-selector {
+      width: 30%;
+    }
+    .clave-container {
+      font-size: smaller;
+    }
+    .botones-hash-selector label {
+      font-size: smaller;
+    }
+    .botones-hash-selector input[type="radio"] {
+      width: 20px;
+      height: 20px;
+    }
+    .menu-textarea {
+      font-size: smaller;
+    }
+    .menu-button {
+      font-size: smaller;
+    }
+    #copy-key {
+      font-size: smaller;
+    }
+    #menu-desplegable {
+      top:39%;
+      padding:30px;
+    }
+    .btn img {
+      width: 30px;
+      height: 30px;
+    }
+    footer {
+      height: 30px;
+    }
+    footer img {
+      width: 30px;
+      height: 30px;
+    }
+    #infoBtn {
+      padding: 5px;
+    }
+    #infoBtn img {
+      width: 30px;
+    }
+    #alerta-icono {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    #alerta-mensaje {
+      font-size: smaller;
+    }
+    #estado-operacion {
+      font-size: medium;
+      margin-bottom: 20px;
+    }
+    #resultado {
+      font-size: 30px;
+    }
+    h2 {
+      font-size: 30px;
+    }
+    p {
+      font-size: 20px;
+    }
+    h3 {
+      font-size: 30px;
+    }
+    strong {
+    font-size: 20px;
+    }
+    li {
+      font-size: 20px;
+    }
+    .close {
+      font-size: 30px;
+    }
 }
 @media (min-width: 768px) and (max-width: 1199.98px) {
   
   textarea {
-    font-size: x-large;
-    height: 400px;
+    font-size: 20px;
+    height: 300px;
   }
   .main-container{
-    margin-left: 10px;
-    margin-right: 10px;
     margin-bottom: 30px;
+    height: 400px;
   }
   .contenedor {
     width: 100%;
@@ -630,7 +876,6 @@ footer img {
     box-sizing: border-box;
     align-items: stretch;
     padding: 10px;
-    height: 600px;
    }
   .logo{
     width:300px;
@@ -639,27 +884,27 @@ footer img {
     margin-bottom: 25px;
   }
   .contenedor-hash textarea {
-    height: 50px;
-    font-size: large;
+    height: 40px;
+    font-size: medium;
   }
   .contenedor-hash{
-    margin-left: 30px;
-    margin-right: 30px;
-    padding: 10px;
+    padding: 8px;
+    margin-left: 80px;
+    margin-right: 80px;
   }
   .clave-container{
-    height: 40px;
+    height: 30px;
     justify-content: center;
   }
   .btn-hash-action{
-    font-size: large;
+    font-size: 0;
   }
   .btn-hash-action img {
     width: 30px;
     height: 30px;
   }
   .btn-hashD {
-   font-size: large;
+   font-size: 15px;
   }
   .btn-hashD img {
     width: 30px;
@@ -676,44 +921,73 @@ footer img {
     flex-direction: row;
   }
   .selector-label {
-    font-size: large;
+    font-size: medium;
+    margin-top: 10px;
+  }
+  .botones-hash-selector {
+    margin-top: 10px;
   }
   .clave-container h2 {
-    font-size: large;
+    font-size: medium;
   }
   .botones-hash-selector label {
-    font-size: large;
+    font-size: medium;
   }
   .botones-hash-selector input[type="radio"] {
+    width: 20px;
+    height: 20px;
+  }
+  .btn img {
     width: 30px;
     height: 30px;
   }
-  .btn img {
-    width: 40px;
-    height: 40px;
-  }
   footer {
-    height: 40px;
+    height: 30px;
+    padding: 10px;
     
   }
   footer img {
-    width: 35px;
-    height: 35px;
-}
-#alerta-icono {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
+    width: 30px;
+    height: 30px;
+  }
+  #alerta-icono {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
 
-#alerta-mensaje {
-  font-size: large;
+  #alerta-mensaje {
+    font-size: medium;
+  }
+  .menu-textarea {
+    font-size: medium;
+  }
+  .menu-button {
+    font-size: medium;
+  }
+  #menu-desplegable {
+    width: 200px;
+    top:45%
+  }
+  #menu-toggle {
+    width: 18px;
+    height: 18px;
+  }
+  #resultado {
+    font-size: 25px;
+  }
+  #infoBtn img {
+    width: 25px;
+  }
+  #infoBtn {
+    padding: 5px;
+  }
+
 }
-}
-@media (max-width: 767.98px) and (orientation: portrait) {
+@media (min-width: 575.99px) and (max-width: 767.98px) and (orientation: portrait) {
   /* Ajustes para dispositivos móviles en orientación vertical */
   textarea {
-    font-size:medium;
+    font-size: 25px;
     height: 300px;
   }
   .main-container{
@@ -733,7 +1007,7 @@ footer img {
     display: flex; 
     box-sizing: border-box;
     align-items: stretch;
-    padding: 10px;
+    padding: 5px;
    }
   .logo{
     width:300px;
@@ -742,9 +1016,11 @@ footer img {
     margin-bottom: 20px;
   }
   .botones-hash-selector{
-    width: 100%;
+    width: 40%;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 10px;
+    justify-content: space-around;
   }
   .clave-container{
     width: 80%;
@@ -772,8 +1048,8 @@ footer img {
     padding: 5px;
   }
   .btn-hash-action img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
   .btn-hashD {
    font-size: large;
@@ -788,8 +1064,7 @@ footer img {
   .btn {
     width: auto; 
     margin-bottom: 0;
-    font-size: small;
-    padding: 10px;
+    padding: 5px;
     flex-direction: row;
   }
   .selector-label {
@@ -802,8 +1077,8 @@ footer img {
     font-size: small;
   }
   .botones-hash-selector input[type="radio"] {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
   .btn img {
     width: 40px;
@@ -813,24 +1088,54 @@ footer img {
     height: 30px;
   }
   footer img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 #alerta-icono {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   margin-right: 10px;
 }
 
 #alerta-mensaje {
-  font-size: small;
+  font-size: small ;
 }
 #estado-operacion {
+  font-size: medium;
+}
+#resultado {
+  font-size: 30px;
+}
+.menu-textarea {
   font-size: small;
+}
+.menu-button {
+  padding: 10px;
+}
+#menu-toggle {
+  width: 15px;
+  height: 15px;
+}
+#menu-desplegable {
+  width: 200px;
+  top: 30%;
+}
+#infoBtn {
+  padding: 5px;
+  right: 0px;
+}
+h2 {
+  font-size: 30px;
+}
+h3{
+  font-size: 25px;
+}
+p {
+  font-size: 20px;
 }
 }
 
-@media (max-width: 767.98px) and (orientation: landscape) {
+@media (min-width: 575.99px) and (max-width: 767.98px) and (orientation: landscape) {
   textarea {
     font-size: medium;
     height: 300px;
@@ -930,12 +1235,14 @@ footer img {
 }
 @media (max-width: 575.98px) and (orientation:portrait) {
   textarea {
-    font-size:medium;
-    height: 300px;
+    font-size: 25px;
+    height: 200px;
   }
   .main-container{
-    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
     flex-direction: column;
+    margin-bottom: 10px;
     width: 100%;
   }
   .configuracion-container{
@@ -944,34 +1251,41 @@ footer img {
     margin-right: 10px;
   }
   .contenedor {
-    width: 100%;
     display: flex; 
     box-sizing: border-box;
     align-items: stretch;
-    padding: 10px;
+    padding: 5px;
    }
   .logo{
     width:300px;
-    height:100px;
-    margin-top: 30px;
-    margin-bottom: 10px;
+    height: 100px;
+    margin-top: 40px;
+    margin-bottom: 20px;
   }
   .botones-hash-selector{
-    width: 90%;
-    height: 40px;
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    justify-content: space-around;
   }
   .clave-container{
-    height: 40px;
+    width: 80%;
+    margin-left: 10px;
+    margin-right: 10px;
   }
- .contenedor-hash{
+  .contenedor-hash{
+    margin-top: 10px;
     gap: 5px;
-    height: 40px;
- }
+    height: 50px;
+    padding: 5px;
+  }
   .contenedor-hash textarea {
     height: 30px;
     font-size: small;
     width: 100%;
     margin-right: 5px;
+
   }
   .btn-hash-action{
     font-size: 0;
@@ -982,7 +1296,7 @@ footer img {
     height: 20px;
   }
   .btn-hashD {
-   font-size: small;
+   font-size: medium;
   }
   .btn-hashD img {
     width: 30px;
@@ -994,46 +1308,78 @@ footer img {
   .btn {
     width: auto; 
     margin-bottom: 0;
-    font-size: 0;
-    padding: 10px;
+    padding: 5px;
     flex-direction: row;
   }
   .selector-label {
-    font-size: small;
+    font-size: 15px;
   }
   .clave-container h2 {
-    font-size: small;
+    font-size: 15px;
   }
   .botones-hash-selector label {
-    font-size: small;
+    font-size: 14px;
   }
   .botones-hash-selector input[type="radio"] {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
   .btn img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
   footer {
     height: 30px;
-    
   }
   footer img {
     width: 25px;
     height: 25px;
 }
 #alerta-icono {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   margin-right: 10px;
 }
 
 #alerta-mensaje {
-  font-size: small;
+  font-size: small ;
 }
 #estado-operacion {
+  font-size: 16px;
+}
+#resultado {
+  font-size: 30px;
+}
+.menu-textarea {
   font-size: small;
+}
+.menu-button {
+  padding: 5px;
+  font-size: 12px;
+}
+#menu-toggle {
+  width: 15px;
+  height: 15px;
+}
+#menu-desplegable {
+  width: 200px;
+  top: 30%;
+}
+#infoBtn {
+  padding: 0px;
+  right: 0px;
+  #infoBtn img {
+    width: 20px;
+  }
+}
+h2 {
+  font-size: 30px;
+}
+h3{
+  font-size: 25px;
+}
+p {
+  font-size: 20px;
 }
 }
 @media (max-width: 575.98px) and (orientation: landscape) {
